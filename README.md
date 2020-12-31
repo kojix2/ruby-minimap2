@@ -1,6 +1,6 @@
-# Ruby-Minimap2
+# Minimap2
 
-:m: [minimap2](https://github.com/lh3/minimap2) - the long-read mapper - for Ruby
+:dna: [minimap2](https://github.com/lh3/minimap2) - the long-read mapper - for [Ruby](https://github.com/ruby/ruby)
 
 ## Installation
 
