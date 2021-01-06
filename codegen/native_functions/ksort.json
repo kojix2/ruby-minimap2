@@ -1,0 +1,7 @@
+[
+{ "tag": "typedef", "ns": 0, "name": "size_t", "location": "/usr/lib/clang/11.0.0/include/stddef.h:46:23", "type": { "tag": ":unsigned-long", "bit-size": 64, "bit-alignment": 64 } },
+{ "tag": "typedef", "ns": 0, "name": "wchar_t", "location": "/usr/lib/clang/11.0.0/include/stddef.h:74:24", "type": { "tag": ":int", "bit-size": 32, "bit-alignment": 32 } },
+{ "tag": "typedef", "ns": 0, "name": "ldiv_t", "location": "/usr/include/stdlib.h:70:5", "type": { "tag": "struct", "ns": 0, "name": "", "id": 1, "location": "/usr/include/stdlib.h:66:9", "bit-size": 128, "bit-alignment": 64, "fields": [{ "tag": "field", "name": "quot", "bit-offset": 0, "bit-size": 64, "bit-alignment": 64, "type": { "tag": ":long", "bit-size": 64, "bit-alignment": 64 } }, { "tag": "field", "name": "rem", "bit-offset": 64, "bit-size": 64, "bit-alignment": 64, "type": { "tag": ":long", "bit-size": 64, "bit-alignment": 64 } }] } },
+{ "tag": "typedef", "ns": 0, "name": "__compar_fn_t", "location": "/usr/include/stdlib.h:808:15", "type": { "tag": ":function-pointer" } },
+{ "tag": "typedef", "ns": 0, "name": "ksstr_t", "location": "minimap2/ksort.h:93:21", "type": { "tag": ":pointer", "type": { "tag": ":char", "bit-size": 8, "bit-alignment": 8 } } }
+]
