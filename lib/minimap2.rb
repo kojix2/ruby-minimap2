@@ -1,6 +1,22 @@
-require_relative "minimap/version"
+# frozen_string_literal: true
 
-module Minimap
+require 'ffi'
+
+require_relative 'minimap2/version'
+
+module Minimap2
   class Error < StandardError; end
-  # Your code goes here...
+
+  class << self
+    attr_accessor :ffi_lib
+  end
+
+  suffix = ::FFI::Platform::LIBSUFFIX
+
+  self.ffi_lib = if ENV['MINIMAPDIR']
+                   File.expand_path("libminimap2.#{suffix}", ENV['MINIMAPDIR'])
+                 else
+                   File.expand_path("../minimap2/libminimap2.#{suffix}", __dir__)
+                 end
+  autoload :FFI, 'minimap2/ffi'
 end
