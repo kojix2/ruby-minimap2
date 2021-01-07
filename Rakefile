@@ -40,6 +40,7 @@ namespace :minimap2 do
         system `make`
         system "cc -shared -o libminimap2.so *.o"
       end
+      FileUtils.mkdir_p("vendor")
       FileUtils.move("minimap2/libminimap2.so", "vendor/libminimap2.so")
     ensure
       FileUtils.move("minimap2/Makefile_original", "minimap2/Makefile")
