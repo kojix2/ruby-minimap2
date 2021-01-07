@@ -14,7 +14,25 @@ module Minimap2
       warn e.message
     end
 
-    class IdxOpt < ::FFI::Struct
+    class MM128 < ::FFI::Struct
+      :x, :uint64_t,
+      :y, :uint64_t
+    end
+
+    class MM128V < ::FFI::Struct
+      :n, :size_t,
+      :m, :size_t,
+      :a, MM128
+    end
+
+    class IdxBucket < ::FFI::Struct
+      :a, MM128,
+      :n, :int32_t,
+      :p, :pointer,
+      :h, :pointer
+    end
+
+    class Idxopt < ::FFI::Struct
       layout \
         :k,               :short,
         :w,               :short,
@@ -24,7 +42,7 @@ module Minimap2
         :batch_size,      :uint64_t
     end
 
-    class MapOpt < ::FFI::Struct
+    class Mapopt < ::FFI::Struct
       layout \
         :flag,                 :int64_t,
         :seed,                 :int,
@@ -75,5 +93,40 @@ module Minimap2
         :max_sw_mat,           :int64_t,
         :split_prefix,         :string
     end
+
+    attach_function :mm_set_opt,
+                    [:string, IdxOpt, MapOpt],
+                    :int
+
+    class IdxSeq < ::FFI::Struct
+      layout \
+        :name,   :string,
+        :offset, :uint64_t,
+        :len,    :uint32_t
+    end
+
+    class Idx < ::FFI::Struct
+      layout \
+        :b,     :int32_t,
+        :w,     :int32_t,
+        :k,     :int32_t,
+        :flag,  :int32_t,
+        :n_seq, :uint32_t,
+        :seq,   IdxSeq,
+        :S,     :pointer,
+        :B,     :ointer, # IdxBucket
+        :km,    :pointer,
+        :h,     :pointer
+    end
+
+    attach_function :mm_idx_reader_open,
+    [:string, Idxopt, :string], IdxReader
+    attach_function :mm_idx_reader_read
+    attach_function :mm_idx_reader_close
+    attach_function :mm_idx_destroy
+    attach_function :mm_mapopt_update
+
+    attach_function :mm_idx_index_name
+
   end
 end
