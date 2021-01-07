@@ -28,3 +28,28 @@ namespace :c2ffi do
     end
   end
 end
+
+namespace :minimap2 do
+  desc "Compile Minimap2"
+  task :compile do
+    FileUtils.copy("minimap2/Makefile", "minimap2/Makefile_original")
+    begin
+      # -fPIC
+      system 'sed -i -E "s/^CFLAGS=/CFLAGS= -fPIC /" minimap2/Makefile'
+      Dir.chdir("minimap2") do
+        system `make`
+        system "cc -shared -o libminimap2.so *.o"
+      end
+      FileUtils.move("minimap2/libminimap2.so", "vendor/libminimap2.so")
+    ensure
+      FileUtils.move("minimap2/Makefile_original", "minimap2/Makefile")
+    end
+  end
+
+  desc "Cleanup"
+  task :clean do
+    Dir.chdir("minimap2") do
+      system "make clean"
+    end
+  end
+end
