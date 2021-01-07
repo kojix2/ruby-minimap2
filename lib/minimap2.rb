@@ -16,7 +16,7 @@ module Minimap2
   self.ffi_lib = if ENV['MINIMAPDIR']
                    File.expand_path("libminimap2.#{suffix}", ENV['MINIMAPDIR'])
                  else
-                   File.expand_path("../minimap2/libminimap2.#{suffix}", __dir__)
+                   File.expand_path("../vendor/libminimap2.#{suffix}", __dir__)
                  end
   autoload :FFI, 'minimap2/ffi'
 end
