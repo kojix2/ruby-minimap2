@@ -27,21 +27,24 @@ module Minimap2
     end
 
     class MM128 < ::FFI::Struct
-      :x, :uint64_t,
-      :y, :uint64_t
+      layout \
+        :x, :uint64_t,
+        :y, :uint64_t
     end
 
     class MM128V < ::FFI::Struct
-      :n, :size_t,
-      :m, :size_t,
-      :a, MM128
+      layout \
+        :n, :size_t,
+        :m, :size_t,
+        :a, MM128.ptr
     end
 
     class IdxBucket < ::FFI::Struct
-      :a, MM128,
-      :n, :int32_t,
-      :p, :pointer,
-      :h, :pointer
+      layout \
+        :a, MM128,
+        :n, :int32_t,
+        :p, :pointer,
+        :h, :pointer
     end
 
     class Idxopt < ::FFI::Struct
@@ -107,7 +110,7 @@ module Minimap2
     end
 
     attach_function :mm_set_opt,
-                    [:string, IdxOpt.by_ref, MapOpt.by_ref],
+                    [:string, Idxopt.by_ref, Mapopt.by_ref],
                     :int
 
     class IdxSeq < ::FFI::Struct
@@ -126,19 +129,19 @@ module Minimap2
         :n_seq, :uint32_t,
         :seq,   IdxSeq.ptr,
         :S,     :pointer,
-        :B,     :ointer, # IdxBucket
+        :B,     :pointer, # IdxBucket
         :km,    :pointer,
         :h,     :pointer
     end
 
     class IdxReader < ::FFI::Struct
       layout \
-        :is_idx,      :int
-        :n_parts,     :int
-        :idx_size,    :int64_t
+        :is_idx,      :int,
+        :n_parts,     :int,
+        :idx_size,    :int64_t,
         :opt,         Idxopt,
-        :fp_out,      :pointer # FILE
-        :
+        :fp_out,      :pointer, # FILE
+        :seq_or_idx,  :pointer  # Union mm_bseq_files or FILE
     end
 
     attach_function :mm_idx_reader_open,
