@@ -144,6 +144,29 @@ module Minimap2
         :seq_or_idx,  :pointer  # Union mm_bseq_files or FILE
     end
 
+    class REG1 < ::FFI::Struct
+      layout \
+        :id,     :int32_t,
+        :cnt,    :int32_t,
+        :rid,    :int32_t,
+        :score,  :int32_t,
+        :qs,     :int32_t,
+        :qe,     :int32_t,
+        :rs,     :int32_t,
+        :re,     :int32_t,
+        :parent, :int32_t,
+        :subsc,  :int32_t,
+        :as,     :int32_t,
+        :mlen,   :int32_t,
+        :blen,   :int32_t,
+        :n_sub,  :int32_t,
+        :score0, :int32_t,
+        :hoge,   :uint32_t, # FIXME
+        :hash,   :uint32_t,
+        :div,    :float,
+        :p       Extra.ptr
+    end
+
     attach_function \
       :mm_idx_reader_open,
       [:string, Idxopt.by_ref, :string],
