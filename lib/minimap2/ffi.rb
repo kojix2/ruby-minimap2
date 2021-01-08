@@ -144,6 +144,16 @@ module Minimap2
         :seq_or_idx,  :pointer  # Union mm_bseq_files or FILE
     end
 
+    class Extra < FFI::Struct
+      layout \
+        :capacity,            :uint32,
+        :dp_score,            :int32,
+        :dp_max,              :int32,
+        :dp_max2,             :int32,
+        :n_ambi_trans_strand, :uint32, # FIXME
+        :n_cigar,             :uint32
+    end
+
     class REG1 < ::FFI::Struct
       layout \
         :id,     :int32_t,
