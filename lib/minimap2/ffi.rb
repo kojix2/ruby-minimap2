@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FFI
   class Struct
     def self.union_layout(*args)
@@ -17,7 +19,7 @@ module Minimap2
     begin
       ffi_lib Minimap2.ffi_lib
     rescue LoadError => e
-      raise LoadError, "Could not find #{Minimap2.ffi_lib}"
+      raise LoadError, "Could not find #{Minimap2.ffi_lib} \n#{e}"
     end
 
     def self.attach_function(*)
@@ -174,18 +176,18 @@ module Minimap2
         :hoge,   :uint32_t, # FIXME
         :hash,   :uint32_t,
         :div,    :float,
-        :p       Extra.ptr
+        :p,      Extra.ptr
     end
 
     attach_function \
       :mm_idx_reader_open,
       [:string, Idxopt.by_ref, :string],
-      IdxReader
+      IdxReader.by_ref
 
     attach_function \
       :mm_idx_reader_read,
       [IdxReader.by_ref, :int],
-      Idx
+      Idx.by_ref
 
     attach_function \
       :mm_idx_reader_close,
@@ -205,6 +207,38 @@ module Minimap2
     attach_function \
       :mm_idx_index_name,
       [Idx.by_ref],
+      :int
+
+    class Tbuf < ::FFI::Struct
+      layout \
+        :km,       :pointer,
+        :rep_len,  :int,
+        :frag_gap, :int
+    end
+
+    attach_function \
+      :mm_tbuf_init,
+      [],
+      Tbuf.by_ref
+
+    attach_function \
+      :mm_tbuf_destroy,
+      [Tbuf.by_ref],
+      :void
+
+    attach_function \
+      :mm_tbuf_get_km,
+      [Tbuf.by_ref],
+      :pointer
+
+    attach_function \
+      :mm_gen_cs,
+      [:pointer, :pointer, :int, Idx.by_ref, Reg1.by_ref, :string, :int],
+      :int
+
+    attach_function \
+      :mm_gen_MD,
+      [:pointer, :pointer, :int, Idx.by_ref, Reg1.by_ref, :string],
       :int
   end
 end
