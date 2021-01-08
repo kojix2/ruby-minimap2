@@ -1,3 +1,15 @@
+module FFI
+  class Struct
+    def self.union_layout(*args)
+      Class.new(FFI::Union) { layout(*args) }
+    end
+
+    def self.struct_layout(*args)
+      Class.new(FFI::Struct) { layout(*args) }
+    end
+  end
+end
+
 module Minimap2
   module FFI
     extend ::FFI::Library
@@ -95,7 +107,7 @@ module Minimap2
     end
 
     attach_function :mm_set_opt,
-                    [:string, IdxOpt, MapOpt],
+                    [:string, IdxOpt.by_ref, MapOpt.by_ref],
                     :int
 
     class IdxSeq < ::FFI::Struct
@@ -112,11 +124,21 @@ module Minimap2
         :k,     :int32_t,
         :flag,  :int32_t,
         :n_seq, :uint32_t,
-        :seq,   IdxSeq,
+        :seq,   IdxSeq.ptr,
         :S,     :pointer,
         :B,     :ointer, # IdxBucket
         :km,    :pointer,
         :h,     :pointer
+    end
+
+    class IdxReader < ::FFI::Struct
+      layout \
+        :is_idx,      :int
+        :n_parts,     :int
+        :idx_size,    :int64_t
+        :opt,         Idxopt,
+        :fp_out,      :pointer # FILE
+        :
     end
 
     attach_function :mm_idx_reader_open,
