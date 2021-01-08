@@ -11,6 +11,32 @@ end
 
 task default: :test
 
+namespace :minimap2 do
+  desc "Compile Minimap2"
+  task :compile do
+    Dir.chdir("minimap2") do
+      FileUtils.copy("Makefile", "Makefile_original")
+      begin
+        # Add -fPIC option to Makefile
+        system 'sed -i -E "s/^CFLAGS=/CFLAGS= -fPIC /" Makefile'
+        system `make`
+        system "cc -shared -o libminimap2.so *.o"
+        FileUtils.mkdir_p("../vendor")
+        FileUtils.move("libminimap2.so", "../vendor/libminimap2.so")
+      ensure
+        FileUtils.move("Makefile_original", "Makefile")
+      end
+    end
+  end
+
+  desc "Cleanup"
+  task :clean do
+    Dir.chdir("minimap2") do
+      system "make clean"
+    end
+  end
+end
+
 namespace :c2ffi do
   desc "Generate metadata files (JSON format) using c2ffi"
   task :generate do
@@ -25,32 +51,6 @@ namespace :c2ffi do
   task :remove do
     FileList["codegen/native_functions/*.json"].each do |path|
       File.unlink(path) if File.exist?(path)
-    end
-  end
-end
-
-namespace :minimap2 do
-  desc "Compile Minimap2"
-  task :compile do
-    FileUtils.copy("minimap2/Makefile", "minimap2/Makefile_original")
-    begin
-      # -fPIC
-      system 'sed -i -E "s/^CFLAGS=/CFLAGS= -fPIC /" minimap2/Makefile'
-      Dir.chdir("minimap2") do
-        system `make`
-        system "cc -shared -o libminimap2.so *.o"
-      end
-      FileUtils.mkdir_p("vendor")
-      FileUtils.move("minimap2/libminimap2.so", "vendor/libminimap2.so")
-    ensure
-      FileUtils.move("minimap2/Makefile_original", "minimap2/Makefile")
-    end
-  end
-
-  desc "Cleanup"
-  task :clean do
-    Dir.chdir("minimap2") do
-      system "make clean"
     end
   end
 end

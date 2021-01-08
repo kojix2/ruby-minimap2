@@ -1,18 +1,37 @@
-name: Ruby
+name: CI
 
-on: [push,pull_request]
+on:
+- push
+- pull_request
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    name: ${{ matrix.os }} Ruby ${{ matrix.ruby }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu
+        ruby:
+          - 2.7
+          - 3.0
+    runs-on: ${{ matrix.os }}-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.7.2
-    - name: Run the default task
-      run: |
-        gem install bundler -v 2.2.3
-        bundle install
-        bundle exec rake
+        
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+
+      - name: Set up Ruby 2.6
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+    
+      - name: Build and test with Rake
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rake minimap2:compile
+          bundle exec rake test
+          
