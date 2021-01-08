@@ -146,7 +146,7 @@ module Minimap2
         :seq_or_idx,  :pointer  # Union mm_bseq_files or FILE
     end
 
-    class Extra < FFI::Struct
+    class Extra < ::FFI::Struct
       layout \
         :capacity,            :uint32,
         :dp_score,            :int32,
@@ -156,7 +156,7 @@ module Minimap2
         :n_cigar,             :uint32
     end
 
-    class REG1 < ::FFI::Struct
+    class Reg1 < ::FFI::Struct
       layout \
         :id,     :int32_t,
         :cnt,    :int32_t,
