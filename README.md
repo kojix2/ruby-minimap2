@@ -18,7 +18,11 @@ gem install minimap2
 ## Development
 
 ```sh
-# TODO
+git clone --recurse-submodules https://github.com/kojix2/ruby-minimap2
+cd ruby-minimap2
+bundle install
+bundle exec rake minimap2:compile
+bundle exec rake test
 ```
 
 ## Contributing
