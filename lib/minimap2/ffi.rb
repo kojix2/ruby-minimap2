@@ -144,14 +144,34 @@ module Minimap2
         :seq_or_idx,  :pointer  # Union mm_bseq_files or FILE
     end
 
-    attach_function :mm_idx_reader_open,
-    [:string, Idxopt, :string], IdxReader
-    attach_function :mm_idx_reader_read
-    attach_function :mm_idx_reader_close
-    attach_function :mm_idx_destroy
-    attach_function :mm_mapopt_update
+    attach_function \
+      :mm_idx_reader_open,
+      [:string, Idxopt.by_ref, :string],
+      IdxReader
 
-    attach_function :mm_idx_index_name
+    attach_function \
+      :mm_idx_reader_read,
+      [IdxReader.by_ref, :int],
+      Idx
 
+    attach_function \
+      :mm_idx_reader_close,
+      [IdxReader.by_ref],
+      :void
+
+    attach_function \
+      :mm_idx_destroy,
+      [Idx.by_ref],
+      :void
+
+    attach_function \
+      :mm_mapopt_update,
+      [Mapopt.by_ref, Idx.by_ref],
+      :void
+
+    attach_function \
+      :mm_idx_index_name,
+      [Idx.by_ref],
+      :int
   end
 end
