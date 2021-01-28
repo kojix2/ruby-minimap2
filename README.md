@@ -14,7 +14,6 @@ gem install minimap2
 # TODO
 ```
 
-
 ## Development
 
 ```sh
@@ -24,6 +23,8 @@ bundle install
 bundle exec rake minimap2:compile
 bundle exec rake test
 ```
+
+* [Mappy: Minimap2 Python Binding](https://github.com/lh3/minimap2/tree/master/python)
 
 ## Contributing
 
