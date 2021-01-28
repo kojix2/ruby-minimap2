@@ -34,7 +34,7 @@ class FFITest < Minitest::Test
     assert_instance_of MM2::FFI::MM128, obj[:a]
     assert_equal 0, obj[:n]
     assert_equal true, obj[:p].null?
-    assert_equal ture, obj[:h].null?
+    assert_equal true, obj[:h].null?
   end
 
   def test_mapopt; end
