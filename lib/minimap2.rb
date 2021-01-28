@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "ffi"
-
+require_relative "minimap2/ffi_helper"
 require_relative "minimap2/version"
 
 module Minimap2

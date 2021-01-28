@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 class Minimap2
-  class Aligner
+  class ThreadBuffer
     def initialize; end
 
-    # FIXME: naming
-    def map; end
-
-    def seq; end
+    def destroy; end
   end
 end
