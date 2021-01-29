@@ -151,7 +151,7 @@ module Minimap2
         :p,      Extra.ptr
     end
 
-    class Tbuf < ::FFI::Struct
+    class TBuf < ::FFI::Struct
       layout \
         :km,       :pointer,
         :rep_len,  :int,

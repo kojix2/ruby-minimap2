@@ -57,16 +57,16 @@ module Minimap2
     attach_function \
       :mm_tbuf_init,
       [],
-      Tbuf.by_ref
+      TBuf.by_ref
 
     attach_function \
       :mm_tbuf_destroy,
-      [Tbuf.by_ref],
+      [TBuf.by_ref],
       :void
 
     attach_function \
       :mm_tbuf_get_km,
-      [Tbuf.by_ref],
+      [TBuf.by_ref],
       :pointer
 
     attach_function \
