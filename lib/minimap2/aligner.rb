@@ -79,8 +79,78 @@ class Minimap2
       end
     end
 
+    def destroy
+      FFI.mm_idx_destroy(@idx) unless @idx.null?
+    end
+
     # FIXME: naming
-    def map; end
+    def map(
+      seq, seq2 = nil,
+      buf: nil,
+      cs: false,
+      md: false,
+      max_frag_len: nil,
+      extra_flags: nil
+    )
+
+      return if @idx.null?
+
+      map_opt = @map_opt # FIXME: should clone?
+      map_opt.max_frag_len = max_frag_len if max_frag_len
+      map_opt.flag |= extra_flags if extra_flags
+
+      b = (buf || FFI::TBuf.new)
+      km = FFI.mm_tbuf_get_km(b)
+
+      n_regs = ::FFI::MemoryPointer.new(:int)
+      regs = if seq2
+               FFI.mm_map_aux(@idx, seq, seq2, n_regs, b)
+             else
+               FFI.mm_map_aux(@idx, seq, nil, n_regs, b)
+             end
+
+      begin
+        i = 0
+        while i < n_regs
+          # FFI.mm_reg2hitpy(@idx, regs[i], h)
+          cigar = []
+          _cs = ""
+          _MD = ""
+          # for k in ...
+          # if cs or MD
+          # if cs cmappy.mm_gen_cs
+          # if MD cmappy.mm_gen_MD
+          # yield Alignment(
+          #   h.ctg,
+          #   h.ctg_len,
+          #   h.ctg_start,
+          #   h.ctg_end,
+          #   h.strand,
+          #   h.qry_start,
+          #   h.qry_end,
+          #   h.mapq,
+          #   cigar,
+          #   h.is_primary,
+          #   h.mlen,
+          #   h.blen,
+          #   h.NM,
+          #   h.trans_strand,
+          #   h.seg_id,
+          #   _cs,
+          #   _MD
+          # )
+
+          # cmappy.mm_free_reg1
+          i += 1
+        end
+      ensure
+        while i < n_regs
+          # cmappy.mm_free_reg1
+          # free(regs)
+          # free(cs_str)
+        end
+      end
+    end
 
     def seq; end
   end
