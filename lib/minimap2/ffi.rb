@@ -21,12 +21,12 @@ module Minimap2
 
     attach_function \
       :mm_set_opt,
-      [:string, Idxopt.by_ref, Mapopt.by_ref],
+      [:string, IdxOpt.by_ref, MapOpt.by_ref],
       :int
 
     attach_function \
       :mm_idx_reader_open,
-      [:string, Idxopt.by_ref, :string],
+      [:string, IdxOpt.by_ref, :string],
       IdxReader.by_ref
 
     attach_function \
@@ -46,7 +46,7 @@ module Minimap2
 
     attach_function \
       :mm_mapopt_update,
-      [Mapopt.by_ref, Idx.by_ref],
+      [MapOpt.by_ref, Idx.by_ref],
       :void
 
     attach_function \

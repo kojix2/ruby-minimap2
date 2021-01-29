@@ -21,7 +21,7 @@ module Minimap2
         :h, :pointer
     end
 
-    class Idxopt < ::FFI::Struct
+    class IdxOpt < ::FFI::Struct
       layout \
         :k,               :short,
         :w,               :short,
@@ -31,7 +31,7 @@ module Minimap2
         :batch_size,      :uint64_t
     end
 
-    class Mapopt < ::FFI::Struct
+    class MapOpt < ::FFI::Struct
       layout \
         :flag,                 :int64_t,
         :seed,                 :int,
@@ -109,7 +109,7 @@ module Minimap2
         :is_idx,      :int,
         :n_parts,     :int,
         :idx_size,    :int64_t,
-        :opt,         Idxopt,
+        :opt,         IdxOpt,
         :fp_out,      :pointer, # FILE
         :seq_or_idx,  :pointer  # Union mm_bseq_files or FILE
     end

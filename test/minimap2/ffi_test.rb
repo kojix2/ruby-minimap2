@@ -19,7 +19,7 @@ class FFITest < Minitest::Test
   end
 
   def test_idxopt
-    obj = MM2::FFI::Idxopt.new
+    obj = MM2::FFI::IdxOpt.new
     assert_equal 0, obj[:k]
     assert_equal 0, obj[:w]
     assert_equal 0, obj[:flag]
@@ -38,8 +38,8 @@ class FFITest < Minitest::Test
   end
 
   def test_mapopt
-    obj = MM2::FFI::Mapopt.new
-    assert_instance_of MM2::FFI::Mapopt, obj
+    obj = MM2::FFI::MapOpt.new
+    assert_instance_of MM2::FFI::MapOpt, obj
     assert_equal 0, obj[:flag]
     assert_equal 0, obj[:seed]
     assert_equal 0, obj[:sdust_thres]
@@ -118,7 +118,7 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:is_idx]
     assert_equal 0, obj[:n_parts]
     assert_equal 0, obj[:idx_size]
-    assert_instance_of MM2::FFI::Idxopt, obj[:opt]
+    assert_instance_of MM2::FFI::IdxOpt, obj[:opt]
     assert_equal true, obj[:fp_out].null?
     assert_equal true, obj[:seq_or_idx].null?
   end
