@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Minimap2
   module FFI
     class MM128 < ::FFI::Struct

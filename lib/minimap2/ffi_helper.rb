@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "ffi"
 
 module FFI
@@ -24,7 +26,7 @@ module FFI
           bit_field_table = @bit_field_table
           @prepend_module = Module.new do
             define_method("[]") do |name|
-              if bit_field_table.has_key?(name)
+              if bit_field_table.key?(name)
                 n, s, v = bit_field_table[name]
                 (super(n) >> s) & ((1 << v) - 1)
               else
