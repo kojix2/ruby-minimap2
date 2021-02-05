@@ -28,15 +28,6 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:batch_size]
   end
 
-  def test_idx_bucket
-    obj = MM2::FFI::IdxBucket.new
-    assert_instance_of MM2::FFI::IdxBucket, obj
-    assert_instance_of MM2::FFI::MM128, obj[:a]
-    assert_equal 0, obj[:n]
-    assert_equal true, obj[:p].null?
-    assert_equal true, obj[:h].null?
-  end
-
   def test_mapopt
     obj = MM2::FFI::MapOpt.new
     assert_instance_of MM2::FFI::MapOpt, obj
@@ -96,6 +87,7 @@ class FFITest < Minitest::Test
     assert_nil obj[:name]
     assert_equal 0, obj[:offset]
     assert_equal 0, obj[:len]
+    assert_equal 0, obj[:is_alt]
   end
 
   def test_idx
@@ -105,9 +97,12 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:w]
     assert_equal 0, obj[:flag]
     assert_equal 0, obj[:n_seq]
+    assert_equal 0, obj[:index]
+    assert_equal 0, obj[:n_alt]
     assert_equal true, obj[:seq].null?
     assert_equal true, obj[:S].null?
     assert_equal true, obj[:B].null?
+    assert_equal true, obj[:I].null?
     assert_equal true, obj[:km].null?
     assert_equal true, obj[:h].null?
   end
@@ -124,13 +119,18 @@ class FFITest < Minitest::Test
   end
 
   def test_extra
-    obj = MM2::FFI::Extra.new
+    cigar = [4,5,6]
+    obj = MM2::FFI::Extra.new(::FFI::MemoryPointer.new(MM2::FFI::Extra.size + ::FFI.type_size(:uint32) * cigar.size))
     assert_instance_of MM2::FFI::Extra, obj
     assert_equal 0, obj[:capacity]
     assert_equal 0, obj[:dp_score]
     assert_equal 0, obj[:dp_max]
     assert_equal 0, obj[:dp_max2]
-    assert_equal 0, obj[:n_ambi_trans_strand]
-    assert_equal 0, obj[:n_cigar]
+    assert_equal 0, obj[:n_ambi]
+    assert_equal 0, obj[:trans_strand]
+    cigar = [4,5,6]
+    obj[:n_cigar] = cigar.size
+    obj.pointer.put_array_of_uint32(obj.size, cigar)
+    assert_equal cigar, obj[:cigar]
   end
 end
