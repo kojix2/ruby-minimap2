@@ -1,6 +1,0 @@
-[
-{ "tag": "struct", "ns": 0, "name": "sdust_buf_s", "id": 0, "location": "minimap2/sdust.h:10:8", "bit-size": 0, "bit-alignment": 0, "fields": [] },
-{ "tag": "typedef", "ns": 0, "name": "sdust_buf_t", "location": "minimap2/sdust.h:11:28", "type": { "tag": "struct", "ns": 0, "name": "sdust_buf_s", "id": 0, "location": "minimap2/sdust.h:10:8", "bit-size": 0, "bit-alignment": 0, "fields": [] } },
-{ "tag": "function", "name": "sdust_buf_init", "ns": 0, "location": "minimap2/sdust.h:17:14", "variadic": false, "inline": false, "storage-class": "none", "parameters": [{ "tag": "parameter", "name": "km", "type": { "tag": ":pointer", "type": { "tag": ":void" } } }], "return-type": { "tag": ":pointer", "type": { "tag": "sdust_buf_t" } } },
-{ "tag": "function", "name": "sdust_buf_destroy", "ns": 0, "location": "minimap2/sdust.h:18:6", "variadic": false, "inline": false, "storage-class": "none", "parameters": [{ "tag": "parameter", "name": "buf", "type": { "tag": ":pointer", "type": { "tag": "sdust_buf_t" } } }], "return-type": { "tag": ":void" } }
-]
