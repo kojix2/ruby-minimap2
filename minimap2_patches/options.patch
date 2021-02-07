@@ -5,7 +5,7 @@
  int mm_set_opt(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo)
  {
 -	if (preset == 0) {
-+    if (strcmp(preset, "default") == 0) {
++   if (strcmp(preset, "default") == 0) {
  		mm_idxopt_init(io);
  		mm_mapopt_init(mo);
  	} else if (strcmp(preset, "ava-ont") == 0) {

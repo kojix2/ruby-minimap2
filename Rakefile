@@ -15,19 +15,19 @@ namespace :minimap2 do
   desc "Compile Minimap2"
   task :build do
     Dir.chdir("minimap2") do
-      FileUtils.copy("Makefile", "Makefile_original")
+      FileUtils.copy("Makefile", "Makefile.orig")
+      FileUtils.copy("options.c", "options.c.orig")
       begin
         # Add -fPIC option to Makefile
-        system 'sed -i -E "s/^CFLAGS=/CFLAGS= -fPIC /" Makefile'
-        FileUtils.copy("options.c", "options_original.c")
-        system "patch options.c ../minimap2_patche/patch_options"
+        system "patch Makefile ../minimap2_patches/Makefile.patch"
+        system "patch options.c ../minimap2_patches/options.patch"
         system "make"
         system "cc -shared -o libminimap2.so *.o"
         FileUtils.mkdir_p("../vendor")
         FileUtils.move("libminimap2.so", "../vendor/libminimap2.so")
       ensure
-        FileUtils.move("Makefile_original", "Makefile")
-        FileUtils.move("options_original.c", "options.c")
+        FileUtils.move("Makefile.orig", "Makefile")
+        FileUtils.move("options.c.orig", "options.c")
       end
     end
   end
