@@ -15,20 +15,13 @@ namespace :minimap2 do
   desc "Compile Minimap2"
   task :build do
     Dir.chdir("minimap2") do
-      FileUtils.copy("Makefile", "Makefile.orig")
-      FileUtils.copy("options.c", "options.c.orig")
-      begin
-        # Add -fPIC option to Makefile
-        system "patch Makefile ../minimap2_patches/Makefile.patch"
-        system "patch options.c ../minimap2_patches/options.patch"
-        system "make"
-        system "cc -shared -o libminimap2.so *.o"
-        FileUtils.mkdir_p("../vendor")
-        FileUtils.move("libminimap2.so", "../vendor/libminimap2.so")
-      ensure
-        FileUtils.move("Makefile.orig", "Makefile")
-        FileUtils.move("options.c.orig", "options.c")
-      end
+      # Add -fPIC option to Makefile
+      system "git apply ../minimap2.patch"
+      system "make"
+      system "cc -shared -o libminimap2.so *.o"
+      system "git apply -R ../minimap2.patch"
+      FileUtils.mkdir_p("../vendor")
+      FileUtils.move("libminimap2.so", "../vendor/libminimap2.so")
     end
   end
 

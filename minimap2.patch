@@ -1,0 +1,307 @@
+diff --git a/Makefile b/Makefile
+index 18622f5..ba73e9b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-CFLAGS=		-g -Wall -O2 -Wc++-compat #-Wextra
++CFLAGS=    -g -Wall -O2 -Wc++-compat -fPIC #-Wextra
+ CPPFLAGS=	-DHAVE_KALLOC
+ INCLUDES=
+ OBJS=		kthread.o kalloc.o misc.o bseq.o sketch.o sdust.o options.o index.o chain.o align.o hit.o map.o format.o pe.o esterr.o splitidx.o ksw2_ll_sse.o
+diff --git a/options.c b/options.c
+index d4eafaa..8581e87 100644
+--- a/options.c
++++ b/options.c
+@@ -73,7 +73,7 @@ void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len)
+ 
+ int mm_set_opt(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo)
+ {
+-	if (preset == 0) {
++   if (strcmp(preset, "default") == 0) {
+ 		mm_idxopt_init(io);
+ 		mm_mapopt_init(mo);
+ 	} else if (strcmp(preset, "ava-ont") == 0) {
+diff --git a/python/cmappy.c b/python/cmappy.c
+new file mode 100644
+index 0000000..9134c3a
+--- /dev/null
++++ b/python/cmappy.c
+@@ -0,0 +1,130 @@
++#include "cmappy.h"
++
++static inline void mm_reg2hitpy(const mm_idx_t *mi, mm_reg1_t *r, mm_hitpy_t *h)
++{
++	h->ctg = mi->seq[r->rid].name;
++	h->ctg_len = mi->seq[r->rid].len;
++	h->ctg_start = r->rs, h->ctg_end = r->re;
++	h->qry_start = r->qs, h->qry_end = r->qe;
++	h->strand = r->rev? -1 : 1;
++	h->mapq = r->mapq;
++	h->mlen = r->mlen;
++	h->blen = r->blen;
++	h->NM = r->blen - r->mlen + r->p->n_ambi;
++	h->trans_strand = r->p->trans_strand == 1? 1 : r->p->trans_strand == 2? -1 : 0;
++	h->is_primary = (r->id == r->parent);
++	h->seg_id = r->seg_id;
++	h->n_cigar32 = r->p->n_cigar;
++	h->cigar32 = r->p->cigar;
++}
++
++static inline void mm_free_reg1(mm_reg1_t *r)
++{
++	free(r->p);
++}
++
++static inline kseq_t *mm_fastx_open(const char *fn)
++{
++	gzFile fp;
++	fp = fn && strcmp(fn, "-") != 0? gzopen(fn, "r") : gzdopen(fileno(stdin), "r");
++	return kseq_init(fp);
++}
++
++static inline void mm_fastx_close(kseq_t *ks)
++{
++	gzFile fp;
++	fp = ks->f->f;
++	kseq_destroy(ks);
++	gzclose(fp);
++}
++
++static inline int mm_verbose_level(int v)
++{
++	if (v >= 0) mm_verbose = v;
++	return mm_verbose;
++}
++
++static inline void mm_reset_timer(void)
++{
++	extern double realtime(void);
++	mm_realtime0 = realtime();
++}
++
++extern unsigned char seq_comp_table[256];
++static inline mm_reg1_t *mm_map_aux(const mm_idx_t *mi, const char *seq1, const char *seq2, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt)
++{
++	mm_reg1_t *r;
++
++	Py_BEGIN_ALLOW_THREADS
++	if (seq2 == 0) {
++		r = mm_map(mi, strlen(seq1), seq1, n_regs, b, opt, NULL);
++	} else {
++		int _n_regs[2];
++		mm_reg1_t *regs[2];
++		char *seq[2];
++		int i, len[2];
++
++		len[0] = strlen(seq1);
++		len[1] = strlen(seq2);
++		seq[0] = (char*)seq1;
++		seq[1] = strdup(seq2);
++		for (i = 0; i < len[1]>>1; ++i) {
++			int t = seq[1][len[1] - i - 1];
++			seq[1][len[1] - i - 1] = seq_comp_table[(uint8_t)seq[1][i]];
++			seq[1][i] = seq_comp_table[t];
++		}
++		if (len[1]&1) seq[1][len[1]>>1] = seq_comp_table[(uint8_t)seq[1][len[1]>>1]];
++		mm_map_frag(mi, 2, len, (const char**)seq, _n_regs, regs, b, opt, NULL);
++		for (i = 0; i < _n_regs[1]; ++i)
++			regs[1][i].rev = !regs[1][i].rev;
++		*n_regs = _n_regs[0] + _n_regs[1];
++		regs[0] = (mm_reg1_t*)realloc(regs[0], sizeof(mm_reg1_t) * (*n_regs));
++		memcpy(&regs[0][_n_regs[0]], regs[1], _n_regs[1] * sizeof(mm_reg1_t));
++		free(regs[1]);
++		r = regs[0];
++	}
++	Py_END_ALLOW_THREADS
++
++	return r;
++}
++
++static inline char *mappy_revcomp(int len, const uint8_t *seq)
++{
++	int i;
++	char *rev;
++	rev = (char*)malloc(len + 1);
++	for (i = 0; i < len; ++i)
++		rev[len - i - 1] = seq_comp_table[seq[i]];
++	rev[len] = 0;
++	return rev;
++}
++
++static char *mappy_fetch_seq(const mm_idx_t *mi, const char *name, int st, int en, int *len)
++{
++	int i, rid;
++	char *s;
++	*len = 0;
++	rid = mm_idx_name2id(mi, name);
++	if (rid < 0) return 0;
++	if ((uint32_t)st >= mi->seq[rid].len || st >= en) return 0;
++	if (en < 0 || (uint32_t)en > mi->seq[rid].len)
++		en = mi->seq[rid].len;
++	s = (char*)malloc(en - st + 1);
++	*len = mm_idx_getseq(mi, rid, st, en, (uint8_t*)s);
++	for (i = 0; i < *len; ++i)
++		s[i] = "ACGTN"[(uint8_t)s[i]];
++	s[*len] = 0;
++	return s;
++}
++
++static mm_idx_t *mappy_idx_seq(int w, int k, int is_hpc, int bucket_bits, const char *seq, int len)
++{
++	const char *fake_name = "N/A";
++	char *s;
++	mm_idx_t *mi;
++	s = (char*)calloc(len + 1, 1);
++	memcpy(s, seq, len);
++	mi = mm_idx_str(w, k, is_hpc, bucket_bits, 1, (const char**)&s, (const char**)&fake_name);
++	free(s);
++	return mi;
++}
+diff --git a/python/cmappy.h b/python/cmappy.h
+index 6bc5635..83b6726 100644
+--- a/python/cmappy.h
++++ b/python/cmappy.h
+@@ -20,133 +20,25 @@ typedef struct {
+ 	uint32_t *cigar32;
+ } mm_hitpy_t;
+ 
+-static inline void mm_reg2hitpy(const mm_idx_t *mi, mm_reg1_t *r, mm_hitpy_t *h)
+-{
+-	h->ctg = mi->seq[r->rid].name;
+-	h->ctg_len = mi->seq[r->rid].len;
+-	h->ctg_start = r->rs, h->ctg_end = r->re;
+-	h->qry_start = r->qs, h->qry_end = r->qe;
+-	h->strand = r->rev? -1 : 1;
+-	h->mapq = r->mapq;
+-	h->mlen = r->mlen;
+-	h->blen = r->blen;
+-	h->NM = r->blen - r->mlen + r->p->n_ambi;
+-	h->trans_strand = r->p->trans_strand == 1? 1 : r->p->trans_strand == 2? -1 : 0;
+-	h->is_primary = (r->id == r->parent);
+-	h->seg_id = r->seg_id;
+-	h->n_cigar32 = r->p->n_cigar;
+-	h->cigar32 = r->p->cigar;
+-}
++void mm_reg2hitpy(const mm_idx_t *mi, mm_reg1_t *r, mm_hitpy_t *h)
+ 
+-static inline void mm_free_reg1(mm_reg1_t *r)
+-{
+-	free(r->p);
+-}
++void mm_free_reg1(mm_reg1_t *r)
+ 
+-static inline kseq_t *mm_fastx_open(const char *fn)
+-{
+-	gzFile fp;
+-	fp = fn && strcmp(fn, "-") != 0? gzopen(fn, "r") : gzdopen(fileno(stdin), "r");
+-	return kseq_init(fp);
+-}
++kseq_t *mm_fastx_open(const char *fn)
+ 
+-static inline void mm_fastx_close(kseq_t *ks)
+-{
+-	gzFile fp;
+-	fp = ks->f->f;
+-	kseq_destroy(ks);
+-	gzclose(fp);
+-}
++void mm_fastx_close(kseq_t *ks)
+ 
+-static inline int mm_verbose_level(int v)
+-{
+-	if (v >= 0) mm_verbose = v;
+-	return mm_verbose;
+-}
++int mm_verbose_level(int v)
+ 
+-static inline void mm_reset_timer(void)
+-{
+-	extern double realtime(void);
+-	mm_realtime0 = realtime();
+-}
++void mm_reset_timer(void)
+ 
+ extern unsigned char seq_comp_table[256];
+-static inline mm_reg1_t *mm_map_aux(const mm_idx_t *mi, const char *seq1, const char *seq2, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt)
+-{
+-	mm_reg1_t *r;
++mm_reg1_t *mm_map_aux(const mm_idx_t *mi, const char *seq1, const char *seq2, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt)
+ 
+-	Py_BEGIN_ALLOW_THREADS
+-	if (seq2 == 0) {
+-		r = mm_map(mi, strlen(seq1), seq1, n_regs, b, opt, NULL);
+-	} else {
+-		int _n_regs[2];
+-		mm_reg1_t *regs[2];
+-		char *seq[2];
+-		int i, len[2];
++char *mappy_revcomp(int len, const uint8_t *seq)
+ 
+-		len[0] = strlen(seq1);
+-		len[1] = strlen(seq2);
+-		seq[0] = (char*)seq1;
+-		seq[1] = strdup(seq2);
+-		for (i = 0; i < len[1]>>1; ++i) {
+-			int t = seq[1][len[1] - i - 1];
+-			seq[1][len[1] - i - 1] = seq_comp_table[(uint8_t)seq[1][i]];
+-			seq[1][i] = seq_comp_table[t];
+-		}
+-		if (len[1]&1) seq[1][len[1]>>1] = seq_comp_table[(uint8_t)seq[1][len[1]>>1]];
+-		mm_map_frag(mi, 2, len, (const char**)seq, _n_regs, regs, b, opt, NULL);
+-		for (i = 0; i < _n_regs[1]; ++i)
+-			regs[1][i].rev = !regs[1][i].rev;
+-		*n_regs = _n_regs[0] + _n_regs[1];
+-		regs[0] = (mm_reg1_t*)realloc(regs[0], sizeof(mm_reg1_t) * (*n_regs));
+-		memcpy(&regs[0][_n_regs[0]], regs[1], _n_regs[1] * sizeof(mm_reg1_t));
+-		free(regs[1]);
+-		r = regs[0];
+-	}
+-	Py_END_ALLOW_THREADS
++char *mappy_fetch_seq(const mm_idx_t *mi, const char *name, int st, int en, int *len)
+ 
+-	return r;
+-}
+-
+-static inline char *mappy_revcomp(int len, const uint8_t *seq)
+-{
+-	int i;
+-	char *rev;
+-	rev = (char*)malloc(len + 1);
+-	for (i = 0; i < len; ++i)
+-		rev[len - i - 1] = seq_comp_table[seq[i]];
+-	rev[len] = 0;
+-	return rev;
+-}
+-
+-static char *mappy_fetch_seq(const mm_idx_t *mi, const char *name, int st, int en, int *len)
+-{
+-	int i, rid;
+-	char *s;
+-	*len = 0;
+-	rid = mm_idx_name2id(mi, name);
+-	if (rid < 0) return 0;
+-	if ((uint32_t)st >= mi->seq[rid].len || st >= en) return 0;
+-	if (en < 0 || (uint32_t)en > mi->seq[rid].len)
+-		en = mi->seq[rid].len;
+-	s = (char*)malloc(en - st + 1);
+-	*len = mm_idx_getseq(mi, rid, st, en, (uint8_t*)s);
+-	for (i = 0; i < *len; ++i)
+-		s[i] = "ACGTN"[(uint8_t)s[i]];
+-	s[*len] = 0;
+-	return s;
+-}
+-
+-static mm_idx_t *mappy_idx_seq(int w, int k, int is_hpc, int bucket_bits, const char *seq, int len)
+-{
+-	const char *fake_name = "N/A";
+-	char *s;
+-	mm_idx_t *mi;
+-	s = (char*)calloc(len + 1, 1);
+-	memcpy(s, seq, len);
+-	mi = mm_idx_str(w, k, is_hpc, bucket_bits, 1, (const char**)&s, (const char**)&fake_name);
+-	free(s);
+-	return mi;
+-}
++mm_idx_t *mappy_idx_seq(int w, int k, int is_hpc, int bucket_bits, const char *seq, int len)
+ 
+ #endif
