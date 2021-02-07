@@ -1,3 +1,5 @@
+# This is a patch file to allow Ruby-FFI to specify the string type in the attach-function method.
+
 --- ../minimap2/options.c	2021-02-07 17:33:48.535000000 +0900
 +++ ../minimap2/options2.c	2021-02-07 17:33:55.782000000 +0900
 @@ -73,7 +73,7 @@ void mm_mapopt_max_intron_len(mm_mapopt_
