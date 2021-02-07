@@ -1,7 +1,7 @@
 # This is a patch file that changes CFLAGS to generate a shared library.
 
 --- ../minimap2/Makefile	2021-02-07 18:08:35.195569201 +0900
-+++ ../minimap2/Makefile2	2021-02-07 18:08:27.092000000 +0900
++++ ../minimap2/Makefile	2021-02-07 18:08:27.092000000 +0900
 @@ -1,4 +1,4 @@
 -CFLAGS=		-g -Wall -O2 -Wc++-compat #-Wextra
 +CFLAGS=    -g -Wall -O2 -Wc++-compat -fPIC #-Wextra
