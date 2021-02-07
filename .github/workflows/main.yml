@@ -32,6 +32,5 @@ jobs:
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
-          bundle exec rake minimap2:compile
+          bundle exec rake minimap2:build
           bundle exec rake test
-          
