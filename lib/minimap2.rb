@@ -20,3 +20,6 @@ module Minimap2
                  end
   autoload :FFI, "minimap2/ffi"
 end
+
+require_relative "minimap2/aligner"
+require_relative "minimap2/alignment"
