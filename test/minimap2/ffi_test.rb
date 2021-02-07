@@ -119,7 +119,7 @@ class FFITest < Minitest::Test
   end
 
   def test_extra
-    cigar = [4,5,6]
+    cigar = [4, 5, 6]
     obj = MM2::FFI::Extra.new(::FFI::MemoryPointer.new(MM2::FFI::Extra.size + ::FFI.type_size(:uint32) * cigar.size))
     assert_instance_of MM2::FFI::Extra, obj
     assert_equal 0, obj[:capacity]
@@ -128,7 +128,7 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:dp_max2]
     assert_equal 0, obj[:n_ambi]
     assert_equal 0, obj[:trans_strand]
-    cigar = [4,5,6]
+    cigar = [4, 5, 6]
     obj[:n_cigar] = cigar.size
     obj.pointer.put_array_of_uint32(obj.size, cigar)
     assert_equal cigar, obj[:cigar]

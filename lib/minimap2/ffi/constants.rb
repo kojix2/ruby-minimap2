@@ -115,7 +115,7 @@ module Minimap2
         :idx_size,    :int64_t,
         :opt,         IdxOpt,
         :fp_out,      :pointer, # FILE
-        :seq_or_idx,  :pointer  # Fixme: Union mm_bseq_files or FILE
+        :seq_or_idx,  :pointer  # FIXME: Union mm_bseq_files or FILE
     end
 
     # minimap2 alignment
@@ -163,19 +163,19 @@ module Minimap2
         :div,    :float,
         :p,      Extra.ptr
 
-        bitfields :fields,
-          :mapq,        8,
-          :split,       2,
-          :rev,         1,
-          :inv,         1,
-          :sam_pri,     1,
-          :proper_frag, 1,
-          :pe_thru,     1,
-          :seg_split,   1,
-          :seg_id,      8,
-          :split_inv,   1,
-          :is_alt,      1,
-          :dummy,       6
+      bitfields :fields,
+                :mapq,        8,
+                :split,       2,
+                :rev,         1,
+                :inv,         1,
+                :sam_pri,     1,
+                :proper_frag, 1,
+                :pe_thru,     1,
+                :seg_split,   1,
+                :seg_id,      8,
+                :split_inv,   1,
+                :is_alt,      1,
+                :dummy,       6
     end
 
     # memory buffer for thread-local storage during mapping
@@ -186,6 +186,4 @@ module Minimap2
         :frag_gap, :int
     end
   end
-
-  
 end
