@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# https://github.com/lh3/minimap2/blob/master/python/cmappy.h
+
 module Minimap2
   module FFI
     class Hit < ::FFI::Struct
@@ -21,5 +23,40 @@ module Minimap2
         :n_cigar32,    :int32_t,
         :cigar32,      :pointer
     end
+
+    attach_function \
+      :mm_reg2hitpy,
+      [Idx.by_ref, Reg1.by_ref, Hit.by_ref],
+      :void
+
+    attach_function \
+      :mm_free_reg1,
+      [Reg1.by_ref],
+      :void
+
+    attach_function \
+      :mm_fastx_open,
+      [:string],
+      :pointer # FIXME: KSeq.by_ref
+
+    attach_function \
+      :mm_fastx_close,
+      [:pointer], # FIXME: KSeq.by_ref
+      :void
+
+    attach_function \
+      :mm_verbose_level,
+      [:int],
+      :int
+
+    attach_function \
+      :mm_reset_timer,
+      [:void],
+      :void
+
+    attach_function \
+      :mm_map_aux,
+      [Idx.by_ref, :string, :string, :pointer, TBuf.by_ref, MapOpt.by_ref],
+      Reg1.by_ref
   end
 end

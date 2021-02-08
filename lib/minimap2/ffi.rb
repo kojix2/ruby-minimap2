@@ -85,3 +85,5 @@ module Minimap2
     end
   end
 end
+
+require_relative "ffi/mappy"
