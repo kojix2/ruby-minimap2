@@ -8,13 +8,25 @@
 
 ## Installation
 
+Installing from source code.
+
+```sh
+git clone --recurse-submodules https://github.com/kojix2/ruby-minimap2
+cd ruby-minimap2
+bundle install
+bundle exec rake minimap2:build
+bundle exec rake install
+```
+
+I plan to provide RubyGems in the future.
+
 ```sh
 gem install minimap2
 ```
 
 ## Usage
 
-```sh
+```ruby
 require 'minimap2'
 
 MM2 = Minimap2
