@@ -78,11 +78,6 @@ module Minimap2
       :mm_gen_MD,
       [:pointer, :pointer, :int, Idx.by_ref, Reg1.by_ref, :string],
       :int
-
-    # Mappy
-    def mm_map_aux
-      rause NotImplementedError
-    end
   end
 end
 
