@@ -56,11 +56,11 @@ module Minimap2
     attach_function \
       :mm_fastx_open,
       [:string],
-      :pointer # FIXME: KSeq.by_ref
+      KSeq.by_ref
 
     attach_function \
       :mm_fastx_close,
-      [:pointer], # FIXME: KSeq.by_ref
+      [KSeq.by_ref],
       :void
 
     attach_function \
@@ -92,5 +92,35 @@ module Minimap2
       :mappy_idx_seq,
       [:int, :int, :int, :int, :pointer, :int],
       Idx.by_ref
+    
+    attach_function \
+      :kseq_read,
+      [KSeq.by_ref],
+      :int
+  end
+
+  class << self
+    def fastx_read(fn, read_comment = false)
+      ks = FFI.mm_fastx_open(fn)
+      while FFI.kseq_read(ks) >= 0
+        qual = ks[:qual][:s] if ks[:qual][:l] > 0
+        name = ks[:name][:s]
+        seq  = ks[:seq][:s]
+        comment = ks[:comment][:s] if ks[:comment][:l] > 0
+        yield [name, seq, qual, comment]
+      end
+      FFI.mm_fastx_close(ks)
+    end
+
+    def revcomp(seq)
+      l = seq.size
+      bseq = ::FFI::MemoryPointer.new(:char, l)
+      bseq.put_bytes(0, seq)
+      FFI.mappy_revcomp(l, bseq)
+    end
+
+    def verbose(v = -1)
+      FFI.mm_verbose_level(v)
+    end
   end
 end
