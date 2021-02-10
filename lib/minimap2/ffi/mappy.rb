@@ -60,5 +60,20 @@ module Minimap2
       :mm_map_aux,
       [Idx.by_ref, :string, :string, :pointer, TBuf.by_ref, MapOpt.by_ref],
       Reg1.by_ref
+    
+    attach_function \
+      :mappy_revcomp,
+      [:int, :pointer],
+      :string
+    
+    attach_function \
+      :mappy_fetch_seq,
+      [Idx.by_ref, :string, :int, :int, :pointer],
+      :string
+  
+    attach_function \
+      :mappy_idx_seq,
+      [:int, :int, :int, :int, :pointer, :int],
+      Idx.by_ref
   end
 end
