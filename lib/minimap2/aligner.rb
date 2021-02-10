@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'ffi'
+require_relative "ffi"
+require_relative "ffi/mappy"
 
 module Minimap2
   class Aligner
@@ -58,8 +59,6 @@ module Minimap2
         end
       end
 
-      @r = FFI::IdxReader.new
-
       if seq
         @idx = FFI.mappy_idx_seq(
           @idx_opt.w, @idx_opt.k, @idx_opt & 1, @idx_opt.bucket_bits, seq, seq.size
@@ -67,11 +66,7 @@ module Minimap2
         FFI.mm_mapopt_update(@map_opt, @idx)
         @map_opt.mid_occ = 1000 # don't filter high-occ seeds
       else
-        @r = if fn_idx_out
-               FFI.mm_idx_reader_open(fn_idx_in, @idx_opt, nil)
-             else
-               FFI.mm_idx_reader_open(fn_idx_in, @idx_opt, fn_idx_out)
-             end
+        @r = FFI.mm_idx_reader_open(fn_idx_in, @idx_opt, fn_idx_out)
         unless @r.null?
           @idx = FFI.mm_idx_reader_read(@r, n_threads)
           FFI.mm_idx_reader_close0(@r)
@@ -97,6 +92,7 @@ module Minimap2
 
       return if @idx.null?
 
+      h = FFI::Hit.new
       map_opt = @map_opt # FIXME: should clone?
       map_opt.max_frag_len = max_frag_len if max_frag_len
       map_opt.flag |= extra_flags if extra_flags
@@ -114,7 +110,7 @@ module Minimap2
       begin
         i = 0
         while i < n_regs
-          # FFI.mm_reg2hitpy(@idx, regs[i], h)
+          FFI.mm_reg2hitpy(@idx, regs[i], h)
           cigar = []
           _cs = ""
           _MD = ""
@@ -155,5 +151,21 @@ module Minimap2
     end
 
     def seq; end
+
+    def k
+      @idx[:k]
+    end
+
+    def w
+      @idx[:w]
+    end
+
+    def n_seq
+      @idx[:n_seq]
+    end
+
+    def seq_names
+      Array.new(@idx[:n_seq]) { |i| @idx[:seq][i][:name] }
+    end
   end
 end
