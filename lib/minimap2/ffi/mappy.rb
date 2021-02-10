@@ -26,6 +26,23 @@ module Minimap2
         :cigar32,      :pointer
     end
 
+    class KString < ::FFI::Struct
+      layout \
+        :l,            :size_t,
+        :m,            :size_t,
+        :s,            :string
+    end
+
+    class KSeq < ::FFI::Struct
+      layout \
+        :name,           KString,
+        :comment,        KString,
+        :seq,            KString,
+        :qual,           KString,
+        :last_char,      :int,
+        :f,              :pointer #FIXME KStream
+    end
+
     attach_function \
       :mm_reg2hitpy,
       [Idx.by_ref, Reg1.by_ref, Hit.by_ref],
