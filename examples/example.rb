@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # example.c
 require "minimap2"
 
