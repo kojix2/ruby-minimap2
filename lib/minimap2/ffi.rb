@@ -19,6 +19,6 @@ module Minimap2
   end
 end
 
-require_relative "ffi/functions"
 require_relative "ffi/constants"
+require_relative "ffi/functions"
 require_relative "ffi/mappy"

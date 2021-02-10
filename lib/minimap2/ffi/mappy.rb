@@ -2,6 +2,8 @@
 
 # https://github.com/lh3/minimap2/blob/master/python/cmappy.h
 
+require_relative "constants"
+
 module Minimap2
   module FFI
     class Hit < ::FFI::Struct

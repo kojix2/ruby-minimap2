@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'ffi'
+
 module Minimap2
   class Alignment
     def self.keys
