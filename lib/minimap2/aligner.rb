@@ -69,7 +69,7 @@ module Minimap2
         @r = FFI.mm_idx_reader_open(fn_idx_in, @idx_opt, fn_idx_out)
         unless @r.null?
           @idx = FFI.mm_idx_reader_read(@r, n_threads)
-          FFI.mm_idx_reader_close0(@r)
+          FFI.mm_idx_reader_close(@r)
           FFI.mm_mapopt_update(@map_opt, @idx)
           FFI.mm_idx_index_name(@idx)
         end
@@ -165,7 +165,10 @@ module Minimap2
     end
 
     def seq_names
-      Array.new(@idx[:n_seq]) { |i| @idx[:seq][i][:name] }
+      ptr = @idx[:seq].to_ptr
+      Array.new(@idx[:n_seq]) do |i|
+        FFI::IdxSeq.new(ptr + i * FFI::IdxSeq.size)[:name]
+      end
     end
   end
 end
