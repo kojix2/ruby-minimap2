@@ -12,8 +12,8 @@ class Minimap2Test < Minitest::Test
   # mappy
 
   def test_fastx_read
-    n = ["read1", "read2"]
-    MM2.fastx_read("minimap2/test/q-inv.fa") do |i, j|
+    n = %w[read1 read2]
+    MM2.fastx_read("minimap2/test/q-inv.fa") do |i, _j|
       assert_equal i, n.shift
     end
   end

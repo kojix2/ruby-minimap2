@@ -40,7 +40,7 @@ module Minimap2
         :seq,            KString,
         :qual,           KString,
         :last_char,      :int,
-        :f,              :pointer #FIXME KStream
+        :f,              :pointer # FIXME: KStream
     end
 
     attach_function \
@@ -77,22 +77,22 @@ module Minimap2
       :mm_map_aux,
       [Idx.by_ref, :string, :string, :pointer, TBuf.by_ref, MapOpt.by_ref],
       Reg1.by_ref
-    
+
     attach_function \
       :mappy_revcomp,
-      [:int, :pointer],
+      %i[int pointer],
       :string
-    
+
     attach_function \
       :mappy_fetch_seq,
       [Idx.by_ref, :string, :int, :int, :pointer],
       :string
-  
+
     attach_function \
       :mappy_idx_seq,
-      [:int, :int, :int, :int, :pointer, :int],
+      %i[int int int int pointer int],
       Idx.by_ref
-    
+
     attach_function \
       :kseq_read,
       [KSeq.by_ref],
@@ -100,13 +100,13 @@ module Minimap2
   end
 
   class << self
-    def fastx_read(fn, read_comment = false)
+    def fastx_read(fn, _read_comment = false)
       ks = FFI.mm_fastx_open(fn)
       while FFI.kseq_read(ks) >= 0
-        qual = ks[:qual][:s] if ks[:qual][:l] > 0
+        qual = ks[:qual][:s] if (ks[:qual][:l]).positive?
         name = ks[:name][:s]
         seq  = ks[:seq][:s]
-        comment = ks[:comment][:s] if ks[:comment][:l] > 0
+        comment = ks[:comment][:s] if (ks[:comment][:l]).positive?
         yield [name, seq, qual, comment]
       end
       FFI.mm_fastx_close(ks)
