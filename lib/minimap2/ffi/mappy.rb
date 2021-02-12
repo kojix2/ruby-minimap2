@@ -76,7 +76,7 @@ module Minimap2
     attach_function \
       :mm_map_aux,
       [Idx.by_ref, :string, :string, :pointer, TBuf.by_ref, MapOpt.by_ref],
-      Reg1.by_ref
+      :pointer # Reg1
 
     attach_function \
       :mappy_revcomp,
