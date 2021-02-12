@@ -77,7 +77,7 @@ module Minimap2
       end
     end
 
-    def destroy
+    def destroy # FIXME: naming
       FFI.mm_idx_destroy(@idx) unless @idx.null?
     end
 
@@ -141,7 +141,14 @@ module Minimap2
       end
     end
 
-    def seq; end
+    def seq(name, start = 0, stop = 0x7fffffff)
+      lp = ::FFI::MemoryPointer.new(:int)
+      s = FFI.mappy_fetch_seq(@idx, name, start, stop, lp)
+      l = lp.read_int
+      return nil if l == 0
+      s[0, l]
+      # s.free
+    end
 
     def k
       @idx[:k]

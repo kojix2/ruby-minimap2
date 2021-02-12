@@ -11,6 +11,14 @@ class AlignerTest < Minitest::Test
     assert_instance_of MM2::Aligner, @a
   end
 
+  def test_seq
+    assert_nil @a.seq("MT_human", 0, 0)
+    assert_equal "G", @a.seq("MT_human", 0, 1)
+    assert_equal "GA", @a.seq("MT_human", 0, 2)
+    assert_equal "CACAG", @a.seq("MT_human", 3, 8)
+    assert_equal "ATCACGATG", @a.seq("MT_human", 16560)
+  end
+
   def test_k
     assert_equal 15, @a.k
   end
