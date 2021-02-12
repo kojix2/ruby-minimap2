@@ -30,6 +30,7 @@ module Minimap2
         FFI.mm_set_opt(preset, @idx_opt, @map_opt)
       else
         # set the default options
+        # FIXME: minimap2 patch
         FFI.mm_set_opt("default", @idx_opt, @map_opt)
       end
 
@@ -67,12 +68,12 @@ module Minimap2
         @map_opt.mid_occ = 1000 # don't filter high-occ seeds
       else
         @r = FFI.mm_idx_reader_open(fn_idx_in, @idx_opt, fn_idx_out)
-        unless @r.null?
-          @idx = FFI.mm_idx_reader_read(@r, n_threads)
-          FFI.mm_idx_reader_close(@r)
-          FFI.mm_mapopt_update(@map_opt, @idx)
-          FFI.mm_idx_index_name(@idx)
-        end
+        raise "Cannot open : #{fn_idx_in}" if @r.null?
+
+        @idx = FFI.mm_idx_reader_read(@r, n_threads)
+        FFI.mm_idx_reader_close(@r)
+        FFI.mm_mapopt_update(@map_opt, @idx)
+        FFI.mm_idx_index_name(@idx)
       end
     end
 
