@@ -95,7 +95,7 @@ module Minimap2
       return if @idx.null?
 
       h = FFI::Hit.new
-      n_regs = ::FFI::MemoryPointer.new(:int)
+      n_regs_ptr = ::FFI::MemoryPointer.new(:int)
       cs_str = ::FFI::MemoryPointer.new(:string)
       l_cs_str = ::FFI::MemoryPointer.new(:int)
       m_cs_str = ::FFI::MemoryPointer.new(:int)
@@ -109,11 +109,12 @@ module Minimap2
       km = FFI.mm_tbuf_get_km(b)
 
       ptr = if seq2
-              FFI.mm_map_aux(@idx, seq, seq2, n_regs, b)
+              FFI.mm_map_aux(@idx, seq, seq2, n_regs_ptr, b, map_opt)
             else
-              FFI.mm_map_aux(@idx, seq, nil, n_regs, b)
+              FFI.mm_map_aux(@idx, seq, nil, n_regs_ptr, b, map_opt)
             end
-      regs = Array.new(n_regs) { FFI::Reg1.new(ptr + i * Reg1.size) }
+      n_regs = n_regs_ptr.read_int
+      regs = Array.new(n_regs) { |i| FFI::Reg1.new(ptr + i * FFI::Reg1.size) }
 
       begin
         i = 0
@@ -123,7 +124,7 @@ module Minimap2
           _cs = ""
           _MD = ""
 
-          c = h[:cigar32].read_array_of_uint32
+          c = h[:cigar32].read_array_of_uint32(h[:n_cigar32])
           cigar = c.map { |i| [i >> 4, i & 0xf] }
 
           raise NotImplementedError if cs # FIXME
