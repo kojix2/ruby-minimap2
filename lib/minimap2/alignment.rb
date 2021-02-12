@@ -12,12 +12,34 @@ module Minimap2
     # Read only
     attr_reader(*keys)
 
-    def initialize; end
+    def initialize(h, cigar, cs = nil, md = nil)
+      @ctg          = h[:ctg]
+      @ctg_len      = h[:ctg_len]
+      @r_st         = h[:ctg_start]
+      @r_en         = h[:ctg_end]
+      @strand       = h[:strand]
+      @trans_strand = h[:trans_strand]
+      @blen         = h[:blen]
+      @mlen         = h[:mlen]
+      @nm           = h[:NM]
+      @primary      = h[:is_primary]
+      @q_st         = h[:qry_start]
+      @q_en         = h[:qry_end]
+      @mapq         = h[:mapq]
+      @cigar        = cigar
+      @read_num     = h[:seg_id] + 1
+      @cs           = cs
+      @md           = md
 
-    def destroy; end
+      @cigar_str = cigar.map { |x| x[0] + "MIDNSH"[x[1]] }
+    end
 
-    def is_primary?; end
+    def is_primary?
+      @primary
+    end
 
-    def to_s; end
+    def to_s
+      raise NotImplementedError # FIXME
+    end
   end
 end

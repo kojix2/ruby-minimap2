@@ -124,8 +124,8 @@ module Minimap2
           c = h[:cigar32].read_array_of_uint32
           cigar = c.map { |i| [i >> 4, i & 0xf] }
 
-          raise NotImplementedError if cs
-          raise NotImplementedError if md
+          raise NotImplementedError if cs # FIXME
+          raise NotImplementedError if md # FIXME
 
           yield Alignment.new(h, cigar, cs, md)
 
