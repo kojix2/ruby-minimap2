@@ -30,12 +30,21 @@ gem install minimap2
 require 'minimap2'
 
 MM2 = Minimap2
+
+# load or build index
+a = MM2::Aligner.new("minimap2/test/MT-human.fa")
+# retrieve a subsequence from the index
+s = a.seq("MT_human", 100, 200)
+# reverse complement
+p MM2.revcomp(s)
 ```
 
-## API
+## APIs
 
 ```markdown
 * Minimap2 module
+  * Aligner class
+  * Alignment class
 ```
 
 ## Development
