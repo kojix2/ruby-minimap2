@@ -39,7 +39,25 @@ module Minimap2
     end
 
     def to_s
-      raise NotImplementedError # FIXME
+      strand = if @strand.positive?
+                 "+"
+               elsif @strand.negative?
+                 "-"
+               else
+                 "?"
+               end
+      tp = @primary != 0 ? "tp:A:P" : "tp:A:S"
+      ts = if @trans_strand.positive?
+             "ts:A:+"
+           elsif @trans_strand.negative?
+             "ts:A:-"
+           else
+             "ts:A:."
+           end
+      a = [@q_st, @q_en, strand, @ctg, @ctg_len, @r_st, @r_en,
+           @mlen, @blen, @mapq, tp, ts, "cg:Z:#{@cigar_str}"]
+      a << "cs:Z:#{@cs}" if @cs
+      a.join("\t")
     end
   end
 end
