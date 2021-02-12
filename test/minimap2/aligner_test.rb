@@ -16,7 +16,7 @@ class AlignerTest < Minitest::Test
     assert_equal "G", @a.seq("MT_human", 0, 1)
     assert_equal "GA", @a.seq("MT_human", 0, 2)
     assert_equal "CACAG", @a.seq("MT_human", 3, 8)
-    assert_equal "ATCACGATG", @a.seq("MT_human", 16560)
+    assert_equal "ATCACGATG", @a.seq("MT_human", 16_560)
   end
 
   def test_k

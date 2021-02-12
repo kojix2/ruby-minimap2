@@ -77,7 +77,8 @@ module Minimap2
       end
     end
 
-    def destroy # FIXME: naming
+    # FIXME: naming
+    def destroy
       FFI.mm_idx_destroy(@idx) unless @idx.null?
     end
 
@@ -145,7 +146,8 @@ module Minimap2
       lp = ::FFI::MemoryPointer.new(:int)
       s = FFI.mappy_fetch_seq(@idx, name, start, stop, lp)
       l = lp.read_int
-      return nil if l == 0
+      return nil if l.zero?
+
       s[0, l]
       # s.free
     end
