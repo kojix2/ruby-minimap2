@@ -82,8 +82,10 @@ module Minimap2
       FFI.mm_idx_destroy(@idx) unless @idx.null?
     end
 
-    # FIXME: naming
-    def map(
+    # NOTE: Name change: map -> align
+    # In the Ruby language, the name map means iterator. 
+    # The original name is map, but here I use the method name align.
+    def align(
       seq, seq2 = nil,
       buf: nil,
       cs: false,
