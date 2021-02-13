@@ -8,7 +8,7 @@
 
 ## Installation
 
-Installing from source code.
+You need to install it from the source code. Because you need to build minimap2 and create a shared library. Open your terminal and type the following commands in order. 
 
 ```sh
 git clone --recurse-submodules https://github.com/kojix2/ruby-minimap2
@@ -18,13 +18,13 @@ bundle exec rake minimap2:build
 bundle exec rake install
 ```
 
-I plan to provide RubyGems in the future.
+You can run tests to see if the installation was successful. 
 
-```sh
-gem install minimap2
+```
+bundle exec rake test
 ```
 
-## Usage
+## Quick Start
 
 ```ruby
 require 'minimap2'
@@ -41,13 +41,15 @@ s = a.seq("MT_human", 100, 200)
 p MM2.revcomp(s)
 
 MM2.fastx_read("minimap2/test/MT-orang.fa") do |name, seq, qual|
-  a.map(seq) do |h|
+  a.align(seq) do |h|
     puts "#{h.ctg}\t#{h.r_st}\t#{h.r_en}\t#{h.cigar_str}"
   end
 end
 ```
 
 ## APIs
+
+* [Mappy: Minimap2 Python Binding](https://github.com/lh3/minimap2/tree/master/python)
 
 ```markdown
 * Minimap2 module
@@ -68,9 +70,11 @@ bundle exec rake minimap2:build
 bundle exec rake test
 ```
 
-* [Mappy: Minimap2 Python Binding](https://github.com/lh3/minimap2/tree/master/python)
-
 ## Contributing
+
+ruby-minimap2 is a library under development and there are many points to be improved. 
+If you improve the source code, please feel free to send us your pull request. 
+Typo corrections are also welcome. 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/ruby-minimap2.
 
