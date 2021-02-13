@@ -2,8 +2,6 @@
 
 # https://github.com/lh3/minimap2/blob/master/python/cmappy.h
 
-require_relative "constants"
-
 module Minimap2
   module FFI
     class Hit < ::FFI::Struct
@@ -97,30 +95,5 @@ module Minimap2
       :kseq_read,
       [KSeq.by_ref],
       :int
-  end
-
-  class << self
-    def fastx_read(fn, _read_comment = false)
-      ks = FFI.mm_fastx_open(fn)
-      while FFI.kseq_read(ks) >= 0
-        qual = ks[:qual][:s] if (ks[:qual][:l]).positive?
-        name = ks[:name][:s]
-        seq  = ks[:seq][:s]
-        comment = ks[:comment][:s] if (ks[:comment][:l]).positive?
-        yield [name, seq, qual, comment]
-      end
-      FFI.mm_fastx_close(ks)
-    end
-
-    def revcomp(seq)
-      l = seq.size
-      bseq = ::FFI::MemoryPointer.new(:char, l)
-      bseq.put_bytes(0, seq)
-      FFI.mappy_revcomp(l, bseq)
-    end
-
-    def verbose(v = -1)
-      FFI.mm_verbose_level(v)
-    end
   end
 end

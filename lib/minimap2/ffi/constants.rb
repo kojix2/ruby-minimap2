@@ -159,7 +159,7 @@ module Minimap2
     end
 
     # minimap2 alignment
-    class Extra < ::FFI::Struct
+    class Extra < ::FFI::BitStruct
       layout \
         :capacity,            :uint32,  # the capacity of cigar[]
         :dp_score,            :int32,   # DP score
@@ -181,7 +181,7 @@ module Minimap2
       end
     end
 
-    class Reg1 < ::FFI::Struct
+    class Reg1 < ::FFI::BitStruct
       layout \
         :id,     :int32_t, # ID for internal uses (see also parent below)
         :cnt,    :int32_t, # number of minimizers; if on the reverse strand

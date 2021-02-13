@@ -3,15 +3,15 @@
 require "ffi"
 
 module FFI
-  class Struct
+  class BitStruct < Struct
     class << self
-      def union_layout(*args)
-        Class.new(FFI::Union) { layout(*args) }
-      end
+      # def union_layout(*args)
+      #   Class.new(FFI::Union) { layout(*args) }
+      # end
 
-      def struct_layout(*args)
-        Class.new(FFI::Struct) { layout(*args) }
-      end
+      # def struct_layout(*args)
+      #   Class.new(FFI::Struct) { layout(*args) }
+      # end
 
       def bitfields(*args)
         @bit_field_table ||= {}
