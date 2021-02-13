@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "ffi"
-require_relative "ffi/mappy"
-
 module Minimap2
   class Aligner
     def initialize(
@@ -83,7 +80,7 @@ module Minimap2
     end
 
     # NOTE: Name change: map -> align
-    # In the Ruby language, the name map means iterator. 
+    # In the Ruby language, the name map means iterator.
     # The original name is map, but here I use the method name align.
     def align(
       seq, seq2 = nil,
