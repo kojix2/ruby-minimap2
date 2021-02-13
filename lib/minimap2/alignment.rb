@@ -38,6 +38,10 @@ module Minimap2
       @primary
     end
 
+    def to_h
+      self.class.keys.map { |k| [k, __send__(k)] }.to_h
+    end
+
     def to_s
       strand = if @strand.positive?
                  "+"
