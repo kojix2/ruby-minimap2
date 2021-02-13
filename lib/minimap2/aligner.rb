@@ -2,6 +2,9 @@
 
 module Minimap2
   class Aligner
+
+    attr_reader :index_options, :map_options, :index
+
     def initialize(
       fn_idx_in, # FIXME
       preset: nil,
@@ -20,63 +23,68 @@ module Minimap2
       scoring: nil
     )
 
-      @idx_opt = FFI::IdxOpt.new
-      @map_opt = FFI::MapOpt.new
+      @index_options = FFI::IdxOpt.new
+      @map_options = FFI::MapOpt.new
 
       if preset
-        FFI.mm_set_opt(preset, @idx_opt, @map_opt)
+        FFI.mm_set_opt(preset, index_options, map_options)
       else
         # set the default options
         # FIXME: minimap2 patch
-        FFI.mm_set_opt("default", @idx_opt, @map_opt)
+        FFI.mm_set_opt("default", index_options, map_options)
       end
 
       # always perform alignment
-      @map_opt[:flag] |= 4
-      @idx_opt[:batch_size] = 0x7fffffffffffffff
-      @idx_opt[:k] = k if k
-      @idx_opt[:w] = w if w
-      @map_opt[:min_cnt] = min_cnt if min_cnt
-      @map_opt[:min_chain_score] = min_chain_score if min_chain_score
-      @map_opt[:min_dp_max] = min_dp_score if min_dp_score
-      @map_opt[:bw] = bw if bw
-      @map_opt[:best_n] = best_n if best_n
-      @map_opt[:max_frag_len] = max_frag_len if max_frag_len
-      @map_opt[:flag] |= extra_flags if extra_flags
+      map_options[:flag] |= 4
+      index_options[:batch_size] = 0x7fffffffffffffff
+
+      # override preset options 
+      index_options[:k] = k if k
+      index_options[:w] = w if w
+      map_options[:min_cnt] = min_cnt if min_cnt
+      map_options[:min_chain_score] = min_chain_score if min_chain_score
+      map_options[:min_dp_max] = min_dp_score if min_dp_score
+      map_options[:bw] = bw if bw
+      map_options[:best_n] = best_n if best_n
+      map_options[:max_frag_len] = max_frag_len if max_frag_len
+      map_options[:flag] |= extra_flags if extra_flags
       if scoring && scoring.size >= 4
-        @map_opt[:a] = scoring[0]
-        @map_opt[:b] = scoring[1]
-        @map_opt[:q] = scoring[2]
-        @map_opt[:e] = scoring[3]
-        @map_opt[:q2] = @map_opt.q
-        @map_opt[:e2] = @map_opt.e
+        map_options[:a] = scoring[0]
+        map_options[:b] = scoring[1]
+        map_options[:q] = scoring[2]
+        map_options[:e] = scoring[3]
+        map_options[:q2] = map_options.q
+        map_options[:e2] = map_options.e
         if scoring.size >= 6
-          @map_opt[:q2] = scoring[4]
-          @map_opt[:e2] = scoring[5]
-          @map_opt[:sc_ambi] = scoring[6] if scoring.size >= 7
+          map_options[:q2] = scoring[4]
+          map_options[:e2] = scoring[5]
+          map_options[:sc_ambi] = scoring[6] if scoring.size >= 7
         end
       end
 
       if seq
-        @idx = FFI.mappy_idx_seq(
-          @idx_opt.w, @idx_opt.k, @idx_opt & 1, @idx_opt.bucket_bits, seq, seq.size
+        @index= FFI.mappy_idx_seq(
+          index_options.w, index_options.k, index_options & 1,
+          index_options.bucket_bits, seq, seq.size
         )
-        FFI.mm_mapopt_update(@map_opt, @idx)
-        @map_opt.mid_occ = 1000 # don't filter high-occ seeds
+        FFI.mm_mapopt_update(map_options, index)
+        map_options.mid_occ = 1000 # don't filter high-occ seeds
       else
-        @r = FFI.mm_idx_reader_open(fn_idx_in, @idx_opt, fn_idx_out)
-        raise "Cannot open : #{fn_idx_in}" if @r.null?
+        reader = FFI.mm_idx_reader_open(fn_idx_in, index_options, fn_idx_out)
+        
+        # The Ruby version raises an error here 
+        raise "Cannot open : #{fn_idx_in}" if reader.null?
 
-        @idx = FFI.mm_idx_reader_read(@r, n_threads)
-        FFI.mm_idx_reader_close(@r)
-        FFI.mm_mapopt_update(@map_opt, @idx)
-        FFI.mm_idx_index_name(@idx)
+        @index = FFI.mm_idx_reader_read(reader, n_threads)
+        FFI.mm_idx_reader_close(reader)
+        FFI.mm_mapopt_update(map_options, index)
+        FFI.mm_idx_index_name(index)
       end
     end
 
     # FIXME: naming
     def destroy
-      FFI.mm_idx_destroy(@idx) unless @idx.null?
+      FFI.mm_idx_destroy(index) unless index.null?
     end
 
     # NOTE: Name change: map -> align
@@ -91,7 +99,7 @@ module Minimap2
       extra_flags: nil
     )
 
-      return if @idx.null?
+      return if index.null?
 
       h = FFI::Hit.new
       n_regs_ptr = ::FFI::MemoryPointer.new(:int)
@@ -100,25 +108,21 @@ module Minimap2
       m_cs_str = ::FFI::MemoryPointer.new(:int)
       km = ::FFI::MemoryPointer.new(:void)
 
-      map_opt = @map_opt # FIXME: should clone?
-      map_opt.max_frag_len = max_frag_len if max_frag_len
-      map_opt.flag |= extra_flags if extra_flags
+      map_options.max_frag_len = max_frag_len if max_frag_len
+      map_options.flag |= extra_flags if extra_flags
 
       b = (buf || FFI::TBuf.new)
       km = FFI.mm_tbuf_get_km(b)
 
-      ptr = if seq2
-              FFI.mm_map_aux(@idx, seq, seq2, n_regs_ptr, b, map_opt)
-            else
-              FFI.mm_map_aux(@idx, seq, nil, n_regs_ptr, b, map_opt)
-            end
+      ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, b, map_options)
+      
       n_regs = n_regs_ptr.read_int
       regs = Array.new(n_regs) { |i| FFI::Reg1.new(ptr + i * FFI::Reg1.size) }
 
       begin
         i = 0
         while i < n_regs
-          FFI.mm_reg2hitpy(@idx, regs[i], h)
+          FFI.mm_reg2hitpy(index, regs[i], h)
           cigar = []
           _cs = ""
           _MD = ""
@@ -144,7 +148,7 @@ module Minimap2
 
     def seq(name, start = 0, stop = 0x7fffffff)
       lp = ::FFI::MemoryPointer.new(:int)
-      s = FFI.mappy_fetch_seq(@idx, name, start, stop, lp)
+      s = FFI.mappy_fetch_seq(index, name, start, stop, lp)
       l = lp.read_int
       return nil if l.zero?
 
@@ -153,20 +157,20 @@ module Minimap2
     end
 
     def k
-      @idx[:k]
+      index[:k]
     end
 
     def w
-      @idx[:w]
+      index[:w]
     end
 
     def n_seq
-      @idx[:n_seq]
+      index[:n_seq]
     end
 
     def seq_names
-      ptr = @idx[:seq].to_ptr
-      Array.new(@idx[:n_seq]) do |i|
+      ptr = index[:seq].to_ptr
+      Array.new(index[:n_seq]) do |i|
         FFI::IdxSeq.new(ptr + i * FFI::IdxSeq.size)[:name]
       end
     end
