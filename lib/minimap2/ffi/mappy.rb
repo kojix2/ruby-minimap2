@@ -84,7 +84,7 @@ module Minimap2
     attach_function \
       :mappy_fetch_seq,
       [Idx.by_ref, :string, :int, :int, :pointer],
-      :string
+      :pointer # Use pointer instead of string to read with a specified length
 
     attach_function \
       :mappy_idx_seq,

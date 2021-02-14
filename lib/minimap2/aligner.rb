@@ -154,8 +154,7 @@ module Minimap2
       l = lp.read_int
       return nil if l.zero?
 
-      s[0, l]
-      # s.free
+      s.read_string(l)
     end
 
     def k
