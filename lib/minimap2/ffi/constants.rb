@@ -2,45 +2,46 @@
 
 module Minimap2
   module FFI
-    MM_F_NO_DIAG      = 0x001 # no exact diagonal hit
-    MM_F_NO_DUAL      = 0x002 # skip pairs where query name is lexicographically larger than target name
-    MM_F_CIGAR        = 0x004
-    MM_F_OUT_SAM      = 0x008
-    MM_F_NO_QUAL      = 0x010
-    MM_F_OUT_CG       = 0x020
-    MM_F_OUT_CS       = 0x040
-    MM_F_SPLICE       = 0x080 # splice mode
-    MM_F_SPLICE_FOR   = 0x100 # match GT-AG
-    MM_F_SPLICE_REV   = 0x200 # match CT-AC, the reverse complement of GT-AG
-    MM_F_NO_LJOIN     = 0x400
-    MM_F_OUT_CS_LONG  = 0x800
-    MM_F_SR           = 0x1000
-    MM_F_FRAG_MODE    = 0x2000
-    MM_F_NO_PRINT_2ND = 0x4000
-    MM_F_2_IO_THREADS = 0x8000
-    MM_F_LONG_CIGAR   = 0x10000
-    MM_F_INDEPEND_SEG = 0x20000
-    MM_F_SPLICE_FLANK = 0x40000
-    MM_F_SOFTCLIP     = 0x80000
-    MM_F_FOR_ONLY     = 0x100000
-    MM_F_REV_ONLY     = 0x200000
-    MM_F_HEAP_SORT    = 0x400000
-    MM_F_ALL_CHAINS   = 0x800000
-    MM_F_OUT_MD       = 0x1000000
-    MM_F_COPY_COMMENT = 0x2000000
-    MM_F_EQX          = 0x4000000 # use =/X instead of M
-    MM_F_PAF_NO_HIT   = 0x8000000 # output unmapped reads to PAF
-    MM_F_NO_END_FLT   = 0x10000000
-    MM_F_HARD_MLEVEL  = 0x20000000
-    MM_F_SAM_HIT_ONLY = 0x40000000
+    # flags
+    NO_DIAG        = 0x001 # no exact diagonal hit
+    NO_DUAL        = 0x002 # skip pairs where query name is lexicographically larger than target name
+    CIGAR          = 0x004
+    OUT_SAM        = 0x008
+    NO_QUAL        = 0x010
+    OUT_CG         = 0x020
+    OUT_CS         = 0x040
+    SPLICE         = 0x080 # splice mode
+    SPLICE_FOR     = 0x100 # match GT-AG
+    SPLICE_REV     = 0x200 # match CT-AC, the reverse complement of GT-AG
+    NO_LJOIN       = 0x400
+    OUT_CS_LONG    = 0x800
+    SR             = 0x1000
+    FRAG_MODE      = 0x2000
+    NO_PRINT_2ND   = 0x4000
+    TWO_IO_THREADS = 0x8000 # Translator's Note. MM_F_2_IO_THREADS. Constants starting with numbers cannot be defined.
+    LONG_CIGAR     = 0x10000
+    INDEPEND_SEG   = 0x20000
+    SPLICE_FLANK   = 0x40000
+    SOFTCLIP       = 0x80000
+    FOR_ONLY       = 0x100000
+    REV_ONLY       = 0x200000
+    HEAP_SORT      = 0x400000
+    ALL_CHAINS     = 0x800000
+    OUT_MD         = 0x1000000
+    COPY_COMMENT   = 0x2000000
+    EQX            = 0x4000000 # use =/X instead of M
+    PAF_NO_HIT     = 0x8000000 # output unmapped reads to PAF
+    NO_END_FLT     = 0x10000000
+    HARD_MLEVEL    = 0x20000000
+    SAM_HIT_ONLY   = 0x40000000
 
-    MM_I_HPC          = 0x1
-    MM_I_NO_SEQ       = 0x2
-    MM_I_NO_NAME      = 0x4
+    HPC            = 0x1
+    NO_SEQ         = 0x2
+    NO_NAME        = 0x4
 
-    MM_IDX_MAGIC      = "MMI\2"
+    IDX_MAGIC      = "MMI\2"
 
-    MM_MAX_SEG        = 255
+    MAX_SEG        = 255
 
     # emulate 128-bit integers
     class MM128 < ::FFI::Struct
