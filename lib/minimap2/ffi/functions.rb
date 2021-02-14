@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "constants"
-
 module Minimap2
   module FFI
     attach_function \

@@ -117,6 +117,8 @@ module Minimap2
       ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, b, map_options)
       
       n_regs = n_regs_ptr.read_int
+
+      # FIXME: Consider creating an instance of Reg1 in a loop
       regs = Array.new(n_regs) { |i| FFI::Reg1.new(ptr + i * FFI::Reg1.size) }
 
       begin

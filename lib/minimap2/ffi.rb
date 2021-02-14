@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# bit fields
 require_relative "ffi_helper"
 
 module Minimap2
+  # Native APIs
   module FFI
     extend ::FFI::Library
     begin
@@ -11,6 +13,7 @@ module Minimap2
       raise LoadError, "Could not find #{Minimap2.ffi_lib} \n#{e}"
     end
 
+    # Continue even if some functions are not found.
     def self.attach_function(*)
       super
     rescue ::FFI::NotFoundError => e
