@@ -58,7 +58,7 @@ module Minimap2
       :int
 
     attach_function \
-      :mm_gen_MD,
+      :mm_gen_md, :mm_gen_MD, # Avoid uppercase letters in method names.
       [:pointer, :pointer, :int, Idx.by_ref, Reg1.by_ref, :string],
       :int
   end

@@ -37,7 +37,7 @@ module Minimap2
       map_options[:flag] |= 4
       index_options[:batch_size] = 0x7fffffffffffffff
 
-      # override preset options 
+      # override preset options
       index_options[:k] = k if k
       index_options[:w] = w if w
       map_options[:min_cnt] = min_cnt if min_cnt
@@ -103,7 +103,6 @@ module Minimap2
       h = FFI::Hit.new
       n_regs_ptr = ::FFI::MemoryPointer.new(:int)
       cs_str = ::FFI::MemoryPointer.new(:string)
-      l_cs_str = ::FFI::MemoryPointer.new(:int)
       m_cs_str = ::FFI::MemoryPointer.new(:int)
       km = ::FFI::MemoryPointer.new(:void)
 
@@ -125,14 +124,22 @@ module Minimap2
         while i < n_regs
           FFI.mm_reg2hitpy(index, regs[i], h)
           cigar = []
-          _cs = ""
-          _MD = ""
 
           c = h[:cigar32].read_array_of_uint32(h[:n_cigar32])
+          # convert the 32-bit CIGAR encoding to Ruby array
           cigar = c.map { |i| [i >> 4, i & 0xf] }
 
-          raise NotImplementedError if cs # FIXME
-          raise NotImplementedError if md # FIXME
+          _cs = ""
+          if cs
+            l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, @index, regs[i], seq, 1)
+            cs = cs_str.read_string(l_cs_str)
+          end
+
+          _md = ""
+          if md
+            l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, @index, regs[i], seq)
+            cs_str.read_string(l_cs_str)
+          end
 
           yield Alignment.new(h, cigar, cs, md)
 
