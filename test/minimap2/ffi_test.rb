@@ -131,6 +131,6 @@ class FFITest < Minitest::Test
     cigar = [4, 5, 6]
     obj[:n_cigar] = cigar.size
     obj.pointer.put_array_of_uint32(obj.size, cigar)
-    assert_equal cigar, obj[:cigar]
+    assert_equal cigar, obj.cigar
   end
 end

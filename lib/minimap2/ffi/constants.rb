@@ -173,12 +173,9 @@ module Minimap2
                 :n_ambi, 30,      # number of ambiguous bases
                 :trans_strand, 2  # transcript strand: 0 for unknown, 1 for +, 2 for -
 
-      def [](name)
-        if name == :cigar
-          pointer.get_array_of_uint32(size, self[:n_cigar])
-        else
-          super
-        end
+      # variable length array
+      def cigar
+        pointer.get_array_of_uint32(size, self[:n_cigar])
       end
     end
 
