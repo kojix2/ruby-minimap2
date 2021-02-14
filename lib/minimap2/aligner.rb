@@ -105,17 +105,18 @@ module Minimap2
 
       buf ||= FFI::TBuf.new
       km = FFI.mm_tbuf_get_km(buf)
-
       n_regs_ptr = ::FFI::MemoryPointer.new :int
+
       ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, buf, map_options)
       n_regs = n_regs_ptr.read_int
+
       regs = Array.new(n_regs) { |i| FFI::Reg1.new(ptr + i * FFI::Reg1.size) }
 
       hit = FFI::Hit.new
       cs_str     = ::FFI::MemoryPointer.new :string
       m_cs_str   = ::FFI::MemoryPointer.new :int
+      i = 0
       begin
-        i = 0
         while i < n_regs
           FFI.mm_reg2hitpy(index, regs[i], hit)
           cigar = []
