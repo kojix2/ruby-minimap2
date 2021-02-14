@@ -32,8 +32,8 @@ module Minimap2
       @cigar_str = cigar.map { |x| x[0].to_s + "MIDNSH"[x[1]] }.join
     end
 
-    def is_primary?
-      @primary
+    def primary?
+      @primary == 1
     end
 
     def to_h
