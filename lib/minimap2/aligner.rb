@@ -100,48 +100,43 @@ module Minimap2
 
       return if index.null?
 
-      h = FFI::Hit.new
-      n_regs_ptr = ::FFI::MemoryPointer.new(:int)
-      cs_str = ::FFI::MemoryPointer.new(:string)
-      m_cs_str = ::FFI::MemoryPointer.new(:int)
-      km = ::FFI::MemoryPointer.new(:void)
-
       map_options.max_frag_len = max_frag_len if max_frag_len
       map_options.flag |= extra_flags if extra_flags
 
-      b = (buf || FFI::TBuf.new)
-      km = FFI.mm_tbuf_get_km(b)
+      buf ||= FFI::TBuf.new
+      km = FFI.mm_tbuf_get_km(buf)
 
-      ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, b, map_options)
-
+      n_regs_ptr = ::FFI::MemoryPointer.new :int
+      ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, buf, map_options)
       n_regs = n_regs_ptr.read_int
-
-      # FIXME: Consider creating an instance of Reg1 in a loop
       regs = Array.new(n_regs) { |i| FFI::Reg1.new(ptr + i * FFI::Reg1.size) }
 
+      hit = FFI::Hit.new
+      cs_str     = ::FFI::MemoryPointer.new :string
+      m_cs_str   = ::FFI::MemoryPointer.new :int
       begin
         i = 0
         while i < n_regs
-          FFI.mm_reg2hitpy(index, regs[i], h)
+          FFI.mm_reg2hitpy(index, regs[i], hit)
           cigar = []
 
-          c = h[:cigar32].read_array_of_uint32(h[:n_cigar32])
+          c = hit[:cigar32].read_array_of_uint32(hit[:n_cigar32])
           # convert the 32-bit CIGAR encoding to Ruby array
-          cigar = c.map { |i| [i >> 4, i & 0xf] }
+          cigar = c.map { |x| [x >> 4, x & 0xf] }
 
-          _cs = ""
+          _cs = ''
           if cs
             l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, @index, regs[i], seq, 1)
-            cs = cs_str.read_string(l_cs_str)
+            _cs = cs_str.read_string(l_cs_str)
           end
 
-          _md = ""
+          _md = ''
           if md
             l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, @index, regs[i], seq)
-            cs_str.read_string(l_cs_str)
+            _md = cs_str.read_string(l_cs_str)
           end
 
-          yield Alignment.new(h, cigar, cs, md)
+          yield Alignment.new(hit, cigar, _cs, _md)
 
           FFI.mm_free_reg1(regs[i])
           i += 1
