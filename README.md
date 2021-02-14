@@ -27,23 +27,17 @@ bundle exec rake test
 ## Quick Start
 
 ```ruby
-require 'minimap2'
-
-MM2 = Minimap2
+require "minimap2"
 
 # load or build index
-a = MM2::Aligner.new("minimap2/test/MT-human.fa")
+aligner = Minimap2::Aligner.new("minimap2/test/MT-human.fa")
 
 # retrieve a subsequence from the index
-s = a.seq("MT_human", 100, 200)
+seq = aligner.seq("MT_human", 100, 200)
 
-# reverse complement
-p MM2.revcomp(s)
-
-MM2.fastx_read("minimap2/test/MT-orang.fa") do |name, seq, qual|
-  a.align(seq) do |h|
-    puts "#{h.ctg}\t#{h.r_st}\t#{h.r_en}\t#{h.cigar_str}"
-  end
+# mapping
+aligner.align(seq) do |h|
+  pp h.to_h
 end
 ```
 
