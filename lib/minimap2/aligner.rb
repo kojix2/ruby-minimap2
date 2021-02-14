@@ -113,7 +113,7 @@ module Minimap2
       regs = Array.new(n_regs) { |i| FFI::Reg1.new(ptr + i * FFI::Reg1.size) }
 
       hit = FFI::Hit.new
-      cs_str     = ::FFI::MemoryPointer.new :string
+      cs_str     = ::FFI::MemoryPointer.new(::FFI::MemoryPointer.new(:string))
       m_cs_str   = ::FFI::MemoryPointer.new :int
       i = 0
       begin
@@ -125,16 +125,16 @@ module Minimap2
           # convert the 32-bit CIGAR encoding to Ruby array
           cigar = c.map { |x| [x >> 4, x & 0xf] }
 
-          _cs = ''
+          _cs = ""
           if cs
             l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, @index, regs[i], seq, 1)
-            _cs = cs_str.read_string(l_cs_str)
+            _cs = cs_str.read_pointer.read_string(l_cs_str)
           end
 
-          _md = ''
+          _md = ""
           if md
             l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, @index, regs[i], seq)
-            _md = cs_str.read_string(l_cs_str)
+            _md = cs_str.read_pointer.read_string(l_cs_str)
           end
 
           yield Alignment.new(hit, cigar, _cs, _md)
