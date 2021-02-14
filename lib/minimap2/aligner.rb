@@ -2,7 +2,6 @@
 
 module Minimap2
   class Aligner
-
     attr_reader :index_options, :map_options, :index
 
     def initialize(
@@ -63,7 +62,7 @@ module Minimap2
       end
 
       if seq
-        @index= FFI.mappy_idx_seq(
+        @index = FFI.mappy_idx_seq(
           index_options.w, index_options.k, index_options & 1,
           index_options.bucket_bits, seq, seq.size
         )
@@ -71,8 +70,8 @@ module Minimap2
         map_options.mid_occ = 1000 # don't filter high-occ seeds
       else
         reader = FFI.mm_idx_reader_open(fn_idx_in, index_options, fn_idx_out)
-        
-        # The Ruby version raises an error here 
+
+        # The Ruby version raises an error here
         raise "Cannot open : #{fn_idx_in}" if reader.null?
 
         @index = FFI.mm_idx_reader_read(reader, n_threads)
@@ -115,7 +114,7 @@ module Minimap2
       km = FFI.mm_tbuf_get_km(b)
 
       ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, b, map_options)
-      
+
       n_regs = n_regs_ptr.read_int
 
       # FIXME: Consider creating an instance of Reg1 in a loop
