@@ -13,28 +13,41 @@ module FFI
       #   Class.new(FFI::Struct) { layout(*args) }
       # end
 
+      module BitFieldsModule
+        def [](name)
+          bit_fields = self.class.bit_fields_map
+          parent, start, width = bit_fields[name]
+          if parent
+            (super(parent) >> start) & ((1 << width) - 1)
+          else
+            super(name)
+          end
+        end
+      end
+      private_constant :BitFieldsModule
+
+      def bit_fields_map
+        @bit_fields
+      end
+
       def bitfields(*args)
-        @bit_field_table ||= {}
-        n = args.shift
-        keys, values = args.each_slice(2).to_a.transpose
-        starts = values.inject([0]) { |x, y| x + [x.last + y] }
-        keys.each_with_index do |k, i|
-          @bit_field_table[k] = [n, starts[i], values[i]]
+        unless instance_variable_defined?(:@bit_fields)
+          @bit_fields = {}
+          prepend BitFieldsModule
         end
 
-        if @prepend_module.nil?
-          bit_field_table = @bit_field_table
-          @prepend_module = Module.new do
-            define_method("[]") do |name|
-              if bit_field_table.key?(name)
-                n, s, v = bit_field_table[name]
-                (super(n) >> s) & ((1 << v) - 1)
-              else
-                super(name)
-              end
-            end
-          end
-          prepend @prepend_module
+        parent = args.shift
+        labels = []
+        widths = []
+        args.each_slice(2) do |l, w|
+          labels << l
+          widths << w
+        end
+        starts = widths.inject([0]) do |result, w|
+          result << (result.last + w)
+        end
+        labels.zip(starts, widths).each do |l, s, w|
+          @bit_fields[l] = [parent, s, w]
         end
       end
     end
