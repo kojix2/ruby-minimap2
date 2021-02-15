@@ -26,13 +26,11 @@ module FFI
       end
       private_constant :BitFieldsModule
 
-      def bit_fields_map
-        @bit_fields
-      end
+      attr_reader :bit_fields_map
 
       def bitfields(*args)
         unless instance_variable_defined?(:@bit_fields)
-          @bit_fields = {}
+          @bit_fields_map = {}
           prepend BitFieldsModule
         end
 
@@ -47,7 +45,7 @@ module FFI
           result << (result.last + w)
         end
         labels.zip(starts, widths).each do |l, s, w|
-          @bit_fields[l] = [parent, s, w]
+          @bit_fields_map[l] = [parent, s, w]
         end
       end
     end
