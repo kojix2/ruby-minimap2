@@ -6,8 +6,6 @@ class AlignmentTest < Minitest::Test
     path = File.expand_path("../../minimap2/test/MT-human.fa", __dir__)
     aligner = MM2::Aligner.new(path)
     seq = aligner.seq("MT_human", 100, 300)
-    # FIXME
-    @a = nil
     aligner.align(seq, cs: true, md: true) do |h|
       @a = h
     end
