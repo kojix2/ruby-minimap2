@@ -17,6 +17,8 @@ namespace :minimap2 do
     Dir.chdir("minimap2") do
       # Add -fPIC option to Makefile
       system "git apply ../minimap2.patch"
+      system "cp ../cmappy/cmappy.h ."
+      system "cp ../cmappy/cmappy.c ."
       system "make"
       case RbConfig::CONFIG["host_os"]
       when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
@@ -28,6 +30,8 @@ namespace :minimap2 do
         libsuffix = "so"
         system "cc -shared -o libminimap2.so *.o"
       end
+      system "rm cmappy.h"
+      system "rm cmappy.c"
       system "git apply -R ../minimap2.patch"
       FileUtils.mkdir_p("../vendor")
       FileUtils.move("libminimap2.#{libsuffix}", "../vendor/libminimap2.#{libsuffix}")
