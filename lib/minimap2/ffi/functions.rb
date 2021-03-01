@@ -3,9 +3,20 @@
 module Minimap2
   module FFI
     attach_function \
-      :mm_set_opt,
-      [:string, IdxOpt.by_ref, MapOpt.by_ref],
+      :mm_set_opt_raw, :mm_set_opt,
+      [:pointer, IdxOpt.by_ref, MapOpt.by_ref],
       :int
+    
+    private_class_method :mm_set_opt_raw
+    
+    def self.mm_set_opt(preset, io, mo)
+      if preset == 0
+        ptr = ::FFI::Pointer.new(:int, 0)
+      else
+        ptr = ::FFI::MemoryPointer.from_string(preset.to_s)
+      end
+      mm_set_opt_raw(ptr, io, mo)
+    end
 
     attach_function \
       :mm_idx_reader_open,

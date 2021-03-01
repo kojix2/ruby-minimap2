@@ -29,8 +29,7 @@ module Minimap2
         FFI.mm_set_opt(preset, index_options, map_options)
       else
         # set the default options
-        # FIXME: minimap2 patch
-        FFI.mm_set_opt("default", index_options, map_options)
+        FFI.mm_set_opt(0, index_options, map_options)
       end
 
       # always perform alignment

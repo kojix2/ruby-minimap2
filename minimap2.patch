@@ -18,16 +18,3 @@ index 18622f5..86286e9 100644
  splitidx.o: mmpriv.h minimap.h bseq.h
 +cmappy.o: cmappy.h
 \ No newline at end of file
-diff --git a/options.c b/options.c
-index d4eafaa..8581e87 100644
---- a/options.c
-+++ b/options.c
-@@ -73,7 +73,7 @@ void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len)
- 
- int mm_set_opt(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo)
- {
--	if (preset == 0) {
-+   if (strcmp(preset, "default") == 0) {
- 		mm_idxopt_init(io);
- 		mm_mapopt_init(mo);
- 	} else if (strcmp(preset, "ava-ont") == 0) {

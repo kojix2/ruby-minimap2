@@ -133,4 +133,19 @@ class FFITest < Minitest::Test
     obj.pointer.put_array_of_uint32(obj.size, cigar)
     assert_equal cigar, obj.cigar
   end
+
+  def test_mm_set_opt_0
+    iopt = MM2::FFI::IdxOpt.new
+    mopt = MM2::FFI::MapOpt.new
+    MM2::FFI.mm_set_opt(0, iopt, mopt)
+    assert_equal [15, 10, 0, 14, 50000000, 4000000000], iopt.values
+  end
+
+  def test_mm_set_opt_short
+    iopt = MM2::FFI::IdxOpt.new
+    mopt = MM2::FFI::MapOpt.new
+    MM2::FFI.mm_set_opt("short", iopt, mopt)
+    assert_equal [21, 11, 0, 0, 0, 0], iopt.values
+    assert MM2::FFI.mm_set_opt(":asm10", iopt, mopt)
+  end
 end

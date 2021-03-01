@@ -10,7 +10,7 @@ mopt = MM2::FFI::MapOpt.new
 
 n_threads = 3
 
-MM2::FFI.mm_set_opt("default", iopt, mopt)
+MM2::FFI.mm_set_opt(0, iopt, mopt)
 
 mopt[:flag] |= MM2::FFI::MM_F_CIGAR
 
