@@ -21,4 +21,4 @@ MM2::FFI.mm_mapopt_update(mopt, mi)
 
 tbuf = MM2::FFI.mm_tbuf_init
 
-# WIP #
+# FIXME
