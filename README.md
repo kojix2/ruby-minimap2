@@ -4,11 +4,10 @@
 
 :dna: [minimap2](https://github.com/lh3/minimap2) - the long-read mapper - for [Ruby](https://github.com/ruby/ruby)
 
-:construction: under development
-
 ## Installation
 
-You need to install it from the source code. Because you need to build minimap2 and create a shared library. Open your terminal and type the following commands in order. 
+You need to install it from the source code. Because you need to build minimap2 and create a shared library. 
+Open your terminal and type the following commands in order. 
 
 ```sh
 git clone --recurse-submodules https://github.com/kojix2/ruby-minimap2
@@ -43,6 +42,7 @@ end
 
 ## APIs
 
+See
 * [Mappy: Minimap2 Python Binding](https://github.com/lh3/minimap2/tree/master/python)
 
 ```markdown
