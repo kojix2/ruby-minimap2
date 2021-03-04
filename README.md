@@ -1,6 +1,8 @@
 # Minimap2
 
+[![Gem Version](https://img.shields.io/gem/v/minimap2?color=brightgreen)](https://rubygems.org/gems/minimap2)
 [![CI](https://github.com/kojix2/ruby-minimap2/workflows/CI/badge.svg)](https://github.com/kojix2/ruby-minimap2/actions)
+[![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 
 :dna: [minimap2](https://github.com/lh3/minimap2) - the long-read mapper - for [Ruby](https://github.com/ruby/ruby)
 
