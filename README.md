@@ -45,6 +45,8 @@ end
 
 ## APIs
 
+[RubyDoc - minimap2](https://rubydoc.info/gems/minimap2)
+
 See
 * [Mappy: Minimap2 Python Binding](https://github.com/lh3/minimap2/tree/master/python)
 
