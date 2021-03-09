@@ -2,7 +2,7 @@
 
 module Minimap2
   class Aligner
-    attr_reader :index_options, :map_options, :index
+    attr_reader :idx_opt, :map_opt, :index
 
     def initialize(
       fn_idx_in, # FIXME
@@ -22,60 +22,60 @@ module Minimap2
       scoring: nil
     )
 
-      @index_options = FFI::IdxOpt.new
-      @map_options = FFI::MapOpt.new
+      @idx_opt = FFI::IdxOpt.new
+      @map_opt = FFI::MapOpt.new
 
       if preset
-        FFI.mm_set_opt(preset, index_options, map_options)
+        FFI.mm_set_opt(preset, idx_opt, map_opt)
       else
         # set the default options
-        FFI.mm_set_opt(0, index_options, map_options)
+        FFI.mm_set_opt(0, idx_opt, map_opt)
       end
 
       # always perform alignment
-      map_options[:flag] |= 4
-      index_options[:batch_size] = 0x7fffffffffffffff
+      map_opt[:flag] |= 4
+      idx_opt[:batch_size] = 0x7fffffffffffffff
 
       # override preset options
-      index_options[:k] = k if k
-      index_options[:w] = w if w
-      map_options[:min_cnt] = min_cnt if min_cnt
-      map_options[:min_chain_score] = min_chain_score if min_chain_score
-      map_options[:min_dp_max] = min_dp_score if min_dp_score
-      map_options[:bw] = bw if bw
-      map_options[:best_n] = best_n if best_n
-      map_options[:max_frag_len] = max_frag_len if max_frag_len
-      map_options[:flag] |= extra_flags if extra_flags
+      idx_opt[:k] = k if k
+      idx_opt[:w] = w if w
+      map_opt[:min_cnt] = min_cnt if min_cnt
+      map_opt[:min_chain_score] = min_chain_score if min_chain_score
+      map_opt[:min_dp_max] = min_dp_score if min_dp_score
+      map_opt[:bw] = bw if bw
+      map_opt[:best_n] = best_n if best_n
+      map_opt[:max_frag_len] = max_frag_len if max_frag_len
+      map_opt[:flag] |= extra_flags if extra_flags
       if scoring && scoring.size >= 4
-        map_options[:a] = scoring[0]
-        map_options[:b] = scoring[1]
-        map_options[:q] = scoring[2]
-        map_options[:e] = scoring[3]
-        map_options[:q2] = map_options.q
-        map_options[:e2] = map_options.e
+        map_opt[:a] = scoring[0]
+        map_opt[:b] = scoring[1]
+        map_opt[:q] = scoring[2]
+        map_opt[:e] = scoring[3]
+        map_opt[:q2] = map_opt.q
+        map_opt[:e2] = map_opt.e
         if scoring.size >= 6
-          map_options[:q2] = scoring[4]
-          map_options[:e2] = scoring[5]
-          map_options[:sc_ambi] = scoring[6] if scoring.size >= 7
+          map_opt[:q2] = scoring[4]
+          map_opt[:e2] = scoring[5]
+          map_opt[:sc_ambi] = scoring[6] if scoring.size >= 7
         end
       end
 
       if seq
         @index = FFI.mappy_idx_seq(
-          index_options.w, index_options.k, index_options & 1,
-          index_options.bucket_bits, seq, seq.size
+          idx_opt.w, idx_opt.k, idx_opt & 1,
+          idx_opt.bucket_bits, seq, seq.size
         )
-        FFI.mm_mapopt_update(map_options, index)
-        map_options.mid_occ = 1000 # don't filter high-occ seeds
+        FFI.mm_mapopt_update(map_opt, index)
+        map_opt.mid_occ = 1000 # don't filter high-occ seeds
       else
-        reader = FFI.mm_idx_reader_open(fn_idx_in, index_options, fn_idx_out)
+        reader = FFI.mm_idx_reader_open(fn_idx_in, idx_opt, fn_idx_out)
 
         # The Ruby version raises an error here
         raise "Cannot open : #{fn_idx_in}" if reader.null?
 
         @index = FFI.mm_idx_reader_read(reader, n_threads)
         FFI.mm_idx_reader_close(reader)
-        FFI.mm_mapopt_update(map_options, index)
+        FFI.mm_mapopt_update(map_opt, index)
         FFI.mm_idx_index_name(index)
       end
     end
@@ -99,14 +99,14 @@ module Minimap2
 
       return if index.null?
 
-      map_options.max_frag_len = max_frag_len if max_frag_len
-      map_options.flag |= extra_flags if extra_flags
+      map_opt.max_frag_len = max_frag_len if max_frag_len
+      map_opt.flag |= extra_flags if extra_flags
 
       buf ||= FFI::TBuf.new
       km = FFI.mm_tbuf_get_km(buf)
       n_regs_ptr = ::FFI::MemoryPointer.new :int
 
-      ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, buf, map_options)
+      ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, buf, map_opt)
       n_regs = n_regs_ptr.read_int
 
       regs = Array.new(n_regs) { |i| FFI::Reg1.new(ptr + i * FFI::Reg1.size) }
