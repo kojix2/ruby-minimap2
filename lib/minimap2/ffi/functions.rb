@@ -6,15 +6,15 @@ module Minimap2
       :mm_set_opt_raw, :mm_set_opt,
       [:pointer, IdxOpt.by_ref, MapOpt.by_ref],
       :int
-    
+
     private_class_method :mm_set_opt_raw
-    
+
     def self.mm_set_opt(preset, io, mo)
-      if preset == 0
-        ptr = ::FFI::Pointer.new(:int, 0)
-      else
-        ptr = ::FFI::MemoryPointer.from_string(preset.to_s)
-      end
+      ptr = if preset == 0
+              ::FFI::Pointer.new(:int, 0)
+            else
+              ::FFI::MemoryPointer.from_string(preset.to_s)
+            end
       mm_set_opt_raw(ptr, io, mo)
     end
 

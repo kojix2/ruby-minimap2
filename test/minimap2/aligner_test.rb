@@ -14,7 +14,7 @@ class AlignerTest < Minitest::Test
   def test_idx_opt
     assert_instance_of MM2::FFI::IdxOpt, @a.idx_opt
   end
-  
+
   def test_map_opt
     assert_instance_of MM2::FFI::MapOpt, @a.map_opt
   end
