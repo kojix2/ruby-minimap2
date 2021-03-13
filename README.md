@@ -9,22 +9,24 @@
 
 ## Installation
 
-You need to install it from the source code. Because you need to build minimap2 and create a shared library. 
-Open your terminal and type the following commands in order. 
+You need to install ruby-minimap2 from the source code. Because you need to build minimap2 and create a shared library. Open your terminal and type the following commands in order. 
+
+Build
 
 ```sh
 git clone --recurse-submodules https://github.com/kojix2/ruby-minimap2
 cd ruby-minimap2
 bundle install
 bundle exec rake minimap2:build
+```
+
+Install
+
+```
 bundle exec rake install
 ```
 
-You can run tests to see if the installation was successful. 
-
-```
-bundle exec rake test
-```
+Ruby-minimap2 is tested on Ubuntu and macOS. 
 
 ## Quick Start
 
@@ -40,42 +42,112 @@ seq = aligner.seq("MT_human", 100, 200)
 # mapping
 aligner.align(seq) do |h|
   pp h.to_h
+  # {:ctg=>"MT_human",
+  #  :ctg_len=>16569,
+  #  :r_st=>100,
+  #  :r_en=>200,
+  #  :strand=>1,
+  #  :trans_strand=>0,
+  #  :blen=>100,
+  #  :mlen=>100,
+  #  :nm=>0,
+  #  :primary=>1,
+  #  :q_st=>0,
+  #  :q_en=>100,
+  #  :mapq=>60,
+  #  :cigar=>[[100, 0]],
+  #  :read_num=>1,
+  #  :cs=>"",
+  #  :md=>"",
+  #  :cigar_str=>"100M"}
 end
 ```
 
-## APIs
+## APIs Overview
 
-[RubyDoc - minimap2](https://rubydoc.info/gems/minimap2)
-
-See
-* [Mappy: Minimap2 Python Binding](https://github.com/lh3/minimap2/tree/master/python)
+See the [RubyDoc.info document](https://rubydoc.info/gems/minimap2) for details.
 
 ```markdown
 * Minimap2 module
   * Aligner class
+    * attributes
+      - index
+      - idx_opt
+      - map_opt
+    * methods
+      - new(path, preset: nil)
+      - align
+
   * Alignment class
+    * attributes
+      - ctg
+      - ctg_len
+      - r_st
+      - r_en
+      - strand
+      - trans_strand
+      - blen
+      - mlen
+      - nm
+      - primary
+      - q_st
+      - q_en
+      - mapq
+      - cigar
+      - read_num
+      - cs
+      - md
+      - cigar_str
+    * methods
+      - to_h
+      - to_s
+
+  * FFI module
+    * IdxOpt class
+    * MapOpt class
 ```
 
+The ruby-minimap2 API is compliant with mappy, the official Python binding for Minimap2. However, there are a few differences. For example, the `map` method has been renamed to `align` since map is the common name for iterators in Ruby.
+
+* [Mappy: Minimap2 Python Binding](https://github.com/lh3/minimap2/tree/master/python)
+
+ruby-minimap2 is built on top of [Ruby-FFI](https://github.com/ffi/ffi). Native functions can be called from the FFI module, which also provides a way to access some C structs such as IdxOpt and MapOpt.
+
 ## Development
+
+Fork your repository and clone.
 
 ```sh
 git clone --recurse-submodules https://github.com/kojix2/ruby-minimap2
 # git clone https://github.com/kojix2/ruby-minimap2
 # cd ruby-minimap2
 # git submodule update -i
+```
+
+Build.
+
+```sh
 cd ruby-minimap2
-bundle install
+bundle install # Install dependent packages including Ruby-FFI
 bundle exec rake minimap2:build
+```
+
+Run tests.
+
+```
 bundle exec rake test
 ```
 
 ## Contributing
 
-ruby-minimap2 is a library under development and there are many points to be improved. 
-If you improve the source code, please feel free to send us your pull request. 
-Typo corrections are also welcome. 
+ruby-minimap2 is a library under development and there are many points to be improved. Please feel free to send us your pull request. 
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/ruby-minimap2.
+* [Report bugs](https://github.com/kojix2/ruby-minimap2/issues)
+* Fix bugs and [submit pull requests](https://github.com/kojix2/ruby-minimap2/pulls)
+* Write, clarify, or fix documentation
+* Suggest or add new features
+* Create tools based on ruby-minimap2
+* Update minimap2 in github submodule
 
 ## License
 
