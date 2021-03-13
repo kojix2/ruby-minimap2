@@ -42,24 +42,24 @@ seq = aligner.seq("MT_human", 100, 200)
 # mapping
 aligner.align(seq) do |h|
   pp h.to_h
-  # {:ctg=>"MT_human",
-  #  :ctg_len=>16569,
-  #  :r_st=>100,
-  #  :r_en=>200,
-  #  :strand=>1,
-  #  :trans_strand=>0,
-  #  :blen=>100,
-  #  :mlen=>100,
-  #  :nm=>0,
-  #  :primary=>1,
-  #  :q_st=>0,
-  #  :q_en=>100,
-  #  :mapq=>60,
-  #  :cigar=>[[100, 0]],
-  #  :read_num=>1,
-  #  :cs=>"",
-  #  :md=>"",
-  #  :cigar_str=>"100M"}
+  # {:ctg          => "MT_human",
+  #  :ctg_len      => 16569,
+  #  :r_st         => 100,
+  #  :r_en         => 200,
+  #  :strand       => 1,
+  #  :trans_strand => 0,
+  #  :blen         => 100,
+  #  :mlen         => 100,
+  #  :nm           => 0,
+  #  :primary      => 1,
+  #  :q_st         => 0,
+  #  :q_en         => 100,
+  #  :mapq         => 60,
+  #  :cigar        => [[100, 0]],
+  #  :read_num     => 1,
+  #  :cs           => "",
+  #  :md           => "",
+  #  :cigar_str    => "100M"}
 end
 ```
 
@@ -69,6 +69,9 @@ See the [RubyDoc.info document](https://rubydoc.info/gems/minimap2) for details.
 
 ```markdown
 * Minimap2 module
+  - fastx_read
+  - revcomp
+
   * Aligner class
     * attributes
       - index
