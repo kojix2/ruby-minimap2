@@ -87,7 +87,7 @@ class AlignmentTest < Minitest::Test
     assert_equal "200", @a.md
   end
 
-  def test_cigar
+  def test_cigar_str
     assert_equal "200M", @a.cigar_str
   end
 
