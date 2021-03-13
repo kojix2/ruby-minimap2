@@ -2,13 +2,25 @@
 
 require_relative "../test_helper"
 class AlignerTest < Minitest::Test
+  def fa_path
+    File.expand_path("../../minimap2/test/MT-human.fa", __dir__)
+  end
+
   def setup
-    path = File.expand_path("../../minimap2/test/MT-human.fa", __dir__)
-    @a = MM2::Aligner.new(path)
+    @a = MM2::Aligner.new(fa_path)
   end
 
   def test_initialize
     assert_instance_of MM2::Aligner, @a
+  end
+
+  def test_initialize_preset_short
+    assert_instance_of MM2::Aligner, MM2::Aligner.new(fa_path, preset: "short")
+    assert_instance_of MM2::Aligner, MM2::Aligner.new(fa_path, preset: :short)
+  end
+
+  def test_initialize_preset_unknown
+    assert_raises(ArgumentError) { MM2::Aligner.new(fa_path, preset: "sort") }
   end
 
   def test_idx_opt

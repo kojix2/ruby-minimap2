@@ -26,7 +26,8 @@ module Minimap2
       @map_opt = FFI::MapOpt.new
 
       if preset
-        FFI.mm_set_opt(preset, idx_opt, map_opt)
+        r = FFI.mm_set_opt(preset, idx_opt, map_opt)
+        raise ArgumentError, "Unknown preset name: #{preset}" if r == -1
       else
         # set the default options
         FFI.mm_set_opt(0, idx_opt, map_opt)
