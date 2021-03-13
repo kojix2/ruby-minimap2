@@ -5,7 +5,7 @@ module Minimap2
     attr_reader :idx_opt, :map_opt, :index
 
     def initialize(
-      fn_idx_in, # FIXME
+      fn_idx_in,
       preset: nil,
       k: nil,
       w: nil,
