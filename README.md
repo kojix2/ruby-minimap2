@@ -17,7 +17,7 @@ You need to install ruby-minimap2 from the source code. Because you need to buil
 Build
 
 ```sh
-git clone --recurse-submodules https://github.com/kojix2/ruby-minimap2
+git clone --recursive https://github.com/kojix2/ruby-minimap2
 cd ruby-minimap2
 bundle install
 bundle exec rake minimap2:build
@@ -124,7 +124,7 @@ ruby-minimap2 is built on top of [Ruby-FFI](https://github.com/ffi/ffi). Native 
 Fork your repository and clone.
 
 ```sh
-git clone --recurse-submodules https://github.com/kojix2/ruby-minimap2
+git clone --recursive https://github.com/kojix2/ruby-minimap2
 # git clone https://github.com/kojix2/ruby-minimap2
 # cd ruby-minimap2
 # git submodule update -i
