@@ -88,7 +88,7 @@ module Minimap2
 
     attach_function \
       :mappy_idx_seq,
-      %i[int int int int pointer int],
+      %i[int int int int string int],
       Idx.by_ref
 
     attach_function \

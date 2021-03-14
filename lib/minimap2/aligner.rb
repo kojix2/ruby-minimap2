@@ -4,6 +4,29 @@ module Minimap2
   class Aligner
     attr_reader :idx_opt, :map_opt, :index
 
+    # Create a new aligner
+    #
+    # @param fn_idx_in [String] index or sequence file name.
+    # @param preset [String] minimap2 preset.
+    # @param k [Integer] k-mer length, no larger than 28.
+    # @param w [Integer] minimizer window size, no larger than 255.
+    # @param min_cnt [Integer] mininum number of minimizers on a chain.
+    # @param min_chain_score [Integer] minimum chaing score.
+    # @param min_dp_score
+    # @param bw [Integer] chaining and alignment band width.
+    # @param best_n [Integer] max number of alignments to return.
+    # @param n_threads [Integer] number of indexing threads.
+    # @param fn_idx_out [String] name of file to which the index is written.
+    #   This parameter has no effect if seq is set.
+    # @param max_frag_len [Integer]
+    # @param extra_flags [Integer] additional flags defined in minimap.h.
+    # @param seq [String] a single sequence to index.
+    # @param scoring [Array] scoring system.
+    #   It is a tuple/list consisting of 4, 6 or 7 positive integers.
+    #   The first 4 elements specify match scoring, mismatch penalty, gap open and gap extension penalty.
+    #   The 5th and 6th elements, if present, set long-gap open and long-gap extension penalty.
+    #   The 7th sets a mismatch penalty involving ambiguous bases.
+
     def initialize(
       fn_idx_in,
       preset: nil,
@@ -145,6 +168,11 @@ module Minimap2
       end
     end
 
+    # retrieve a subsequence from the index.
+    # @params name
+    # @params start
+    # @params stop
+
     def seq(name, start = 0, stop = 0x7fffffff)
       lp = ::FFI::MemoryPointer.new(:int)
       s = FFI.mappy_fetch_seq(index, name, start, stop, lp)
@@ -154,10 +182,12 @@ module Minimap2
       s.read_string(l)
     end
 
+    # k-mer length, no larger than 28
     def k
       index[:k]
     end
 
+    # minimizer window size, no larger than 255
     def w
       index[:w]
     end
