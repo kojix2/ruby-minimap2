@@ -38,7 +38,7 @@ module Minimap2
         :seq,            KString,
         :qual,           KString,
         :last_char,      :int,
-        :f,              :pointer # FIXME: KStream
+        :f,              :pointer # KStream
     end
 
     attach_function \
