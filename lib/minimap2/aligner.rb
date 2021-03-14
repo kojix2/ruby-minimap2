@@ -76,8 +76,8 @@ module Minimap2
       end
     end
 
-    # FIXME: naming
-    def destroy
+    # Explicitly releases the memory of the index object.
+    def free_index
       FFI.mm_idx_destroy(index) unless index.null?
     end
 
