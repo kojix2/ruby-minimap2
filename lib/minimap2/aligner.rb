@@ -25,13 +25,8 @@ module Minimap2
       @idx_opt = FFI::IdxOpt.new
       @map_opt = FFI::MapOpt.new
 
-      if preset
-        r = FFI.mm_set_opt(preset, idx_opt, map_opt)
-        raise ArgumentError, "Unknown preset name: #{preset}" if r == -1
-      else
-        # set the default options
-        FFI.mm_set_opt(0, idx_opt, map_opt)
-      end
+      r = FFI.mm_set_opt(preset, idx_opt, map_opt)
+      raise ArgumentError, "Unknown preset name: #{preset}" if r == -1
 
       # always perform alignment
       map_opt[:flag] |= 4

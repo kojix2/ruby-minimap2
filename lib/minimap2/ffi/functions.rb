@@ -10,10 +10,10 @@ module Minimap2
     private_class_method :mm_set_opt_raw
 
     def self.mm_set_opt(preset, io, mo)
-      ptr = if preset == 0
-              ::FFI::Pointer.new(:int, 0)
-            else
+      ptr = if preset
               ::FFI::MemoryPointer.from_string(preset.to_s)
+            else
+              ::FFI::Pointer.new(:int, 0)
             end
       mm_set_opt_raw(ptr, io, mo)
     end
