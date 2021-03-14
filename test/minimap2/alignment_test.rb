@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "../test_helper"
+require_relative '../test_helper'
 class AlignmentTest < Minitest::Test
   def setup
-    path = File.expand_path("../../minimap2/test/MT-human.fa", __dir__)
+    path = File.expand_path('../../minimap2/test/MT-human.fa', __dir__)
     aligner = MM2::Aligner.new(path)
-    seq = aligner.seq("MT_human", 100, 300)
+    seq = aligner.seq('MT_human', 100, 300)
     aligner.align(seq, cs: true, md: true) do |h|
       @a = h
     end
@@ -20,7 +20,7 @@ class AlignmentTest < Minitest::Test
   end
 
   def test_ctg
-    assert_equal "MT_human", @a.ctg
+    assert_equal 'MT_human', @a.ctg
   end
 
   def test_ctg_len
@@ -80,15 +80,15 @@ class AlignmentTest < Minitest::Test
   end
 
   def test_cs
-    assert_equal ":200", @a.cs
+    assert_equal ':200', @a.cs
   end
 
   def test_md
-    assert_equal "200", @a.md
+    assert_equal '200', @a.md
   end
 
   def test_cigar_str
-    assert_equal "200M", @a.cigar_str
+    assert_equal '200M', @a.cigar_str
   end
 
   def test_primary?
@@ -97,7 +97,7 @@ class AlignmentTest < Minitest::Test
 
   def test_to_h
     hit = {
-      ctg: "MT_human",
+      ctg: 'MT_human',
       ctg_len: 16_569,
       r_st: 100,
       r_en: 300,
@@ -112,9 +112,9 @@ class AlignmentTest < Minitest::Test
       mapq: 60,
       cigar: [[200, 0]],
       read_num: 1,
-      cs: ":200",
-      md: "200",
-      cigar_str: "200M"
+      cs: ':200',
+      md: '200',
+      cigar_str: '200M'
     }
     assert_equal hit, @a.to_h
   end

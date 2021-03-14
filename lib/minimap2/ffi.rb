@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # bit fields
-require_relative "ffi_helper"
+require_relative 'ffi_helper'
 
 module Minimap2
   # Native APIs
@@ -22,6 +22,6 @@ module Minimap2
   end
 end
 
-require_relative "ffi/constants"
-require_relative "ffi/functions"
-require_relative "ffi/mappy"
+require_relative 'ffi/constants'
+require_relative 'ffi/functions'
+require_relative 'ffi/mappy'

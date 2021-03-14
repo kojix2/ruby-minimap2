@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 # dependencies
-require "ffi"
+require 'ffi'
 
 # bit fields
-require_relative "minimap2/ffi_helper"
+require_relative 'minimap2/ffi_helper'
 
 # modules
-require_relative "minimap2/aligner"
-require_relative "minimap2/alignment"
-require_relative "minimap2/version"
+require_relative 'minimap2/aligner'
+require_relative 'minimap2/alignment'
+require_relative 'minimap2/version'
 
 # Minimap2 mapper for long read sequences
 # https://github.com/lh3/minimap2
@@ -22,15 +22,15 @@ module Minimap2
     attr_accessor :ffi_lib
   end
 
-  lib_name = ::FFI.map_library_name("minimap2")
-  self.ffi_lib = if ENV["MINIMAPDIR"]
-                   File.expand_path(lib_name, ENV["MINIMAPDIR"])
+  lib_name = ::FFI.map_library_name('minimap2')
+  self.ffi_lib = if ENV['MINIMAPDIR']
+                   File.expand_path(lib_name, ENV['MINIMAPDIR'])
                  else
                    File.expand_path("../vendor/#{lib_name}", __dir__)
                  end
 
   # friendlier error message
-  autoload :FFI, "minimap2/ffi"
+  autoload :FFI, 'minimap2/ffi'
 
   # methods from mappy
   class << self

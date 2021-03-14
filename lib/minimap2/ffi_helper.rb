@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "ffi"
+require 'ffi'
 
 module FFI
   class BitStruct < Struct

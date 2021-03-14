@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 class FFITest < Minitest::Test
   def test_mm128
@@ -144,8 +144,8 @@ class FFITest < Minitest::Test
   def test_mm_set_opt_short
     iopt = MM2::FFI::IdxOpt.new
     mopt = MM2::FFI::MapOpt.new
-    MM2::FFI.mm_set_opt("short", iopt, mopt)
+    MM2::FFI.mm_set_opt('short', iopt, mopt)
     assert_equal [21, 11, 0, 0, 0, 0], iopt.values
-    assert MM2::FFI.mm_set_opt(":asm10", iopt, mopt)
+    assert MM2::FFI.mm_set_opt(':asm10', iopt, mopt)
   end
 end
