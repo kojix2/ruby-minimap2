@@ -7,6 +7,7 @@ module Minimap2
     # Create a new aligner
     #
     # @param fn_idx_in [String] index or sequence file name.
+    # @param seq [String] a single sequence to index.
     # @param preset [String] minimap2 preset.
     # @param k [Integer] k-mer length, no larger than 28.
     # @param w [Integer] minimizer window size, no larger than 255.
@@ -20,7 +21,6 @@ module Minimap2
     #   This parameter has no effect if seq is set.
     # @param max_frag_len [Integer]
     # @param extra_flags [Integer] additional flags defined in minimap.h.
-    # @param seq [String] a single sequence to index.
     # @param scoring [Array] scoring system.
     #   It is a tuple/list consisting of 4, 6 or 7 positive integers.
     #   The first 4 elements specify match scoring, mismatch penalty, gap open and gap extension penalty.
@@ -28,7 +28,8 @@ module Minimap2
     #   The 7th sets a mismatch penalty involving ambiguous bases.
 
     def initialize(
-      fn_idx_in,
+      fn_idx_in = nil,
+      seq: nil,
       preset: nil,
       k: nil,
       w: nil,
@@ -41,7 +42,6 @@ module Minimap2
       fn_idx_out: nil,
       max_frag_len: nil,
       extra_flags: nil,
-      seq: nil,
       scoring: nil
     )
 
@@ -79,14 +79,8 @@ module Minimap2
         end
       end
 
-      if seq
-        @index = FFI.mappy_idx_seq(
-          idx_opt.w, idx_opt.k, idx_opt & 1,
-          idx_opt.bucket_bits, seq, seq.size
-        )
-        FFI.mm_mapopt_update(map_opt, index)
-        map_opt.mid_occ = 1000 # don't filter high-occ seeds
-      else
+      if fn_idx_in
+        warn "Since fn_idx_in is specified, the seq argument will be ignored." if seq
         reader = FFI.mm_idx_reader_open(fn_idx_in, idx_opt, fn_idx_out)
 
         # The Ruby version raises an error here
@@ -96,6 +90,13 @@ module Minimap2
         FFI.mm_idx_reader_close(reader)
         FFI.mm_mapopt_update(map_opt, index)
         FFI.mm_idx_index_name(index)
+      elsif seq
+        @index = FFI.mappy_idx_seq(
+          idx_opt[:w], idx_opt[:k], idx_opt[:flag] & 1,
+          idx_opt[:bucket_bits], seq, seq.size
+        )
+        FFI.mm_mapopt_update(map_opt, index)
+        map_opt[:mid_occ] = 1000 # don't filter high-occ seeds
       end
     end
 

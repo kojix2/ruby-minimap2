@@ -23,6 +23,10 @@ class AlignerTest < Minitest::Test
     assert_raises(ArgumentError) { MM2::Aligner.new(fa_path, preset: 'sort') }
   end
 
+  def test_initialize_with_seq
+    assert_instance_of MM2::Aligner, MM2::Aligner.new(seq: "CACAGGTCGAAGGAGTAATTACCCAACAATGGGTCTCTAG")
+  end
+
   def test_idx_opt
     assert_instance_of MM2::FFI::IdxOpt, @a.idx_opt
   end
