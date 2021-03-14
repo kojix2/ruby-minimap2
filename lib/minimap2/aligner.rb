@@ -105,9 +105,18 @@ module Minimap2
       FFI.mm_idx_destroy(index) unless index.null?
     end
 
-    # NOTE: Name change: map -> align
-    # In the Ruby language, the name map means iterator.
-    # The original name is map, but here I use the method name align.
+    # @param seq [String]
+    # @param seq2 [String]
+    # @param buf [FFI::TBuf]
+    # @param cs [true, false]
+    # @param md [true, false]
+    # @param max_frag_len [Integer]
+    # @param extra_flags [Integer]
+    # @note Name change: map -> align
+    #   In the Ruby language, the name map means iterator.
+    #   The original name is map, but here I use the method name align.
+    # @note The use of Enumerator is being considered. The method names may change again.
+
     def align(
       seq, seq2 = nil,
       buf: nil,
