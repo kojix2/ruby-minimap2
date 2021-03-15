@@ -80,7 +80,7 @@ module Minimap2
       end
 
       if fn_idx_in
-        warn "Since fn_idx_in is specified, the seq argument will be ignored." if seq
+        warn 'Since fn_idx_in is specified, the seq argument will be ignored.' if seq
         reader = FFI.mm_idx_reader_open(fn_idx_in, idx_opt, fn_idx_out)
 
         # The Ruby version raises an error here
@@ -116,6 +116,7 @@ module Minimap2
     #   In the Ruby language, the name map means iterator.
     #   The original name is map, but here I use the method name align.
     # @note The use of Enumerator is being considered. The method names may change again.
+    # @return [Array] alignments
 
     def align(
       seq, seq2 = nil,
@@ -146,7 +147,9 @@ module Minimap2
 
       cs_str     = ::FFI::MemoryPointer.new(::FFI::MemoryPointer.new(:string))
       m_cs_str   = ::FFI::MemoryPointer.new :int
-      
+
+      alignments = []
+
       i = 0
       begin
         while i < n_regs
@@ -167,7 +170,7 @@ module Minimap2
             _md = cs_str.read_pointer.read_string(l_cs_str)
           end
 
-          yield Alignment.new(hit, cigar, _cs, _md)
+          alignments << Alignment.new(hit, cigar, _cs, _md)
 
           FFI.mm_free_reg1(regs[i])
           i += 1
@@ -178,6 +181,7 @@ module Minimap2
           i += 1
         end
       end
+      alignments
     end
 
     # retrieve a subsequence from the index.
