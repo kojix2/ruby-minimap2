@@ -133,25 +133,27 @@ module Minimap2
 
       buf ||= FFI::TBuf.new
       km = FFI.mm_tbuf_get_km(buf)
-      n_regs_ptr = ::FFI::MemoryPointer.new :int
 
-      ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, buf, map_opt)
+      n_regs_ptr = ::FFI::MemoryPointer.new :int
+      regs_ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, buf, map_opt)
       n_regs = n_regs_ptr.read_int
 
-      regs = Array.new(n_regs) { |i| FFI::Reg1.new(ptr + i * FFI::Reg1.size) }
+      regs = Array.new(n_regs) do
+        |i| FFI::Reg1.new(regs_ptr + i * FFI::Reg1.size)
+      end
 
       hit = FFI::Hit.new
+
       cs_str     = ::FFI::MemoryPointer.new(::FFI::MemoryPointer.new(:string))
       m_cs_str   = ::FFI::MemoryPointer.new :int
+      
       i = 0
       begin
         while i < n_regs
           FFI.mm_reg2hitpy(index, regs[i], hit)
-          cigar = []
 
           c = hit[:cigar32].read_array_of_uint32(hit[:n_cigar32])
-          # convert the 32-bit CIGAR encoding to Ruby array
-          cigar = c.map { |x| [x >> 4, x & 0xf] }
+          cigar = c.map { |x| [x >> 4, x & 0xf] } # 32-bit CIGAR encoding -> Ruby array
 
           _cs = ''
           if cs
@@ -193,11 +195,13 @@ module Minimap2
     end
 
     # k-mer length, no larger than 28
+
     def k
       index[:k]
     end
 
     # minimizer window size, no larger than 255
+
     def w
       index[:w]
     end
