@@ -138,8 +138,8 @@ module Minimap2
       regs_ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, buf, map_opt)
       n_regs = n_regs_ptr.read_int
 
-      regs = Array.new(n_regs) do
-        |i| FFI::Reg1.new(regs_ptr + i * FFI::Reg1.size)
+      regs = Array.new(n_regs) do |i|
+        FFI::Reg1.new(regs_ptr + i * FFI::Reg1.size)
       end
 
       hit = FFI::Hit.new
