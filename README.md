@@ -43,8 +43,8 @@ aligner = Minimap2::Aligner.new("minimap2/test/MT-human.fa")
 seq = aligner.seq("MT_human", 100, 200)
 
 # mapping
-hit = aligner.align(seq).first
-pp hit
+hits = aligner.align(seq)
+pp hits[0].to_h
 # {:ctg          => "MT_human",
 #  :ctg_len      => 16569,
 #  :r_st         => 100,
