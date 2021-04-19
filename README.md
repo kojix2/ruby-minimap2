@@ -35,14 +35,23 @@ Ruby-minimap2 is tested on Ubuntu and macOS.
 
 ```ruby
 require "minimap2"
+```
 
-# load or build index
+create aligner
+
+```ruby
 aligner = Minimap2::Aligner.new("minimap2/test/MT-human.fa")
+```
 
-# retrieve a subsequence from the index
+retrieve a subsequence from the index
+
+```ruby
 seq = aligner.seq("MT_human", 100, 200)
+```
 
-# mapping
+mapping
+
+```ruby
 hits = aligner.align(seq)
 pp hits[0].to_h
 # {:ctg          => "MT_human",
