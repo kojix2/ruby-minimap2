@@ -1,20 +1,19 @@
-diff --git a/Makefile b/Makefile
-index 18622f5..86286e9 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,7 +1,7 @@
+--- Makefile.org	2021-05-27 15:45:11.993128205 +0900
++++ Makefile	2021-05-27 15:46:02.320569154 +0900
+@@ -1,9 +1,9 @@
 -CFLAGS=		-g -Wall -O2 -Wc++-compat #-Wextra
-+CFLAGS=    -g -Wall -O2 -Wc++-compat -fPIC #-Wextra
++CFLAGS=		-g -Wall -O2 -Wc++-compat -fPIC #-Wextra
  CPPFLAGS=	-DHAVE_KALLOC
  INCLUDES=
--OBJS=		kthread.o kalloc.o misc.o bseq.o sketch.o sdust.o options.o index.o chain.o align.o hit.o map.o format.o pe.o esterr.o splitidx.o ksw2_ll_sse.o
-+OBJS=		kthread.o kalloc.o misc.o bseq.o sketch.o sdust.o options.o index.o chain.o align.o hit.o map.o format.o pe.o esterr.o splitidx.o ksw2_ll_sse.o cmappy.o
+ OBJS=		kthread.o kalloc.o misc.o bseq.o sketch.o sdust.o options.o index.o \
+ 			lchain.o align.o hit.o seed.o map.o format.o pe.o esterr.o splitidx.o \
+-			ksw2_ll_sse.o
++			ksw2_ll_sse.o cmappy.o
  PROG=		minimap2
  PROG_EXTRA=	sdust minimap2-lite
  LIBS=		-lm -lz -lpthread
-@@ -126,3 +126,4 @@ pe.o: mmpriv.h minimap.h bseq.h kvec.h kalloc.h ksort.h
- sdust.o: kalloc.h kdq.h kvec.h ketopt.h sdust.h
- sketch.o: kvec.h kalloc.h mmpriv.h minimap.h bseq.h
- splitidx.o: mmpriv.h minimap.h bseq.h
+@@ -130,3 +130,4 @@ sdust.o: kalloc.h kdq.h kvec.h sdust.h
+ seed.o: mmpriv.h minimap.h bseq.h kseq.h kalloc.h ksort.h
+ sketch.o: kvec.h kalloc.h mmpriv.h minimap.h bseq.h kseq.h
+ splitidx.o: mmpriv.h minimap.h bseq.h kseq.h
 +cmappy.o: cmappy.h
-\ No newline at end of file
