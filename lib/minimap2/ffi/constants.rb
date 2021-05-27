@@ -77,6 +77,7 @@ module Minimap2
         :sdust_thres,          :int,     # score threshold for SDUST; 0 to disable
         :max_qlen,             :int,     # max query length
         :bw,                   :int,     # bandwidth
+        :bw_long,              :int,
         :max_gap,              :int,     # break a chain if there are no minimizers in a max_gap window
         :max_gap_ref,          :int,
         :max_frag_len,         :int,
@@ -85,14 +86,14 @@ module Minimap2
         :min_cnt,              :int,     # min number of minimizers on each chain
         :min_chain_score,      :int,     # min chaining score
         :chain_gap_scale,      :float,
+        :rmq_size_cap,         :int,
+        :rmq_inner_dist,       :int,
+        :rmq_rescue_size,      :int,
+        :rmq_rescue_ratio,     :float,
         :mask_level,           :float,
         :mask_len,             :int,
         :pri_ratio,            :float,
         :best_n,               :int,     # top best_n chains are subjected to DP alignment
-        :max_join_long,        :int,
-        :max_join_short,       :int,
-        :min_join_flank_sc,    :int,
-        :min_join_flank_ratio, :float,
         :alt_drop,             :float,
         :a,                    :int,     # matching score
         :b,                    :int,     # mismatch
