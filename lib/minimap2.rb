@@ -34,7 +34,7 @@ module Minimap2
 
   # methods from mappy
   class << self
-    # read fasta/fastq file
+    # Read fasta/fastq file.
     # @param [String] file_path
     # @param [Boolean] read_comment If false or nil, the comment will not be read.
     # @yield [name, seq, qual, comment]
@@ -57,7 +57,7 @@ module Minimap2
       FFI.mm_fastx_close(ks)
     end
 
-    # reverse complement sequence
+    # Reverse complement sequence.
     # @param [String] seq
     # @return [string] seq
 
@@ -68,7 +68,7 @@ module Minimap2
       FFI.mappy_revcomp(l, bseq)
     end
 
-    # set verbosity level
+    # Set verbosity level.
     # @param [Integer] level
 
     def verbose(level = -1)

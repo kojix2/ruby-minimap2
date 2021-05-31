@@ -4,11 +4,21 @@ module Minimap2
   class Aligner
     attr_reader :idx_opt, :map_opt, :index
 
-    # Create a new aligner
+    # Create a new aligner.
     #
     # @param fn_idx_in [String] index or sequence file name.
     # @param seq [String] a single sequence to index.
     # @param preset [String] minimap2 preset.
+    #   * map-pb : PacBio CLR genomic reads
+    #   * map-ont : Oxford Nanopore genomic reads
+    #   * map-hifi : PacBio HiFi/CCS genomic reads (v2.19 or later)
+    #   * asm20 : PacBio HiFi/CCS genomic reads (v2.18 or earlier)
+    #   * sr : short genomic paired-end reads
+    #   * splice : spliced long reads (strand unknown)
+    #   * splice:hq : Final PacBio Iso-seq or traditional cDNA
+    #   * asm5 : intra-species asm-to-asm alignment
+    #   * ava-pb : PacBio read overlap
+    #   * ava-ont : Nanopore read overlap
     # @param k [Integer] k-mer length, no larger than 28.
     # @param w [Integer] minimizer window size, no larger than 255.
     # @param min_cnt [Integer] mininum number of minimizers on a chain.
@@ -101,6 +111,7 @@ module Minimap2
     end
 
     # Explicitly releases the memory of the index object.
+
     def free_index
       FFI.mm_idx_destroy(index) unless index.null?
     end
@@ -184,7 +195,7 @@ module Minimap2
       alignments
     end
 
-    # retrieve a subsequence from the index.
+    # Retrieve a subsequence from the index.
     # @params name
     # @params start
     # @params stop

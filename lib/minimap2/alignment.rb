@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Minimap2
-  # Alignment result
+  # Alignment result.
   #
   # @!attribute ctg
   #   @return [String] name of the reference sequence the query is mapped to.
@@ -80,10 +80,14 @@ module Minimap2
       @primary == 1
     end
 
+    # Convert Alignment to hash.
+
     def to_h
       self.class.keys.map { |k| [k, __send__(k)] }.to_h
     end
 
+    # Convert to the PAF format without the QueryName and QueryLength columns.
+    
     def to_s
       strand = if @strand.positive?
                  '+'
