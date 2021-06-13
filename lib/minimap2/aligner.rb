@@ -196,9 +196,9 @@ module Minimap2
     end
 
     # Retrieve a subsequence from the index.
-    # @params name
-    # @params start
-    # @params stop
+    # @param name
+    # @param start
+    # @param stop
 
     def seq(name, start = 0, stop = 0x7fffffff)
       lp = ::FFI::MemoryPointer.new(:int)
