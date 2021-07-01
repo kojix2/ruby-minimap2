@@ -1,4 +1,4 @@
-# Minimap2
+# ruby-minimap2
 
 [![Gem Version](https://img.shields.io/gem/v/minimap2?color=brightgreen)](https://rubygems.org/gems/minimap2)
 [![CI](https://github.com/kojix2/ruby-minimap2/workflows/CI/badge.svg)](https://github.com/kojix2/ruby-minimap2/actions)
