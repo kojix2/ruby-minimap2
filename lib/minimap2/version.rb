@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
 module Minimap2
-  VERSION = '0.0.4'
+  # Minimap2-2.21 (r1071).
+  VERSION = '0.2.21'
 end
