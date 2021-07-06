@@ -34,6 +34,7 @@ module Minimap2
     NO_END_FLT     = 0x10000000
     HARD_MLEVEL    = 0x20000000
     SAM_HIT_ONLY   = 0x40000000
+    RMQ            = 0x80000000 # LL
 
     HPC            = 0x1
     NO_SEQ         = 0x2
@@ -42,6 +43,8 @@ module Minimap2
     IDX_MAGIC      = "MMI\2"
 
     MAX_SEG        = 255
+
+    CIGAR_STR      = 'MIDNSHP=XB'
 
     # emulate 128-bit integers
     class MM128 < ::FFI::Struct

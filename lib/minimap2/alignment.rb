@@ -73,7 +73,7 @@ module Minimap2
       @cs           = cs
       @md           = md
 
-      @cigar_str = cigar.map { |x| x[0].to_s + 'MIDNSH'[x[1]] }.join
+      @cigar_str = cigar.map { |x| x[0].to_s + FFI::CIGAR_STR[x[1]] }.join
     end
 
     def primary?
@@ -87,7 +87,7 @@ module Minimap2
     end
 
     # Convert to the PAF format without the QueryName and QueryLength columns.
-    
+
     def to_s
       strand = if @strand.positive?
                  '+'
