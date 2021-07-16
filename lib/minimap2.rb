@@ -52,11 +52,11 @@ module Minimap2
       path = File.expand_path(file_path)
       ks = FFI.mm_fastx_open(path)
       if block_given?
-        fastq_each(ks, comment, &block)
+        fastx_each(ks, comment, &block)
       else
         Enumerator.new do |y|
           # rewind not work
-          fastq_each(ks, comment) { |r| y << r }
+          fastx_each(ks, comment) { |r| y << r }
         end
       end
     end
@@ -74,7 +74,7 @@ module Minimap2
 
     private
 
-    def fastq_each(ks, comment)
+    def fastx_each(ks, comment)
       yield fastx_next(ks, comment) while FFI.kseq_read(ks) >= 0
       FFI.mm_fastx_close(ks)
     end
