@@ -34,11 +34,19 @@ module Minimap2
 
   # methods from mappy
   class << self
+    # Set verbosity level.
+    # @param [Integer] level
+
+    def verbose(level = -1)
+      FFI.mm_verbose_level(level)
+    end
+
     # Read fasta/fastq file.
     # @param [String] file_path
     # @param [Boolean] comment If True, the comment will be read.
     # @yield [name, seq, qual, comment]
-    # Note: You can also use a generic library such as BioRuby instead of this method.
+    # @return [Enumerator] enum Retrun Enumerator if not block given.
+    # Note: You can BioRuby instead of this method.
 
     def fastx_read(file_path, comment: false, &block)
       path = File.expand_path(file_path)
@@ -53,7 +61,20 @@ module Minimap2
       end
     end
 
-    private def fastq_each(ks, comment)
+    # Reverse complement sequence.
+    # @param [String] seq
+    # @return [string] seq
+
+    def revcomp(seq)
+      l = seq.size
+      bseq = ::FFI::MemoryPointer.new(:char, l)
+      bseq.put_bytes(0, seq)
+      FFI.mappy_revcomp(l, bseq)
+    end
+
+    private
+
+    def fastq_each(ks, comment)
       yield fastx_next(ks, comment) while FFI.kseq_read(ks) >= 0
       FFI.mm_fastx_close(ks)
     end
@@ -68,24 +89,6 @@ module Minimap2
       else
         [name, seq, qual]
       end
-    end
-
-    # Reverse complement sequence.
-    # @param [String] seq
-    # @return [string] seq
-
-    def revcomp(seq)
-      l = seq.size
-      bseq = ::FFI::MemoryPointer.new(:char, l)
-      bseq.put_bytes(0, seq)
-      FFI.mappy_revcomp(l, bseq)
-    end
-
-    # Set verbosity level.
-    # @param [Integer] level
-
-    def verbose(level = -1)
-      FFI.mm_verbose_level(level)
     end
   end
 end

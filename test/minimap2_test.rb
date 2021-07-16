@@ -58,7 +58,8 @@ class Minimap2Test < Minitest::Test
           GATOGATOGATO
         FASTQ
       end
-      arr = MM2.fastx_read(fq.path, comment: true).to_a
+      enum = MM2.fastx_read(fq.path, comment: true)
+      arr = enum.to_a
       n, s, q, c = arr[0]
       assert_equal 1, arr.size
       assert_equal 'chat', n
