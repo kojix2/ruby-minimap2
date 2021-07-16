@@ -1,37 +1,20 @@
-name: CI
-
-on:
-- push
-- pull_request
-
+name: test
+on: [push, pull_request]
 jobs:
-  test:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  build:
     name: ${{ matrix.os }} Ruby ${{ matrix.ruby }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu
-          - macos
-        ruby:
-          - 2.7
-          - 3.0
     runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os:   ['ubuntu', 'macos']
+        ruby: [ '2.7', '3.0' ]
     steps:
-        
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           submodules: true
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-    
-      - name: Build and test with Rake
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-          bundle exec rake minimap2:build
-          bundle exec rake test
+          bundler-cache: true
+      - run: bundle exec rake minimap2:build
+      - run: bundle exec rake test
