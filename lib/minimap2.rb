@@ -58,11 +58,11 @@ module Minimap2
       FFI.mm_fastx_close(ks)
     end
 
-    private def fastx_next(ks, comment)
+    def fastx_next(ks, read_comment)
       qual = ks[:qual][:s] if (ks[:qual][:l]).positive?
       name = ks[:name][:s]
       seq  = ks[:seq][:s]
-      if comment
+      if read_comment
         comment = ks[:comment][:s] if (ks[:comment][:l]).positive?
         [name, seq, qual, comment]
       else

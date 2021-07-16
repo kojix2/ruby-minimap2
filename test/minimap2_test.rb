@@ -19,6 +19,10 @@ class Minimap2Test < Minitest::Test
       assert_equal names.shift, n
       assert_equal seqs.shift, s
     end
+    # comment should be nil if there is no comment.
+    MM2.fastx_read('minimap2/test/q-inv.fa', comment: true) do |_n, _s, c|
+      assert_nil c
+    end
   end
 
   def test_fastx_read_comment
