@@ -41,7 +41,7 @@ class Minimap2Test < Minitest::Test
       end
     end
   end
-  
+
   def test_fastx_read_comment_enumerator
     require 'tempfile'
     require 'zlib'
