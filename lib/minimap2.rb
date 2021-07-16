@@ -36,18 +36,18 @@ module Minimap2
   class << self
     # Read fasta/fastq file.
     # @param [String] file_path
-    # @param [Boolean] read_comment If false or nil, the comment will not be read.
+    # @param [Boolean] comment If True, the comment will be read.
     # @yield [name, seq, qual, comment]
     # Note: You can also use a generic library such as BioRuby instead of this method.
 
-    def fastx_read(file_path, read_comment = false)
+    def fastx_read(file_path, comment: false)
       path = File.expand_path(file_path)
       ks = FFI.mm_fastx_open(path)
       while FFI.kseq_read(ks) >= 0
         qual = ks[:qual][:s] if (ks[:qual][:l]).positive?
         name = ks[:name][:s]
         seq  = ks[:seq][:s]
-        if read_comment
+        if comment
           comment = ks[:comment][:s] if (ks[:comment][:l]).positive?
           yield [name, seq, qual, comment]
         else
