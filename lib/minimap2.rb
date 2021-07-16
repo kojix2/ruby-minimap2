@@ -40,21 +40,34 @@ module Minimap2
     # @yield [name, seq, qual, comment]
     # Note: You can also use a generic library such as BioRuby instead of this method.
 
-    def fastx_read(file_path, comment: false)
+    def fastx_read(file_path, comment: false, &block)
       path = File.expand_path(file_path)
       ks = FFI.mm_fastx_open(path)
-      while FFI.kseq_read(ks) >= 0
-        qual = ks[:qual][:s] if (ks[:qual][:l]).positive?
-        name = ks[:name][:s]
-        seq  = ks[:seq][:s]
-        if comment
-          comment = ks[:comment][:s] if (ks[:comment][:l]).positive?
-          yield [name, seq, qual, comment]
-        else
-          yield [name, seq, qual]
+      if block_given?
+        fastq_each(ks, comment, &block)
+      else
+        Enumerator.new do |y|
+          # rewind not work
+          fastq_each(ks, comment) { |r| y << r }
         end
       end
+    end
+
+    private def fastq_each(ks, comment)
+      yield fastx_next(ks, comment) while FFI.kseq_read(ks) >= 0
       FFI.mm_fastx_close(ks)
+    end
+
+    private def fastx_next(ks, comment)
+      qual = ks[:qual][:s] if (ks[:qual][:l]).positive?
+      name = ks[:name][:s]
+      seq  = ks[:seq][:s]
+      if comment
+        comment = ks[:comment][:s] if (ks[:comment][:l]).positive?
+        [name, seq, qual, comment]
+      else
+        [name, seq, qual]
+      end
     end
 
     # Reverse complement sequence.

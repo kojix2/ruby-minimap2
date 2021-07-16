@@ -41,6 +41,28 @@ class Minimap2Test < Minitest::Test
       end
     end
   end
+  
+  def test_fastx_read_comment_enumerator
+    require 'tempfile'
+    require 'zlib'
+    Tempfile.create('comment.fq.gz') do |fq|
+      Zlib::GzipWriter.open(fq.path) do |gz|
+        gz.write <<~FASTQ
+          >chat katze
+          CATCATCATCAT
+          +
+          GATOGATOGATO
+        FASTQ
+      end
+      arr = MM2.fastx_read(fq.path, comment: true).to_a
+      n, s, q, c = arr[0]
+      assert_equal 1, arr.size
+      assert_equal 'chat', n
+      assert_equal 'CATCATCATCAT', s
+      assert_equal 'GATOGATOGATO', q
+      assert_equal 'katze', c
+    end
+  end
 
   def test_revcomp
     assert_equal 'TCCCAAAGGGTTT', MM2.revcomp('AAACCCTTTGGGA')
