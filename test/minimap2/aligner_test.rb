@@ -47,7 +47,6 @@ class AlignerTest < Minitest::Test
   end
 
   def test_align2
-    qseq = @a.seq('MT_human', 100, 200)
     qseq = MM2.revcomp(@a.seq('MT_human', 300, 400))
     @a.align(qseq) do |h|
       assert_instance_of MM2::Alignment, h
