@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['2xijok@gmail.com']
 
   spec.summary       = 'minimap2'
-  spec.description   = 'minimap2'
+  spec.description   = 'Ruby bindings to the Minimap2 aligner.'
   spec.homepage      = 'https://github.com/kojix2/ruby-minimap2'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.5'
