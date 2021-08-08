@@ -115,6 +115,8 @@ module Minimap2
         :anchor_ext_len,       :int,
         :anchor_ext_shift,     :int,
         :max_clip_ratio,       :float,   # drop an alignment if BOTH ends are clipped above this ratio
+        :rank_min_len,         :int,
+        :rank_frac,            :float,
         :pe_ori,               :int,
         :pe_bonus,             :int,
         :mid_occ_frac,         :float,   # only used by mm_mapopt_update(); see below
@@ -123,6 +125,7 @@ module Minimap2
         :max_occ,              :int32_t,
         :mini_batch_size,      :int64_t, # size of a batch of query bases to process in parallel
         :max_sw_mat,           :int64_t,
+        :cap_kalloc,           :int64_t,
         :split_prefix,         :string
     end
 
