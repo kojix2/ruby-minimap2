@@ -3,48 +3,60 @@
 module Minimap2
   module FFI
     # flags
-    NO_DIAG        = 0x001 # no exact diagonal hit
-    NO_DUAL        = 0x002 # skip pairs where query name is lexicographically larger than target name
-    CIGAR          = 0x004
-    OUT_SAM        = 0x008
-    NO_QUAL        = 0x010
-    OUT_CG         = 0x020
-    OUT_CS         = 0x040
-    SPLICE         = 0x080 # splice mode
-    SPLICE_FOR     = 0x100 # match GT-AG
-    SPLICE_REV     = 0x200 # match CT-AC, the reverse complement of GT-AG
-    NO_LJOIN       = 0x400
-    OUT_CS_LONG    = 0x800
-    SR             = 0x1000
-    FRAG_MODE      = 0x2000
-    NO_PRINT_2ND   = 0x4000
-    TWO_IO_THREADS = 0x8000 # Translator's Note. MM_F_2_IO_THREADS. Constants starting with numbers cannot be defined.
-    LONG_CIGAR     = 0x10000
-    INDEPEND_SEG   = 0x20000
-    SPLICE_FLANK   = 0x40000
-    SOFTCLIP       = 0x80000
-    FOR_ONLY       = 0x100000
-    REV_ONLY       = 0x200000
-    HEAP_SORT      = 0x400000
-    ALL_CHAINS     = 0x800000
-    OUT_MD         = 0x1000000
-    COPY_COMMENT   = 0x2000000
-    EQX            = 0x4000000 # use =/X instead of M
-    PAF_NO_HIT     = 0x8000000 # output unmapped reads to PAF
-    NO_END_FLT     = 0x10000000
-    HARD_MLEVEL    = 0x20000000
-    SAM_HIT_ONLY   = 0x40000000
-    RMQ            = 0x80000000 # LL
+    NO_DIAG          = 0x001 # no exact diagonal hit
+    NO_DUAL          = 0x002 # skip pairs where query name is lexicographically larger than target name
+    CIGAR            = 0x004
+    OUT_SAM          = 0x008
+    NO_QUAL          = 0x010
+    OUT_CG           = 0x020
+    OUT_CS           = 0x040
+    SPLICE           = 0x080 # splice mode
+    SPLICE_FOR       = 0x100 # match GT-AG
+    SPLICE_REV       = 0x200 # match CT-AC, the reverse complement of GT-AG
+    NO_LJOIN         = 0x400
+    OUT_CS_LONG      = 0x800
+    SR               = 0x1000
+    FRAG_MODE        = 0x2000
+    NO_PRINT_2ND     = 0x4000
+    TWO_IO_THREADS   = 0x8000 # Translator's Note. MM_F_2_IO_THREADS. Constants starting with numbers cannot be defined.
+    LONG_CIGAR       = 0x10000
+    INDEPEND_SEG     = 0x20000
+    SPLICE_FLANK     = 0x40000
+    SOFTCLIP         = 0x80000
+    FOR_ONLY         = 0x100000
+    REV_ONLY         = 0x200000
+    HEAP_SORT        = 0x400000
+    ALL_CHAINS       = 0x800000
+    OUT_MD           = 0x1000000
+    COPY_COMMENT     = 0x2000000
+    EQX              = 0x4000000 # use =/X instead of M
+    PAF_NO_HIT       = 0x8000000 # output unmapped reads to PAF
+    NO_END_FLT       = 0x10000000
+    HARD_MLEVEL      = 0x20000000
+    SAM_HIT_ONLY     = 0x40000000
+    RMQ              = 0x80000000  # LL
+    QSTRAND          = 0x100000000 # LL
+    NO_INV           = 0x200000000
 
-    HPC            = 0x1
-    NO_SEQ         = 0x2
-    NO_NAME        = 0x4
+    HPC              = 0x1
+    NO_SEQ           = 0x2
+    NO_NAME          = 0x4
 
-    IDX_MAGIC      = "MMI\2"
+    IDX_MAGIC        = "MMI\2"
 
-    MAX_SEG        = 255
+    MAX_SEG          = 255
 
-    CIGAR_STR      = 'MIDNSHP=XB'
+    CIGAR_MATCH      = 0
+    CIGAR_INS        = 1
+    CIGAR_DEL        = 2
+    CIGAR_N_SKIP     = 3
+    CIGAR_SOFTCLIP   = 4
+    CIGAR_HARDCLIP   = 5
+    CIGAR_PADDING    = 6
+    CIGAR_EQ_MATCH   = 7
+    CIGAR_X_MISMATCH = 8
+
+    CIGAR_STR        = 'MIDNSHP=XB'
 
     # emulate 128-bit integers
     class MM128 < ::FFI::Struct
