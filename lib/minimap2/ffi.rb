@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 # bit fields
-require_relative 'ffi_helper'
-
+require 'ffi/bit_struct'
 module Minimap2
   # Native APIs
   module FFI

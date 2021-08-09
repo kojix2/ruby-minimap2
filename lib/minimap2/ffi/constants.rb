@@ -188,7 +188,7 @@ module Minimap2
         :n_ambi_trans_strand, :uint32,
         :n_cigar,             :uint32
 
-      bitfields :n_ambi_trans_strand,
+      bit_field :n_ambi_trans_strand,
                 :n_ambi, 30,      # number of ambiguous bases
                 :trans_strand, 2  # transcript strand: 0 for unknown, 1 for +, 2 for -
 
@@ -220,7 +220,7 @@ module Minimap2
         :div,    :float,
         :p,      Extra.ptr
 
-      bitfields :fields,
+      bit_field :fields,
                 :mapq,        8,
                 :split,       2,
                 :rev,         1,

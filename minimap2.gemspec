@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'ffi'
+  spec.add_dependency 'ffi-bitfield'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'irb'
   spec.add_development_dependency 'minitest'

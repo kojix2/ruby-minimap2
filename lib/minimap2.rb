@@ -3,9 +3,6 @@
 # dependencies
 require 'ffi'
 
-# bit fields
-require_relative 'minimap2/ffi_helper'
-
 # modules
 require_relative 'minimap2/aligner'
 require_relative 'minimap2/alignment'
