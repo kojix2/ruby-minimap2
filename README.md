@@ -83,7 +83,7 @@ pp hits[0]
 
 API is based on [Mappy](https://github.com/lh3/minimap2/tree/master/python), the official Python binding for Minimap2. 
 
-Note: `Aligner#map` has been changed to `aligne`, because `map` means iterator in Ruby.
+Note: `Aligner#map` has been changed to `align`, because `map` means iterator in Ruby.
 
 ```markdown
 * Minimap2 module
