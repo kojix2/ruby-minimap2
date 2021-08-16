@@ -20,6 +20,7 @@ class FFITest < Minitest::Test
 
   def test_idxopt
     obj = MM2::FFI::IdxOpt.new
+    assert_instance_of MM2::FFI::IdxOpt, obj
     assert_equal 0, obj[:k]
     assert_equal 0, obj[:w]
     assert_equal 0, obj[:flag]
@@ -130,12 +131,58 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:dp_score]
     assert_equal 0, obj[:dp_max]
     assert_equal 0, obj[:dp_max2]
+    # assert_equal 0, obj[:n_ambi_trans_strand]
     assert_equal 0, obj[:n_ambi]
     assert_equal 0, obj[:trans_strand]
     cigar = [4, 5, 6]
     obj[:n_cigar] = cigar.size
     obj.pointer.put_array_of_uint32(obj.size, cigar)
     assert_equal cigar, obj.cigar
+  end
+
+  def test_reg1
+    obj = MM2::FFI::Reg1.new
+    assert_instance_of MM2::FFI::Reg1, obj
+    assert_equal 0, obj[:id]
+    assert_equal 0, obj[:cnt]
+    assert_equal 0, obj[:rid]
+    assert_equal 0, obj[:score]
+    assert_equal 0, obj[:qs]
+    assert_equal 0, obj[:qe]
+    assert_equal 0, obj[:rs]
+    assert_equal 0, obj[:re]
+    assert_equal 0, obj[:parent]
+    assert_equal 0, obj[:subsc]
+    assert_equal 0, obj[:as]
+    assert_equal 0, obj[:mlen]
+    assert_equal 0, obj[:blen]
+    assert_equal 0, obj[:n_sub]
+    assert_equal 0, obj[:score0]
+    # assert_equal 0, obj[:fields]
+    assert_equal 0, obj[:hash]
+    assert_equal 0, obj[:div]
+    assert_equal true, obj[:p].null?
+
+    assert_equal 0, obj[:mapq]
+    assert_equal 0, obj[:split]
+    assert_equal 0, obj[:rev]
+    assert_equal 0, obj[:inv]
+    assert_equal 0, obj[:sam_pri]
+    assert_equal 0, obj[:proper_frag]
+    assert_equal 0, obj[:pe_thru]
+    assert_equal 0, obj[:seg_split]
+    assert_equal 0, obj[:seg_id]
+    assert_equal 0, obj[:split_inv]
+    assert_equal 0, obj[:is_alt]
+    assert_equal 0, obj[:dummy]
+  end
+
+  def test_tbuf
+    obj = MM2::FFI::TBuf.new
+    assert_instance_of MM2::FFI::TBuf, obj
+    assert_equal true, obj[:km].null?
+    assert_equal 0, obj[:rep_len]
+    assert_equal 0, obj[:frag_gap]
   end
 
   def test_mm_set_opt_0
