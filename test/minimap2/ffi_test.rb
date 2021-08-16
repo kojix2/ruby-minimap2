@@ -71,6 +71,8 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:anchor_ext_len]
     assert_equal 0, obj[:anchor_ext_shift]
     assert_equal 0, obj[:max_clip_ratio]
+    assert_equal 0, obj[:rank_min_len]
+    assert_equal 0, obj[:rank_frac]
     assert_equal 0, obj[:pe_ori]
     assert_equal 0, obj[:pe_bonus]
     assert_equal 0, obj[:mid_occ_frac]
@@ -79,6 +81,7 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:max_occ]
     assert_equal 0, obj[:mini_batch_size]
     assert_equal 0, obj[:max_sw_mat]
+    assert_equal 0, obj[:cap_kalloc]
     assert_nil obj[:split_prefix]
   end
 
