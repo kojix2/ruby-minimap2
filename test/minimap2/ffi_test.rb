@@ -46,6 +46,7 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:min_cnt]
     assert_equal 0, obj[:min_chain_score]
     assert_equal 0, obj[:chain_gap_scale]
+    assert_equal 0, obj[:chain_skip_scale]
     assert_equal 0, obj[:rmq_size_cap]
     assert_equal 0, obj[:rmq_inner_dist]
     assert_equal 0, obj[:rmq_rescue_size]

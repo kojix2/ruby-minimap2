@@ -101,6 +101,7 @@ module Minimap2
         :min_cnt,              :int,     # min number of minimizers on each chain
         :min_chain_score,      :int,     # min chaining score
         :chain_gap_scale,      :float,
+        :chain_skip_scale,     :float,
         :rmq_size_cap,         :int,
         :rmq_inner_dist,       :int,
         :rmq_rescue_size,      :int,
