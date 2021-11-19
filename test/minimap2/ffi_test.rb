@@ -176,6 +176,7 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:seg_id]
     assert_equal 0, obj[:split_inv]
     assert_equal 0, obj[:is_alt]
+    assert_equal 0, obj[:strand_retained]
     assert_equal 0, obj[:dummy]
   end
 

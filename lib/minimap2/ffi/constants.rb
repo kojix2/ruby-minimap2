@@ -223,18 +223,19 @@ module Minimap2
         :p,      Extra.ptr
 
       bit_field :fields,
-                :mapq,        8,
-                :split,       2,
-                :rev,         1,
-                :inv,         1,
-                :sam_pri,     1,
-                :proper_frag, 1,
-                :pe_thru,     1,
-                :seg_split,   1,
-                :seg_id,      8,
-                :split_inv,   1,
-                :is_alt,      1,
-                :dummy,       6
+                :mapq,            8,
+                :split,           2,
+                :rev,             1,
+                :inv,             1,
+                :sam_pri,         1,
+                :proper_frag,     1,
+                :pe_thru,         1,
+                :seg_split,       1,
+                :seg_id,          8,
+                :split_inv,       1,
+                :is_alt,          1,
+                :strand_retained, 1,
+                :dummy,           5
     end
 
     # memory buffer for thread-local storage during mapping
