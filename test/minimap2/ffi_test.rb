@@ -77,6 +77,7 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:pe_ori]
     assert_equal 0, obj[:pe_bonus]
     assert_equal 0, obj[:mid_occ_frac]
+    assert_equal 0, obj[:q_occ_frac]
     assert_equal 0, obj[:min_mid_occ]
     assert_equal 0, obj[:mid_occ]
     assert_equal 0, obj[:max_occ]

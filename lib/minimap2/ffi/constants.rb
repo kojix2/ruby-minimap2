@@ -132,6 +132,7 @@ module Minimap2
         :pe_ori,               :int,
         :pe_bonus,             :int,
         :mid_occ_frac,         :float,   # only used by mm_mapopt_update(); see below
+        :q_occ_frac,           :float,
         :min_mid_occ,          :int32_t,
         :mid_occ,              :int32_t, # ignore seeds with occurrences above this threshold
         :max_occ,              :int32_t,
