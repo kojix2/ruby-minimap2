@@ -6,84 +6,63 @@
 [![Docs Latest](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubydoc.info/gems/minimap2)
 [![DOI](https://zenodo.org/badge/325711305.svg)](https://zenodo.org/badge/latestdoi/325711305)
 
-
-
 :dna: [minimap2](https://github.com/lh3/minimap2) - the long-read mapper - for [Ruby](https://github.com/ruby/ruby)
 
 ## Installation
 
-Open your terminal and type the following commands in order. You need to build minimap2 on your own because you need to create a shared library that contains cmappy functions.
+<details>
+<summary><b>Compiling from source</b></summary>
 
-Build
+    git clone --recursive https://github.com/kojix2/ruby-minimap2
+    cd ruby-minimap2
+    bundle install
+    bundle exec rake minimap2:build
+    bundle exec rake install
+ 
+</details>
 
-```sh
-git clone --recursive https://github.com/kojix2/ruby-minimap2
-cd ruby-minimap2
-bundle install
-bundle exec rake minimap2:build
-```
+<details>
+<summary><b>Ubuntu</b></summary>
 
-Install
-
-```
-bundle exec rake install
-```
-
-Ruby-minimap2 is [tested on Ubuntu and macOS](https://github.com/kojix2/ruby-minimap2/actions). 
+    gem install minimap2
+ 
+</details>
 
 ## Quick Start
 
 ```ruby
 require "minimap2"
-```
 
-Create aligner
-
-```ruby
 aligner = Minimap2::Aligner.new("minimap2/test/MT-human.fa")
+seq     = aligner.seq("MT_human", 100, 200)
+hits    = aligner.align(seq)
+pp hits
 ```
-
-Retrieve a subsequence from the index
-
-```ruby
-seq = aligner.seq("MT_human", 100, 200)
 ```
-
-Mapping
-
-```ruby
-hits = aligner.align(seq)
-pp hits[0]
+[#<Minimap2::Alignment:0x000055bbfde2d128
+  @blen=100,
+  @cigar=[[100, 0]],
+  @cigar_str="100M",
+  @cs="",
+  @ctg="MT_human",
+  @ctg_len=16569,
+  @mapq=60,
+  @md="",
+  @mlen=100,
+  @nm=0,
+  @primary=1,
+  @q_en=100,
+  @q_st=0,
+  @r_en=200,
+  @r_st=100,
+  @read_num=1,
+  @strand=1,
+  @trans_strand=0>]
 ```
-
-```
-=> 
-#<Minimap2::Alignment:0x000055fe18223f50
- @blen=100,
- @cigar=[[100, 0]],
- @cigar_str="100M",
- @cs="",
- @ctg="MT_human",
- @ctg_len=16569,
- @mapq=60,
- @md="",
- @mlen=100,
- @nm=0,
- @primary=1,
- @q_en=100,
- @q_st=0,
- @r_en=200,
- @r_st=100,
- @read_num=1,
- @strand=1,
- @trans_strand=0>
-```
+ 
+</details>
 
 ## APIs Overview
-
-API is based on [Mappy](https://github.com/lh3/minimap2/tree/master/python), the official Python binding for Minimap2. 
-
-Note: `Aligner#map` has been changed to `align`, because `map` means iterator in Ruby.
 
 ```markdown
 * Minimap2 module
@@ -129,11 +108,19 @@ Note: `Aligner#map` has been changed to `align`, because `map` means iterator in
     * MapOpt class              Mapping options.
 ```
 
-This is not all. See the [RubyDoc.info documentation](https://rubydoc.info/gems/minimap2/) for more details.
+* API is based on [Mappy](https://github.com/lh3/minimap2/tree/master/python), the official Python binding for Minimap2. 
+* `Aligner#map` has been changed to `align`, because `map` means iterator in Ruby.
+* See [RubyDoc](https://rubydoc.info/gems/minimap2/) for details.
 
-ruby-minimap2 is built on top of [Ruby-FFI](https://github.com/ffi/ffi). 
-Native functions can be called from the FFI module. FFI also provides the way to access some C structs.
+<details>
+<summary><b>C Structures and Functions</b></summary>
 
+### FFI
+* Ruby-Minimap2 is built on top of [Ruby-FFI](https://github.com/ffi/ffi). 
+  * Native C functions can be called from the `Minimap2::FFI` module. 
+  * Native C structure members can be accessed.
+  * Bitfields are supported by [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) gems.
+ 
 ```ruby
 aligner.idx_opt.members
 # => [:k, :w, :flag, :bucket_bits, :mini_batch_size, :batch_size]
@@ -145,10 +132,15 @@ aligner.idx_opt[:k] = 14
 aligner.idx_opt[:k]
 # => 14
 ```
+ 
+</details>
 
-## Development
+## Contributing
 
-Fork your repository.
+<details>
+<summary><b>Development</b></summary>
+
+ Fork your repository.
 then clone.
 
 ```sh
@@ -179,16 +171,11 @@ Run tests.
 bundle exec rake test
 ```
 
-## Contributing
+</details>
 
-ruby-minimap2 is a library under development and there are many points to be improved. Please feel free to send us your pull request. 
+ruby-minimap2 is a library under development and there are many points to be improved.
 
-* [Report bugs](https://github.com/kojix2/ruby-minimap2/issues)
-* Fix bugs and [submit pull requests](https://github.com/kojix2/ruby-minimap2/pulls)
-* Write, clarify, or fix documentation
-* Suggest or add new features
-* Create tools based on ruby-minimap2
-* Update minimap2 in github submodule
+Please feel free to report [bugs](https://github.com/kojix2/ruby-minimap2/issues) and [pull requests](https://github.com/kojix2/ruby-minimap2/pulls)!
 
 ## License
 
