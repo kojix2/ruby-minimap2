@@ -7,8 +7,6 @@
 /spec/reports/
 /tmp/
 /vendor/
-/codegen/
-/ext/codegen/
 /.rubocop
 
 *.lock

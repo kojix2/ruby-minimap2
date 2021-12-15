@@ -1,8 +1,9 @@
-require "rake"
-require "tty-command"
+require 'rake'
 
-cmd = TTY::Command.new
-libsuffix = RbConfig::CONFIG["SOEXT"]
+libsuffix = RbConfig::CONFIG['SOEXT']
+target_dir = File.expand_path('../vendor')
+target_fname = "libminimap2.#{libsuffix}"
+target_path = File.join(target_dir, target_fname)
 
 task default: 'minimap2:build'
 
@@ -11,49 +12,29 @@ namespace :minimap2 do
   task :build do
     Dir.chdir('minimap2') do
       # Add -fPIC option to Makefile
-      cmd.run 'git apply ../minimap2.patch'
-      cmd.run 'cp ../cmappy/cmappy.h ../cmappy/cmappy.c .'
-      cmd.run 'make'
+      sh 'git apply ../minimap2.patch'
+      sh 'cp ../cmappy/cmappy.h ../cmappy/cmappy.c .'
+      sh 'make'
       case RbConfig::CONFIG['host_os']
       when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
         warn 'windows not supported'
       when /darwin|mac os/
-        cmd.run "clang -dynamiclib -undefined dynamic_lookup -o libminimap2.#{libsuffix} *.o"
+        sh "clang -dynamiclib -undefined dynamic_lookup -o #{target_fname} *.o"
       else
-        cmd.run 'cc -shared -o libminimap2.so *.o'
+        sh "cc -shared -o #{target_fname} *.o"
       end
-      cmd.run 'rm cmappy.h cmappy.c'
-      cmd.run 'git apply -R ../minimap2.patch'
-      cmd.run 'mkdir -p ../vendor'
-      cmd.run "mv libminimap2.#{libsuffix} ../vendor/libminimap2.#{libsuffix}"
+      sh 'rm cmappy.h cmappy.c'
+      sh 'git apply -R ../minimap2.patch'
+      sh "mkdir -p #{target_dir}"
+      sh "mv #{target_fname} #{target_path}"
     end
   end
 
   desc 'Cleanup'
   task :clean do
     Dir.chdir('minimap2') do
-      cmd.run 'make clean'
-      path = "../vendor/libminimap2.#{libsuffix}"
-      cmd.run "rm #{path}" if File.exist?(path)
-    end
-  end
-end
-
-namespace :c2ffi do
-  desc 'Generate metadata files (JSON format) using c2ffi'
-  task :generate do
-    cmd.run 'mkdir -p codegen'
-    header_files = FileList['minimap2/**/*.h']
-    header_files.each do |file|
-      cmd.run "c2ffi #{file}" \
-             " -o codegen/#{File.basename(file, '.h')}.json"
-    end
-  end
-
-  desc 'Remove metadata files'
-  task :remove do
-    FileList['codegen/*.json'].each do |path|
-      cmd.run "rm #{path}" if File.exist?(path)
+      sh 'make clean'
+      sh "rm #{target_path}" if File.exist?(target_path)
     end
   end
 end

@@ -14,8 +14,10 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.5'
 
-  spec.files         = Dir['*.{md,txt}', '{lib}/**/*', 'vendor/libminimap2.{so,dylib}']
+  spec.files         = Dir['*.{md,txt}', '{lib,ext}/**/*', 'vendor/libminimap2.{so,dylib}']
   spec.require_paths = ['lib']
+
+  spec.extensions    = %w[ext/Rakefile]
 
   spec.add_dependency 'ffi'
   spec.add_dependency 'ffi-bitfield'
