@@ -4,8 +4,6 @@ require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'tty-command'
 
-cmd = TTY::Command.new
-
 Rake::TestTask.new(:test) do |t|
   t.libs << 'test'
   t.libs << 'lib'
@@ -13,6 +11,9 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task default: :test
+
+cmd = TTY::Command.new
+libsuffix = RbConfig::CONFIG["SOEXT"]
 
 namespace :minimap2 do
   desc 'Compile Minimap2'
@@ -26,10 +27,8 @@ namespace :minimap2 do
       when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
         warn 'windows not supported'
       when /darwin|mac os/
-        libsuffix = 'dylib'
         cmd.run "clang -dynamiclib -undefined dynamic_lookup -o libminimap2.#{libsuffix} *.o"
       else
-        libsuffix = 'so'
         cmd.run 'cc -shared -o libminimap2.so *.o'
       end
       cmd.run 'rm cmappy.h cmappy.c'
@@ -43,6 +42,8 @@ namespace :minimap2 do
   task :clean do
     Dir.chdir('minimap2') do
       cmd.run 'make clean'
+      path = "../vendor/libminimap2.#{libsuffix}"
+      cmd.run "rm #{path}" if File.exist?(path)
     end
   end
 end
