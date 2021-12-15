@@ -47,7 +47,12 @@ module Minimap2
 
     def fastx_read(file_path, comment: false, &block)
       path = File.expand_path(file_path)
+
+      # raise error in Ruby because ks.null? is false even if file not exist.
+      raise ArgumentError, "File not found: #{path}" unless File.exist?(path)
+
       ks = FFI.mm_fastx_open(path)
+
       if block_given?
         fastx_each(ks, comment, &block)
       else

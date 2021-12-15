@@ -3,7 +3,7 @@
 require_relative '../test_helper'
 class AlignmentTest < Minitest::Test
   def setup
-    path = File.expand_path('../../ext/minimap2test/MT-human.fa', __dir__)
+    path = File.expand_path('../../ext/minimap2/test/MT-human.fa', __dir__)
     aligner = MM2::Aligner.new(path)
     seq = aligner.seq('MT_human', 100, 300)
     @a = aligner.align(seq, cs: true, md: true).first
