@@ -10,6 +10,10 @@
 
 ## Installation
 
+```
+gem install minimap2
+```
+
 <details>
 <summary><b>Compiling from source</b></summary>
 
@@ -21,19 +25,12 @@
  
 </details>
 
-<details>
-<summary><b>Ubuntu</b></summary>
-
-    gem install minimap2
- 
-</details>
-
 ## Quick Start
 
 ```ruby
 require "minimap2"
 
-aligner = Minimap2::Aligner.new("minimap2/test/MT-human.fa")
+aligner = Minimap2::Aligner.new("ext/minimap2/test/MT-human.fa")
 seq     = aligner.seq("MT_human", 100, 200)
 hits    = aligner.align(seq)
 pp hits
