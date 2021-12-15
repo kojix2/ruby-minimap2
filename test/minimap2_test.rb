@@ -12,15 +12,15 @@ class Minimap2Test < Minitest::Test
   # mappy
 
   def test_fastx_read
-    n1, s1, n2, s2 = File.readlines('minimap2/test/q-inv.fa').map(&:chomp)
+    n1, s1, n2, s2 = File.readlines('ext/minimap2test/q-inv.fa').map(&:chomp)
     names = [n1, n2].map { |n| n.sub('>', '') }
     seqs = [s1, s2]
-    MM2.fastx_read('minimap2/test/q-inv.fa') do |n, s|
+    MM2.fastx_read('ext/minimap2test/q-inv.fa') do |n, s|
       assert_equal names.shift, n
       assert_equal seqs.shift, s
     end
     # comment should be nil if there is no comment.
-    MM2.fastx_read('minimap2/test/q-inv.fa', comment: true) do |_n, _s, c|
+    MM2.fastx_read('ext/minimap2test/q-inv.fa', comment: true) do |_n, _s, c|
       assert_nil c
     end
   end

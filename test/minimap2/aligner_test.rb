@@ -3,7 +3,7 @@
 require_relative '../test_helper'
 class AlignerTest < Minitest::Test
   def fa_path
-    File.expand_path('../../minimap2/test/MT-human.fa', __dir__)
+    File.expand_path('../../ext/minimap2/test/MT-human.fa', __dir__)
   end
 
   def setup
@@ -93,7 +93,7 @@ class AlignerTest < Minitest::Test
   end
 
   def test_seq_names
-    path = File.expand_path('../../minimap2/test/q-inv.fa', __dir__)
+    path = File.expand_path('../../ext/minimap2test/q-inv.fa', __dir__)
     @a = MM2::Aligner.new(path)
     assert_equal %w[read1 read2], @a.seq_names
   end
