@@ -1,7 +1,8 @@
 require 'rake'
 
 libsuffix = RbConfig::CONFIG['SOEXT']
-target_dir = File.expand_path('../vendor')
+minimap2_dir = File.expand_path('minimap2', __dir__)
+target_dir = '../../vendor'
 target_fname = "libminimap2.#{libsuffix}"
 target_path = File.join(target_dir, target_fname)
 
@@ -10,7 +11,7 @@ task default: 'minimap2:build'
 namespace :minimap2 do
   desc 'Compile Minimap2'
   task :build do
-    Dir.chdir('minimap2') do
+    Dir.chdir(minimap2_dir) do
       # Add -fPIC option to Makefile
       sh 'git apply ../minimap2.patch'
       sh 'cp ../cmappy/cmappy.h ../cmappy/cmappy.c .'
@@ -32,7 +33,7 @@ namespace :minimap2 do
 
   desc 'Cleanup'
   task :clean do
-    Dir.chdir('minimap2') do
+    Dir.chdir(minimap2_dir) do
       sh 'make clean'
       sh "rm #{target_path}" if File.exist?(target_path)
     end

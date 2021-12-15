@@ -6,4 +6,3 @@ gemspec
 
 gem 'minitest'
 gem 'rake'
-gem 'tty-command'
