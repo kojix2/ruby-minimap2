@@ -31,7 +31,6 @@ module Minimap2
 
   # methods from mappy
   class << self
-
     # Execute minimap2 comannd with given options.
     # @overload  execute(arg0,arg1,...)
     # @param [String] arg minimap2 command option.
