@@ -31,6 +31,33 @@ module Minimap2
 
   # methods from mappy
   class << self
+
+    # Execute minimap2 comannd with given options.
+    # @overload  execute(arg0,arg1,...)
+    # @param [String] arg minimap2 command option.
+    # @example Get minimap2 version
+    #   Minimap2.execute('--version')
+
+    def Minimap2.execute(*rb_argv)
+      str_ptrs = []
+      # First argument is the program name.
+      str_ptrs << ::FFI::MemoryPointer.from_string('minimap2')
+      rb_argv.each do |arg|
+        arg.to_s.split(/\s+/).each do |s|
+          str_ptrs << ::FFI::MemoryPointer.from_string(s)
+        end
+      end
+      strptrs << nil
+
+      # Load all the pointers into a native memory block
+      argv = ::FFI::MemoryPointer.new(:pointer, strptrs.length)
+      strptrs.each_with_index do |p, i|
+        argv[i].put_pointer(0,  p)
+      end
+
+      FFI.main(strptrs.length - 1, argv)
+    end
+
     # Set verbosity level.
     # @param [Integer] level
 

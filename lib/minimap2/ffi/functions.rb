@@ -3,6 +3,11 @@
 module Minimap2
   module FFI
     attach_function \
+      :main,
+      %i[int pointer],
+      :int
+
+    attach_function \
       :mm_set_opt_raw, :mm_set_opt,
       [:pointer, IdxOpt.by_ref, MapOpt.by_ref],
       :int
