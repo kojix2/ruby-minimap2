@@ -1,12 +1,13 @@
 require 'rake'
+require 'fileutils'
+require 'ffi'
 
-libsuffix = RbConfig::CONFIG['SOEXT']
 minimap2_dir = File.expand_path('minimap2', __dir__)
 target_dir = '../../vendor'
-target_fname = "libminimap2.#{libsuffix}"
+target_fname = FFI.map_library_name('minimap2')
 target_path = File.join(target_dir, target_fname)
 
-task default: 'minimap2:build'
+task default: ['minimap2:build', 'minimap2:clean']
 
 namespace :minimap2 do
   desc 'Compile Minimap2'
@@ -18,23 +19,32 @@ namespace :minimap2 do
       sh 'make'
       case RbConfig::CONFIG['host_os']
       when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
-        warn 'windows not supported'
+        sh "cc *.o -shared -o #{target_fname} -lm -lz -lpthread"
       when /darwin|mac os/
         sh "clang -dynamiclib -undefined dynamic_lookup -o #{target_fname} *.o"
       else
-        sh "cc -shared -o #{target_fname} *.o"
+        sh "cc -shared -o #{target_fname} -lm -lz -lpthread *.o"
       end
       sh 'rm cmappy.h cmappy.c'
       sh 'git apply -R ../minimap2.patch'
-      sh "mkdir -p #{target_dir}"
+      FileUtils.mkdir_p(target_dir)
+      warn "mkdir -p #{target_dir}"
       sh "mv #{target_fname} #{target_path}"
     end
   end
 
-  desc 'Cleanup'
+  desc 'Clean'
   task :clean do
     Dir.chdir(minimap2_dir) do
       sh 'make clean'
+    end
+  end
+
+  task cleanall: [:clean]
+
+  desc 'Clean all'
+  task :cleanall do
+    Dir.chdir(minimap2_dir) do
       sh "rm #{target_path}" if File.exist?(target_path)
     end
   end
