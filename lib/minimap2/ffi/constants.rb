@@ -36,7 +36,8 @@ module Minimap2
     SAM_HIT_ONLY     = 0x40000000
     RMQ              = 0x80000000  # LL
     QSTRAND          = 0x100000000 # LL
-    NO_INV           = 0x200000000
+    NO_INV           = 0x200000000 # LL
+    NO_HASH_NAME     = 0x400000000 # LL
 
     HPC              = 0x1
     NO_SEQ           = 0x2
