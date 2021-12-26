@@ -46,15 +46,15 @@ module Minimap2
           str_ptrs << ::FFI::MemoryPointer.from_string(s)
         end
       end
-      strptrs << nil
+      str_ptrs << nil
 
       # Load all the pointers into a native memory block
-      argv = ::FFI::MemoryPointer.new(:pointer, strptrs.length)
-      strptrs.each_with_index do |p, i|
+      argv = ::FFI::MemoryPointer.new(:pointer, str_ptrs.length)
+      str_ptrs.each_with_index do |p, i|
         argv[i].put_pointer(0,  p)
       end
 
-      FFI.main(strptrs.length - 1, argv)
+      FFI.main(str_ptrs.length - 1, argv)
     end
 
     # Set verbosity level.

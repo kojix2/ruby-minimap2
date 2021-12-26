@@ -9,6 +9,12 @@ class Minimap2Test < Minitest::Test
     refute_nil ::Minimap2::VERSION
   end
 
+  # unique features of ruby bindings
+
+  def test_execute_with_string_arg
+    assert_equal 0, MM2.execute('--version')
+  end
+
   # mappy
 
   def test_fastx_read
