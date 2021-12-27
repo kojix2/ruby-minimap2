@@ -5,6 +5,7 @@ jobs:
     name: ${{ matrix.os }} Ruby ${{ matrix.ruby }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
+      fail-fast: false
       matrix:
         os:   ['ubuntu', 'macos']
         ruby: [ '2.7', '3.0', '3.1']
