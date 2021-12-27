@@ -12,7 +12,14 @@ class Minimap2Test < Minitest::Test
   # unique features of ruby bindings
 
   def test_execute_with_string_arg
-    assert_equal 0, MM2.execute('--version')
+    out, err = capture_subprocess_io do
+      pid = fork do
+        MM2.execute('--version')
+      end
+      Process.waitpid(pid)
+    end
+    assert_kind_of String, out
+    assert_equal '', err
   end
 
   # mappy
