@@ -116,11 +116,11 @@ module Minimap2
     end
 
     def fastx_next(ks, read_comment)
-      qual = ks[:qual][:s] if (ks[:qual][:l]).positive?
+      qual = ks[:qual][:s] if (ks[:qual][:l]) > 0
       name = ks[:name][:s]
       seq  = ks[:seq][:s]
       if read_comment
-        comment = ks[:comment][:s] if (ks[:comment][:l]).positive?
+        comment = ks[:comment][:s] if (ks[:comment][:l]) > 0
         [name, seq, qual, comment]
       else
         [name, seq, qual]

@@ -204,7 +204,7 @@ module Minimap2
       lp = ::FFI::MemoryPointer.new(:int)
       s = FFI.mappy_fetch_seq(index, name, start, stop, lp)
       l = lp.read_int
-      return nil if l.zero?
+      return nil if l == 0
 
       s.read_string(l)
     end

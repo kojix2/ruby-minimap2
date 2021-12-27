@@ -89,17 +89,17 @@ module Minimap2
     # Convert to the PAF format without the QueryName and QueryLength columns.
 
     def to_s
-      strand = if @strand.positive?
+      strand = if @strand > 0
                  "+"
-               elsif @strand.negative?
+               elsif @strand < 0
                  "-"
                else
                  "?"
                end
       tp = @primary != 0 ? "tp:A:P" : "tp:A:S"
-      ts = if @trans_strand.positive?
+      ts = if @trans_strand > 0
              "ts:A:+"
-           elsif @trans_strand.negative?
+           elsif @trans_strand < 0
              "ts:A:-"
            else
              "ts:A:."

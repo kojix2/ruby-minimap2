@@ -1,2 +1,5 @@
 StringLiterals:
   EnforcedStyle: double_quotes
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison
