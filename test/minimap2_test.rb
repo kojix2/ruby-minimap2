@@ -79,7 +79,13 @@ class Minimap2Test < Minitest::Test
     assert_equal 'TCCCAAAGGGTTT', MM2.revcomp('AAACCCTTTGGGA')
   end
 
-  def test_verbose
+  def test_get_verbose
     assert_equal 1, MM2.verbose
+  end
+
+  def test_set_verbose
+    assert_equal 3, MM2.verbose = 3
+    assert_equal 3, MM2.verbose
+    assert_equal 1, MM2.verbose = 1
   end
 end

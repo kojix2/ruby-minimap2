@@ -57,10 +57,18 @@ module Minimap2
       FFI.main(str_ptrs.length - 1, argv)
     end
 
-    # Set verbosity level.
-    # @param [Integer] level
+    # Get verbosity level.
+    # @return [Integer] verbosity level.
 
-    def verbose(level = -1)
+    def verbose
+      FFI.mm_verbose_level(-1)
+    end
+
+    # Set verbosity level.
+    # @param [Integer] verbosity level
+    # @return [Integer] verbosity level.
+
+    def verbose=(level)
       FFI.mm_verbose_level(level)
     end
 
