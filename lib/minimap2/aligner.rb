@@ -90,7 +90,7 @@ module Minimap2
       end
 
       if fn_idx_in
-        warn 'Since fn_idx_in is specified, the seq argument will be ignored.' if seq
+        warn "Since fn_idx_in is specified, the seq argument will be ignored." if seq
         reader = FFI.mm_idx_reader_open(fn_idx_in, idx_opt, fn_idx_out)
 
         # The Ruby version raises an error here
@@ -169,13 +169,13 @@ module Minimap2
           c = hit[:cigar32].read_array_of_uint32(hit[:n_cigar32])
           cigar = c.map { |x| [x >> 4, x & 0xf] } # 32-bit CIGAR encoding -> Ruby array
 
-          _cs = ''
+          _cs = ""
           if cs
             l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, @index, regs[i], seq, 1)
             _cs = cs_str.read_pointer.read_string(l_cs_str)
           end
 
-          _md = ''
+          _md = ""
           if md
             l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, @index, regs[i], seq)
             _md = cs_str.read_pointer.read_string(l_cs_str)

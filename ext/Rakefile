@@ -1,23 +1,25 @@
-require 'rake'
-require 'fileutils'
-require 'ffi'
+# frozen_string_literal: true
 
-minimap2_dir = File.expand_path('minimap2', __dir__)
-target_dir = '../../vendor'
-target_fname = FFI.map_library_name('minimap2')
+require "rake"
+require "fileutils"
+require "ffi"
+
+minimap2_dir = File.expand_path("minimap2", __dir__)
+target_dir = "../../vendor"
+target_fname = FFI.map_library_name("minimap2")
 target_path = File.join(target_dir, target_fname)
 
-task default: ['minimap2:build', 'minimap2:clean']
+task default: ["minimap2:build", "minimap2:clean"]
 
 namespace :minimap2 do
-  desc 'Compile Minimap2'
+  desc "Compile Minimap2"
   task :build do
     Dir.chdir(minimap2_dir) do
       # Add -fPIC option to Makefile
-      sh 'git apply ../minimap2.patch'
-      sh 'cp ../cmappy/cmappy.h ../cmappy/cmappy.c .'
-      sh 'make'
-      case RbConfig::CONFIG['host_os']
+      sh "git apply ../minimap2.patch"
+      sh "cp ../cmappy/cmappy.h ../cmappy/cmappy.c ."
+      sh "make"
+      case RbConfig::CONFIG["host_os"]
       when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
         sh "cc *.o -shared -o #{target_fname} -lm -lz -lpthread"
       when /darwin|mac os/
@@ -25,24 +27,24 @@ namespace :minimap2 do
       else
         sh "cc -shared -o #{target_fname} -lm -lz -lpthread *.o"
       end
-      sh 'rm cmappy.h cmappy.c'
-      sh 'git apply -R ../minimap2.patch'
+      sh "rm cmappy.h cmappy.c"
+      sh "git apply -R ../minimap2.patch"
       FileUtils.mkdir_p(target_dir)
       warn "mkdir -p #{target_dir}"
       sh "mv #{target_fname} #{target_path}"
     end
   end
 
-  desc 'Clean'
+  desc "Clean"
   task :clean do
     Dir.chdir(minimap2_dir) do
-      sh 'make clean'
+      sh "make clean"
     end
   end
 
   task cleanall: [:clean]
 
-  desc 'Clean all'
+  desc "Clean all"
   task :cleanall do
     Dir.chdir(minimap2_dir) do
       sh "rm #{target_path}" if File.exist?(target_path)

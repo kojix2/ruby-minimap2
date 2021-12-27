@@ -90,19 +90,19 @@ module Minimap2
 
     def to_s
       strand = if @strand.positive?
-                 '+'
+                 "+"
                elsif @strand.negative?
-                 '-'
+                 "-"
                else
-                 '?'
+                 "?"
                end
-      tp = @primary != 0 ? 'tp:A:P' : 'tp:A:S'
+      tp = @primary != 0 ? "tp:A:P" : "tp:A:S"
       ts = if @trans_strand.positive?
-             'ts:A:+'
+             "ts:A:+"
            elsif @trans_strand.negative?
-             'ts:A:-'
+             "ts:A:-"
            else
-             'ts:A:.'
+             "ts:A:."
            end
       a = [@q_st, @q_en, strand, @ctg, @ctg_len, @r_st, @r_en,
            @mlen, @blen, @mapq, tp, ts, "cg:Z:#{@cigar_str}"]

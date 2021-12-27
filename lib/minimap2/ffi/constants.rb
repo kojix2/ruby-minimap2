@@ -57,7 +57,7 @@ module Minimap2
     CIGAR_EQ_MATCH   = 7
     CIGAR_X_MISMATCH = 8
 
-    CIGAR_STR        = 'MIDNSHP=XB'
+    CIGAR_STR        = "MIDNSHP=XB"
 
     # emulate 128-bit integers
     class MM128 < ::FFI::Struct
