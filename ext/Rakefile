@@ -25,7 +25,8 @@ namespace :minimap2 do
       when /darwin|mac os/
         sh "clang -dynamiclib -undefined dynamic_lookup -o #{target_fname} *.o"
       else
-        sh "cc -shared -o #{target_fname} -lm -lz -lpthread *.o"
+        sh "cc *.o -shared -o #{target_fname} -lm -lz -lpthread"
+        sh "ldd -r #{target_fname}"
       end
       sh "rm cmappy.h cmappy.c"
       sh "git apply -R ../minimap2.patch"
