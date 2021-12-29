@@ -2,5 +2,5 @@
 
 module Minimap2
   # Minimap2-2.23 (r1111)
-  VERSION = "0.2.24.0"
+  VERSION = "0.2.24.1"
 end
