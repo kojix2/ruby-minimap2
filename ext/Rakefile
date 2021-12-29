@@ -23,7 +23,8 @@ namespace :minimap2 do
       when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
         sh "cc *.o -shared -o #{target_fname} -lm -lz -lpthread"
       when /darwin|mac os/
-        sh "clang -dynamiclib -undefined dynamic_lookup -o #{target_fname} *.o"
+        sh "clang -dynamiclib -undefined dynamic_lookup -o #{target_fname} *.o -lm -lz -lpthread"
+        sh "otool -L #{target_fname}"
       else
         sh "cc *.o -shared -o #{target_fname} -lm -lz -lpthread"
         sh "ldd -r #{target_fname}"
