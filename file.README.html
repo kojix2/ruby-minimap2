@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.27
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-ruby-minimap2">ruby-minimap2</h1>
+
+<p><a href="https://rubygems.org/gems/minimap2"><img src="https://img.shields.io/gem/v/minimap2?color=brightgreen"></a> <a href="https://github.com/kojix2/ruby-minimap2/actions"><img src="https://github.com/kojix2/ruby-minimap2/workflows/CI/badge.svg"></a> <a href="LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a> <a href="https://rubydoc.info/gems/minimap2"><img src="https://img.shields.io/badge/docs-stable-blue.svg"></a> <a href="https://zenodo.org/badge/latestdoi/325711305"><img src="https://zenodo.org/badge/325711305.svg"></a></p>
+
+<p>:dna: <a href="https://github.com/lh3/minimap2">minimap2</a> - the long-read mapper - for <a href="https://github.com/ruby/ruby">Ruby</a></p>
+
+<h2 id="label-Installation">Installation</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_minimap2'>minimap2</span>
+</code></pre>
+
+<p>&lt;details&gt; &lt;summary&gt;<strong>Compiling from source</strong>&lt;/summary&gt;</p>
+
+<pre class="code ruby"><code class="ruby">git clone --recursive https://github.com/kojix2/ruby-minimap2
+cd ruby-minimap2
+bundle install
+bundle exec rake minimap2:build
+bundle exec rake install
+</code></pre>
+
+<p>&lt;/details&gt;</p>
+
+<h2 id="label-Quick+Start">Quick Start</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>minimap2</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_aligner'>aligner</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Minimap2.html" title="Minimap2 (module)">Minimap2</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Minimap2/Aligner.html" title="Minimap2::Aligner (class)">Aligner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Minimap2/Aligner.html#initialize-instance_method" title="Minimap2::Aligner#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ext/minimap2/test/MT-human.fa</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_seq'>seq</span>     <span class='op'>=</span> <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MT_human</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>100</span><span class='comma'>,</span> <span class='int'>200</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_hits'>hits</span>    <span class='op'>=</span> <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_align'>align</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_pp'>pp</span> <span class='id identifier rubyid_hits'>hits</span>
+</code></pre>
+
+<pre class="code ruby"><code class="ruby">[#&lt;Minimap2::Alignment:0x000055bbfde2d128
+  @blen=100,
+  @cigar=[[100, 0]],
+  @cigar_str=&quot;100M&quot;,
+  @cs=&quot;&quot;,
+  @ctg=&quot;MT_human&quot;,
+  @ctg_len=16569,
+  @mapq=60,
+  @md=&quot;&quot;,
+  @mlen=100,
+  @nm=0,
+  @primary=1,
+  @q_en=100,
+  @q_st=0,
+  @r_en=200,
+  @r_st=100,
+  @read_num=1,
+  @strand=1,
+  @trans_strand=0&gt;]
+</code></pre>
+
+<p>&lt;/details&gt;</p>
+
+<h2 id="label-APIs+Overview">APIs Overview</h2>
+
+<pre class="code ruby"><code class="ruby">* Minimap2 module
+  - fastx_read                  Read fasta/fastq file.
+  - revcomp                     Reverse complement sequence.
+
+  * Aligner class
+    * attributes
+      - index                   Returns the value of attribute index.
+      - idx_opt                 Returns the value of attribute idx_opt.
+      - map_opt                 Returns the value of attribute map_opt.
+    * methods
+      - new(path, preset: nil)  Create a new aligner. (presets: sr, map-pb, map-out, map-hifi, splice, asm5, etc.)
+      - align                   Maps and returns alignments.
+      - seq                     Retrieve a subsequence from the index.
+
+  * Alignment class
+    * attributes
+      - ctg                     Returns name of the reference sequence the query is mapped to.
+      - ctg_len                 Returns total length of the reference sequence.
+      - r_st                    Returns start positions on the reference.
+      - r_en                    Returns end positions on the reference.
+      - strand                  Returns +1 if on the forward strand; -1 if on the reverse strand.
+      - trans_strand            Returns transcript strand. +1 if on the forward strand; -1 if on the reverse strand; 0 if unknown.
+      - blen                    Returns length of the alignment, including both alignment matches and gaps but excluding ambiguous bases.
+      - mlen                    Returns length of the matching bases in the alignment, excluding ambiguous base matches.
+      - nm                      Returns number of mismatches, gaps and ambiguous poistions in the alignment.
+      - primary                 Returns if the alignment is primary (typically the best and the first to generate).
+      - q_st                    Returns start positions on the query.
+      - q_en                    Returns end positions on the query.
+      - mapq                    Returns mapping quality.
+      - cigar                   Returns CIGAR returned as an array of shape (n_cigar,2). The two numbers give the length and the operator of each CIGAR operation.
+      - read_num                Returns read number that the alignment corresponds to; 1 for the first read and 2 for the second read.
+      - cs                      Returns the cs tag.
+      - md                      Returns the MD tag as in the SAM format. It is an empty string unless the md argument is applied when calling Aligner#align.
+      - cigar_str               Returns CIGAR string.
+    * methods
+      - to_h                    Convert Alignment to hash.
+      - to_s                    Convert to the PAF format without the QueryName and QueryLength columns.
+
+  ## FFI module
+    * IdxOpt class              Indexing options.
+    * MapOpt class              Mapping options.
+</code></pre>
+<ul><li>
+<p>API is based on <a href="https://github.com/lh3/minimap2/tree/master/python">Mappy</a>, the official Python binding for Minimap2.</p>
+</li><li>
+<p><code>Aligner#map</code> has been changed to <code>align</code>, because <code>map</code> means iterator in Ruby.</p>
+</li><li>
+<p>See <a href="https://rubydoc.info/gems/minimap2/">RubyDoc</a> for details.</p>
+</li></ul>
+
+<p>&lt;details&gt; &lt;summary&gt;<strong>C Structures and Functions</strong>&lt;/summary&gt;</p>
+
+<h3 id="label-FFI">FFI</h3>
+<ul><li>
+<p>Ruby-Minimap2 is built on top of <a href="https://github.com/ffi/ffi">Ruby-FFI</a>.</p>
+</li><li>
+<p>Native C functions can be called from the <code>Minimap2::FFI</code> module.</p>
+</li><li>
+<p>Native C structure members can be accessed.</p>
+</li><li>
+<p>Bitfields are supported by <a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> gems.</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='period'>.</span><span class='id identifier rubyid_members'>members</span>
+<span class='comment'># =&gt; [:k, :w, :flag, :bucket_bits, :mini_batch_size, :batch_size]
+</span><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_kds_opt'>kds_opt</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span>
+<span class='comment'># =&gt; [15, 10, 0, 14, 50000000, 9223372036854775807]
+</span><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span>
+<span class='comment'># =&gt; 15
+</span><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>14</span>
+<span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span>
+<span class='comment'># =&gt; 14
+</span></code></pre>
+
+<p>&lt;/details&gt;</p>
+
+<h2 id="label-Contributing">Contributing</h2>
+
+<p>&lt;details&gt; &lt;summary&gt;<strong>Development</strong>&lt;/summary&gt;</p>
+
+<p>Fork your repository. then clone.</p>
+
+<pre class="code ruby"><code class="ruby">git clone --recursive https://github.com/kojix2/ruby-minimap2
+# git clone https://github.com/kojix2/ruby-minimap2
+# cd ruby-minimap2
+# git submodule update -i
+</code></pre>
+
+<p>Build Minimap2 and Mappy.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_cd'>cd</span> <span class='id identifier rubyid_ruby'>ruby</span><span class='op'>-</span><span class='id identifier rubyid_minimap2'>minimap2</span>
+<span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span> <span class='comment'># Install dependent packages including Ruby-FFI
+</span><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rake'>rake</span> <span class='label'>minimap2:</span><span class='id identifier rubyid_build'>build</span>
+</code></pre>
+
+<p>A shared library will be created in the vendor directory.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_└──'>└──</span> <span class='id identifier rubyid_vendor'>vendor</span>
+   <span class='id identifier rubyid_└──'>└──</span> <span class='id identifier rubyid_libminimap2'>libminimap2</span><span class='period'>.</span><span class='id identifier rubyid_so'>so</span>
+</code></pre>
+
+<p>Run tests.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_test'>test</span>
+</code></pre>
+
+<p>&lt;/details&gt;</p>
+
+<p>ruby-minimap2 is a library under development and there are many points to be improved.</p>
+
+<p>Please feel free to report <a href="https://github.com/kojix2/ruby-minimap2/issues">bugs</a> and <a href="https://github.com/kojix2/ruby-minimap2/pulls">pull requests</a>!</p>
+
+<pre class="code ruby"><code class="ruby">Do you need commit rights to my repository?
+Do you want to get admin rights and take over the project?
+If so, please feel free to contact me @kojix2.
+</code></pre>
+
+<h2 id="label-License">License</h2>
+
+<p><a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<h2 id="label-Acknowledgements">Acknowledgements</h2>
+
+<p>I would like to thank Heng Li for making Minimap2, and all the readers who read the README to the end.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Thu Mar 24 10:53:26 2022 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.27 (ruby-3.1.1).
+</div>
+
+    </div>
+  </body>
+</html>

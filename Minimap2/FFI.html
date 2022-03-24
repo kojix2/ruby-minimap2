@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Minimap2::FFI
+  
+    &mdash; Documentation by YARD 0.9.27
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Minimap2::FFI";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (F)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Minimap2.html" title="Minimap2 (module)">Minimap2</a></span></span>
+     &raquo; 
+    <span class="title">FFI</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Minimap2::FFI
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>FFI::Library</dd>
+  </dl>
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/minimap2/ffi.rb<span class="defines">,<br />
+  lib/minimap2/ffi/mappy.rb,<br /> lib/minimap2/ffi/constants.rb,<br /> lib/minimap2/ffi/functions.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Native APIs</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="FFI/Extra.html" title="Minimap2::FFI::Extra (class)">Extra</a></span>, <span class='object_link'><a href="FFI/Hit.html" title="Minimap2::FFI::Hit (class)">Hit</a></span>, <span class='object_link'><a href="FFI/Idx.html" title="Minimap2::FFI::Idx (class)">Idx</a></span>, <span class='object_link'><a href="FFI/IdxOpt.html" title="Minimap2::FFI::IdxOpt (class)">IdxOpt</a></span>, <span class='object_link'><a href="FFI/IdxReader.html" title="Minimap2::FFI::IdxReader (class)">IdxReader</a></span>, <span class='object_link'><a href="FFI/IdxSeq.html" title="Minimap2::FFI::IdxSeq (class)">IdxSeq</a></span>, <span class='object_link'><a href="FFI/KSeq.html" title="Minimap2::FFI::KSeq (class)">KSeq</a></span>, <span class='object_link'><a href="FFI/KString.html" title="Minimap2::FFI::KString (class)">KString</a></span>, <span class='object_link'><a href="FFI/MM128.html" title="Minimap2::FFI::MM128 (class)">MM128</a></span>, <span class='object_link'><a href="FFI/MM128V.html" title="Minimap2::FFI::MM128V (class)">MM128V</a></span>, <span class='object_link'><a href="FFI/MapOpt.html" title="Minimap2::FFI::MapOpt (class)">MapOpt</a></span>, <span class='object_link'><a href="FFI/Reg1.html" title="Minimap2::FFI::Reg1 (class)">Reg1</a></span>, <span class='object_link'><a href="FFI/TBuf.html" title="Minimap2::FFI::TBuf (class)">TBuf</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="NO_DIAG-constant" class="">NO_DIAG =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>flags</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x001</span></pre></dd>
+      
+        <dt id="NO_DUAL-constant" class="">NO_DUAL =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>no exact diagonal hit</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x002</span></pre></dd>
+      
+        <dt id="CIGAR-constant" class="">CIGAR =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>skip pairs where query name is lexicographically larger than target name</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x004</span></pre></dd>
+      
+        <dt id="OUT_SAM-constant" class="">OUT_SAM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x008</span></pre></dd>
+      
+        <dt id="NO_QUAL-constant" class="">NO_QUAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x010</span></pre></dd>
+      
+        <dt id="OUT_CG-constant" class="">OUT_CG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x020</span></pre></dd>
+      
+        <dt id="OUT_CS-constant" class="">OUT_CS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x040</span></pre></dd>
+      
+        <dt id="SPLICE-constant" class="">SPLICE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>splice mode</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x080</span></pre></dd>
+      
+        <dt id="SPLICE_FOR-constant" class="">SPLICE_FOR =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>match GT-AG</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x100</span></pre></dd>
+      
+        <dt id="SPLICE_REV-constant" class="">SPLICE_REV =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>match CT-AC, the reverse complement of GT-AG</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x200</span></pre></dd>
+      
+        <dt id="NO_LJOIN-constant" class="">NO_LJOIN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x400</span></pre></dd>
+      
+        <dt id="OUT_CS_LONG-constant" class="">OUT_CS_LONG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x800</span></pre></dd>
+      
+        <dt id="SR-constant" class="">SR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x1000</span></pre></dd>
+      
+        <dt id="FRAG_MODE-constant" class="">FRAG_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x2000</span></pre></dd>
+      
+        <dt id="NO_PRINT_2ND-constant" class="">NO_PRINT_2ND =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x4000</span></pre></dd>
+      
+        <dt id="TWO_IO_THREADS-constant" class="">TWO_IO_THREADS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Translator’s Note. MM_F_2_IO_THREADS. Constants starting with numbers cannot be defined.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x8000</span></pre></dd>
+      
+        <dt id="LONG_CIGAR-constant" class="">LONG_CIGAR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x10000</span></pre></dd>
+      
+        <dt id="INDEPEND_SEG-constant" class="">INDEPEND_SEG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x20000</span></pre></dd>
+      
+        <dt id="SPLICE_FLANK-constant" class="">SPLICE_FLANK =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x40000</span></pre></dd>
+      
+        <dt id="SOFTCLIP-constant" class="">SOFTCLIP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x80000</span></pre></dd>
+      
+        <dt id="FOR_ONLY-constant" class="">FOR_ONLY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x100000</span></pre></dd>
+      
+        <dt id="REV_ONLY-constant" class="">REV_ONLY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x200000</span></pre></dd>
+      
+        <dt id="HEAP_SORT-constant" class="">HEAP_SORT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x400000</span></pre></dd>
+      
+        <dt id="ALL_CHAINS-constant" class="">ALL_CHAINS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x800000</span></pre></dd>
+      
+        <dt id="OUT_MD-constant" class="">OUT_MD =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x1000000</span></pre></dd>
+      
+        <dt id="COPY_COMMENT-constant" class="">COPY_COMMENT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x2000000</span></pre></dd>
+      
+        <dt id="EQX-constant" class="">EQX =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>use =/X instead of M</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x4000000</span></pre></dd>
+      
+        <dt id="PAF_NO_HIT-constant" class="">PAF_NO_HIT =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>output unmapped reads to PAF</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x8000000</span></pre></dd>
+      
+        <dt id="NO_END_FLT-constant" class="">NO_END_FLT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x10000000</span></pre></dd>
+      
+        <dt id="HARD_MLEVEL-constant" class="">HARD_MLEVEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x20000000</span></pre></dd>
+      
+        <dt id="SAM_HIT_ONLY-constant" class="">SAM_HIT_ONLY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x40000000</span></pre></dd>
+      
+        <dt id="RMQ-constant" class="">RMQ =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>LL</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x80000000</span></pre></dd>
+      
+        <dt id="QSTRAND-constant" class="">QSTRAND =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>LL</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x100000000</span></pre></dd>
+      
+        <dt id="NO_INV-constant" class="">NO_INV =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>LL</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x200000000</span></pre></dd>
+      
+        <dt id="NO_HASH_NAME-constant" class="">NO_HASH_NAME =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>LL</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x400000000</span></pre></dd>
+      
+        <dt id="HPC-constant" class="">HPC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x1</span></pre></dd>
+      
+        <dt id="NO_SEQ-constant" class="">NO_SEQ =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x2</span></pre></dd>
+      
+        <dt id="NO_NAME-constant" class="">NO_NAME =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x4</span></pre></dd>
+      
+        <dt id="IDX_MAGIC-constant" class="">IDX_MAGIC =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MMI\2</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+        <dt id="MAX_SEG-constant" class="">MAX_SEG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>255</span></pre></dd>
+      
+        <dt id="CIGAR_MATCH-constant" class="">CIGAR_MATCH =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="CIGAR_INS-constant" class="">CIGAR_INS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="CIGAR_DEL-constant" class="">CIGAR_DEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="CIGAR_N_SKIP-constant" class="">CIGAR_N_SKIP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="CIGAR_SOFTCLIP-constant" class="">CIGAR_SOFTCLIP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="CIGAR_HARDCLIP-constant" class="">CIGAR_HARDCLIP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="CIGAR_PADDING-constant" class="">CIGAR_PADDING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="CIGAR_EQ_MATCH-constant" class="">CIGAR_EQ_MATCH =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="CIGAR_X_MISMATCH-constant" class="">CIGAR_X_MISMATCH =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="CIGAR_STR-constant" class="">CIGAR_STR =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MIDNSHP=XB</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#attach_function-class_method" title="attach_function (class method)">.<strong>attach_function</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Continue even if some functions are not found.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mm_set_opt-class_method" title="mm_set_opt (class method)">.<strong>mm_set_opt</strong>(preset, io, mo)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="attach_function-class_method">
+  
+    .<strong>attach_function</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Continue even if some functions are not found.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/ffi.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attach_function'>attach_function</span><span class='lparen'>(</span><span class='op'>*</span><span class='rparen'>)</span>
+  <span class='kw'>super</span>
+<span class='kw'>rescue</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>NotFoundError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mm_set_opt-class_method">
+  
+    .<strong>mm_set_opt</strong>(preset, io, mo)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/ffi/functions.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_mm_set_opt'>mm_set_opt</span><span class='lparen'>(</span><span class='id identifier rubyid_preset'>preset</span><span class='comma'>,</span> <span class='id identifier rubyid_io'>io</span><span class='comma'>,</span> <span class='id identifier rubyid_mo'>mo</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_preset'>preset</span>
+          <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_from_string'>from_string</span><span class='lparen'>(</span><span class='id identifier rubyid_preset'>preset</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+        <span class='kw'>else</span>
+          <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>Pointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+  <span class='id identifier rubyid_mm_set_opt_raw'>mm_set_opt_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_ptr'>ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_io'>io</span><span class='comma'>,</span> <span class='id identifier rubyid_mo'>mo</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Mar 24 10:53:26 2022 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.27 (ruby-3.1.1).
+</div>
+
+    </div>
+  </body>
+</html>

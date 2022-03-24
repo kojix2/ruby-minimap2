@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Minimap2::Aligner
+  
+    &mdash; Documentation by YARD 0.9.27
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Minimap2::Aligner";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Minimap2.html" title="Minimap2 (module)">Minimap2</a></span></span>
+     &raquo; 
+    <span class="title">Aligner</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Minimap2::Aligner
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Minimap2::Aligner</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/minimap2/aligner.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#idx_opt-instance_method" title="#idx_opt (instance method)">#<strong>idx_opt</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute idx_opt.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#index-instance_method" title="#index (instance method)">#<strong>index</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute index.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#map_opt-instance_method" title="#map_opt (instance method)">#<strong>map_opt</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute map_opt.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#align-instance_method" title="#align (instance method)">#<strong>align</strong>(seq, seq2 = nil, buf: nil, cs: false, md: false, max_frag_len: nil, extra_flags: nil)  &#x21d2; Array </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Alignments.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#free_index-instance_method" title="#free_index (instance method)">#<strong>free_index</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Explicitly releases the memory of the index object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(fn_idx_in = nil, seq: nil, preset: nil, k: nil, w: nil, min_cnt: nil, min_chain_score: nil, min_dp_score: nil, bw: nil, best_n: nil, n_threads: 3, fn_idx_out: nil, max_frag_len: nil, extra_flags: nil, scoring: nil)  &#x21d2; Aligner </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create a new aligner.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#k-instance_method" title="#k (instance method)">#<strong>k</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>k-mer length, no larger than 28.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#n_seq-instance_method" title="#n_seq (instance method)">#<strong>n_seq</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#seq-instance_method" title="#seq (instance method)">#<strong>seq</strong>(name, start = 0, stop = 0x7fffffff)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Retrieve a subsequence from the index.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#seq_names-instance_method" title="#seq_names (instance method)">#<strong>seq_names</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#w-instance_method" title="#w (instance method)">#<strong>w</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>minimizer window size, no larger than 255.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(fn_idx_in = nil, seq: nil, preset: nil, k: nil, w: nil, min_cnt: nil, min_chain_score: nil, min_dp_score: nil, bw: nil, best_n: nil, n_threads: 3, fn_idx_out: nil, max_frag_len: nil, extra_flags: nil, scoring: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create a new aligner.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>fn_idx_in</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>index or sequence file name.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>seq</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a single sequence to index.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>preset</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>minimap2 preset.</p>
+<ul><li>
+<p>map-pb : PacBio CLR genomic reads</p>
+</li><li>
+<p>map-ont : Oxford Nanopore genomic reads</p>
+</li><li>
+<p>map-hifi : PacBio HiFi/CCS genomic reads (v2.19 or later)</p>
+</li><li>
+<p>asm20 : PacBio HiFi/CCS genomic reads (v2.18 or earlier)</p>
+</li><li>
+<p>sr : short genomic paired-end reads</p>
+</li><li>
+<p>splice : spliced long reads (strand unknown)</p>
+</li><li>
+<p>splice:hq : Final PacBio Iso-seq or traditional cDNA</p>
+</li><li>
+<p>asm5 : intra-species asm-to-asm alignment</p>
+</li><li>
+<p>ava-pb : PacBio read overlap</p>
+</li><li>
+<p>ava-ont : Nanopore read overlap</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>k</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>k-mer length, no larger than 28.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>w</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>minimizer window size, no larger than 255.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>min_cnt</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mininum number of minimizers on a chain.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>min_chain_score</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>minimum chaing score.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>min_dp_score</span>
+      
+      
+        <span class='type'></span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bw</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>chaining and alignment band width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>best_n</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>max number of alignments to return.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>n_threads</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>3</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>number of indexing threads.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>fn_idx_out</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name of file to which the index is written. This parameter has no effect if seq is set.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max_frag_len</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>extra_flags</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>additional flags defined in minimap.h.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>scoring</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>scoring system. It is a tuple/list consisting of 4, 6 or 7 positive integers. The first 4 elements specify match scoring, mismatch penalty, gap open and gap extension penalty. The 5th and 6th elements, if present, set long-gap open and long-gap extension penalty. The 7th sets a mismatch penalty involving ambiguous bases.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 40</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span>
+  <span class='id identifier rubyid_fn_idx_in'>fn_idx_in</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>seq:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>preset:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>k:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>w:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>min_cnt:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>min_chain_score:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>min_dp_score:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>bw:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>best_n:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>n_threads:</span> <span class='int'>3</span><span class='comma'>,</span>
+  <span class='label'>fn_idx_out:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>max_frag_len:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>extra_flags:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>scoring:</span> <span class='kw'>nil</span>
+<span class='rparen'>)</span>
+
+  <span class='ivar'>@idx_opt</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/IdxOpt.html" title="Minimap2::FFI::IdxOpt (class)">IdxOpt</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@map_opt</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/MapOpt.html" title="Minimap2::FFI::MapOpt (class)">MapOpt</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_set_opt'><span class='object_link'><a href="FFI.html#mm_set_opt-class_method" title="Minimap2::FFI.mm_set_opt (method)">mm_set_opt</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_preset'>preset</span><span class='comma'>,</span> <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='comma'>,</span> <span class='id identifier rubyid_map_opt'>map_opt</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unknown preset name: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_preset'>preset</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_r'>r</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span>
+
+  <span class='comment'># always perform alignment
+</span>  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>|=</span> <span class='int'>4</span>
+  <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:batch_size</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>0x7fffffffffffffff</span>
+
+  <span class='comment'># override preset options
+</span>  <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_k'>k</span> <span class='kw'>if</span> <span class='id identifier rubyid_k'>k</span>
+  <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:w</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_w'>w</span> <span class='kw'>if</span> <span class='id identifier rubyid_w'>w</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:min_cnt</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_min_cnt'>min_cnt</span> <span class='kw'>if</span> <span class='id identifier rubyid_min_cnt'>min_cnt</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:min_chain_score</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_min_chain_score'>min_chain_score</span> <span class='kw'>if</span> <span class='id identifier rubyid_min_chain_score'>min_chain_score</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:min_dp_max</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_min_dp_score'>min_dp_score</span> <span class='kw'>if</span> <span class='id identifier rubyid_min_dp_score'>min_dp_score</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:bw</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_bw'>bw</span> <span class='kw'>if</span> <span class='id identifier rubyid_bw'>bw</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:best_n</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_best_n'>best_n</span> <span class='kw'>if</span> <span class='id identifier rubyid_best_n'>best_n</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:max_frag_len</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span> <span class='kw'>if</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>|=</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span> <span class='kw'>if</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_scoring'>scoring</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&gt;=</span> <span class='int'>4</span>
+    <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:a</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:b</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:q</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:e</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:q2</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_map_opt'>map_opt</span><span class='period'>.</span><span class='id identifier rubyid_q'>q</span>
+    <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:e2</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_map_opt'>map_opt</span><span class='period'>.</span><span class='id identifier rubyid_e'>e</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&gt;=</span> <span class='int'>6</span>
+      <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:q2</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='lbracket'>[</span><span class='int'>4</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:e2</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='lbracket'>[</span><span class='int'>5</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:sc_ambi</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='lbracket'>[</span><span class='int'>6</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_scoring'>scoring</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&gt;=</span> <span class='int'>7</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_fn_idx_in'>fn_idx_in</span>
+    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Since fn_idx_in is specified, the seq argument will be ignored.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_seq'>seq</span>
+    <span class='id identifier rubyid_reader'>reader</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_idx_reader_open'>mm_idx_reader_open</span><span class='lparen'>(</span><span class='id identifier rubyid_fn_idx_in'>fn_idx_in</span><span class='comma'>,</span> <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='comma'>,</span> <span class='id identifier rubyid_fn_idx_out'>fn_idx_out</span><span class='rparen'>)</span>
+
+    <span class='comment'># The Ruby version raises an error here
+</span>    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot open : </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_fn_idx_in'>fn_idx_in</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_reader'>reader</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+
+    <span class='ivar'>@index</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_idx_reader_read'>mm_idx_reader_read</span><span class='lparen'>(</span><span class='id identifier rubyid_reader'>reader</span><span class='comma'>,</span> <span class='id identifier rubyid_n_threads'>n_threads</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_idx_reader_close'>mm_idx_reader_close</span><span class='lparen'>(</span><span class='id identifier rubyid_reader'>reader</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_mapopt_update'>mm_mapopt_update</span><span class='lparen'>(</span><span class='id identifier rubyid_map_opt'>map_opt</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_idx_index_name'>mm_idx_index_name</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_seq'>seq</span>
+    <span class='ivar'>@index</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mappy_idx_seq'>mappy_idx_seq</span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:w</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='int'>1</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:bucket_bits</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_seq'>seq</span><span class='comma'>,</span> <span class='id identifier rubyid_seq'>seq</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+    <span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_mapopt_update'>mm_mapopt_update</span><span class='lparen'>(</span><span class='id identifier rubyid_map_opt'>map_opt</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:mid_occ</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>1000</span> <span class='comment'># don&#39;t filter high-occ seeds
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="idx_opt-instance_method">
+  
+    #<strong>idx_opt</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute idx_opt.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5
+6
+7</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 5</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_idx_opt'>idx_opt</span>
+  <span class='ivar'>@idx_opt</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="index-instance_method">
+  
+    #<strong>index</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute index.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5
+6
+7</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 5</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
+  <span class='ivar'>@index</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="map_opt-instance_method">
+  
+    #<strong>map_opt</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute map_opt.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5
+6
+7</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 5</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_map_opt'>map_opt</span>
+  <span class='ivar'>@map_opt</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="align-instance_method">
+  
+    #<strong>align</strong>(seq, seq2 = nil, buf: nil, cs: false, md: false, max_frag_len: nil, extra_flags: nil)  &#x21d2; <tt>Array</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>Name change: map -&gt; align In the Ruby language, the name map means iterator. The original name is map, but here I use the method name align.</p>
+</div>
+  </div>
+
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>The use of Enumerator is being considered. The method names may change again.</p>
+</div>
+  </div>
+
+
+<p>Returns alignments.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>seq</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>seq2</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>buf</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="FFI/TBuf.html" title="Minimap2::FFI::TBuf (class)">FFI::TBuf</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cs</span>
+      
+      
+        <span class='type'>(<tt>true</tt>, <tt>false</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>md</span>
+      
+      
+        <span class='type'>(<tt>true</tt>, <tt>false</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max_frag_len</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>extra_flags</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>alignments</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 132</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_align'>align</span><span class='lparen'>(</span>
+  <span class='id identifier rubyid_seq'>seq</span><span class='comma'>,</span> <span class='id identifier rubyid_seq2'>seq2</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>buf:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>cs:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>md:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>max_frag_len:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>extra_flags:</span> <span class='kw'>nil</span>
+<span class='rparen'>)</span>
+
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='period'>.</span><span class='id identifier rubyid_max_frag_len'>max_frag_len</span> <span class='op'>=</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span> <span class='kw'>if</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='period'>.</span><span class='id identifier rubyid_flag'>flag</span> <span class='op'>|=</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span> <span class='kw'>if</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span>
+
+  <span class='id identifier rubyid_buf'>buf</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/TBuf.html" title="Minimap2::FFI::TBuf (class)">TBuf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_km'>km</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_tbuf_get_km'>mm_tbuf_get_km</span><span class='lparen'>(</span><span class='id identifier rubyid_buf'>buf</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_n_regs_ptr'>n_regs_ptr</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='symbol'>:int</span>
+  <span class='id identifier rubyid_regs_ptr'>regs_ptr</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_map_aux'>mm_map_aux</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_seq'>seq</span><span class='comma'>,</span> <span class='id identifier rubyid_seq2'>seq2</span><span class='comma'>,</span> <span class='id identifier rubyid_n_regs_ptr'>n_regs_ptr</span><span class='comma'>,</span> <span class='id identifier rubyid_buf'>buf</span><span class='comma'>,</span> <span class='id identifier rubyid_map_opt'>map_opt</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_n_regs'>n_regs</span> <span class='op'>=</span> <span class='id identifier rubyid_n_regs_ptr'>n_regs_ptr</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
+
+  <span class='id identifier rubyid_regs'>regs</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_n_regs'>n_regs</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/Reg1.html" title="Minimap2::FFI::Reg1 (class)">Reg1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_regs_ptr'>regs_ptr</span> <span class='op'>+</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/Reg1.html" title="Minimap2::FFI::Reg1 (class)">Reg1</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_hit'>hit</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/Hit.html" title="Minimap2::FFI::Hit (class)">Hit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+  <span class='id identifier rubyid_cs_str'>cs_str</span>     <span class='op'>=</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:string</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_m_cs_str'>m_cs_str</span>   <span class='op'>=</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='symbol'>:int</span>
+
+  <span class='id identifier rubyid_alignments'>alignments</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='kw'>begin</span>
+    <span class='kw'>while</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_n_regs'>n_regs</span>
+      <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_reg2hitpy'>mm_reg2hitpy</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_regs'>regs</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_hit'>hit</span><span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='id identifier rubyid_hit'>hit</span><span class='lbracket'>[</span><span class='symbol'>:cigar32</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read_array_of_uint32'>read_array_of_uint32</span><span class='lparen'>(</span><span class='id identifier rubyid_hit'>hit</span><span class='lbracket'>[</span><span class='symbol'>:n_cigar32</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_cigar'>cigar</span> <span class='op'>=</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;&gt;</span> <span class='int'>4</span><span class='comma'>,</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&amp;</span> <span class='int'>0xf</span><span class='rbracket'>]</span> <span class='rbrace'>}</span> <span class='comment'># 32-bit CIGAR encoding -&gt; Ruby array
+</span>
+      <span class='id identifier rubyid__cs'>_cs</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_cs'>cs</span>
+        <span class='id identifier rubyid_l_cs_str'>l_cs_str</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_gen_cs'>mm_gen_cs</span><span class='lparen'>(</span><span class='id identifier rubyid_km'>km</span><span class='comma'>,</span> <span class='id identifier rubyid_cs_str'>cs_str</span><span class='comma'>,</span> <span class='id identifier rubyid_m_cs_str'>m_cs_str</span><span class='comma'>,</span> <span class='ivar'>@index</span><span class='comma'>,</span> <span class='id identifier rubyid_regs'>regs</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_seq'>seq</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid__cs'>_cs</span> <span class='op'>=</span> <span class='id identifier rubyid_cs_str'>cs_str</span><span class='period'>.</span><span class='id identifier rubyid_read_pointer'>read_pointer</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span><span class='lparen'>(</span><span class='id identifier rubyid_l_cs_str'>l_cs_str</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+
+      <span class='id identifier rubyid__md'>_md</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_md'>md</span>
+        <span class='id identifier rubyid_l_cs_str'>l_cs_str</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_gen_md'>mm_gen_md</span><span class='lparen'>(</span><span class='id identifier rubyid_km'>km</span><span class='comma'>,</span> <span class='id identifier rubyid_cs_str'>cs_str</span><span class='comma'>,</span> <span class='id identifier rubyid_m_cs_str'>m_cs_str</span><span class='comma'>,</span> <span class='ivar'>@index</span><span class='comma'>,</span> <span class='id identifier rubyid_regs'>regs</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid__md'>_md</span> <span class='op'>=</span> <span class='id identifier rubyid_cs_str'>cs_str</span><span class='period'>.</span><span class='id identifier rubyid_read_pointer'>read_pointer</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span><span class='lparen'>(</span><span class='id identifier rubyid_l_cs_str'>l_cs_str</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+
+      <span class='id identifier rubyid_alignments'>alignments</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Alignment.html" title="Minimap2::Alignment (class)">Alignment</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alignment.html#initialize-instance_method" title="Minimap2::Alignment#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_hit'>hit</span><span class='comma'>,</span> <span class='id identifier rubyid_cigar'>cigar</span><span class='comma'>,</span> <span class='id identifier rubyid__cs'>_cs</span><span class='comma'>,</span> <span class='id identifier rubyid__md'>_md</span><span class='rparen'>)</span>
+
+      <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_free_reg1'>mm_free_reg1</span><span class='lparen'>(</span><span class='id identifier rubyid_regs'>regs</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_i'>i</span> <span class='op'>+=</span> <span class='int'>1</span>
+    <span class='kw'>end</span>
+  <span class='kw'>ensure</span>
+    <span class='kw'>while</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_n_regs'>n_regs</span>
+      <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_free_reg1'>mm_free_reg1</span><span class='lparen'>(</span><span class='id identifier rubyid_regs'>regs</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_i'>i</span> <span class='op'>+=</span> <span class='int'>1</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_alignments'>alignments</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="free_index-instance_method">
+  
+    #<strong>free_index</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Explicitly releases the memory of the index object.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+115
+116
+117</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 115</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_free_index'>free_index</span>
+  <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_idx_destroy'>mm_idx_destroy</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="k-instance_method">
+  
+    #<strong>k</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>k-mer length, no larger than 28</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+214
+215
+216</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 214</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_k'>k</span>
+  <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="n_seq-instance_method">
+  
+    #<strong>n_seq</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+224
+225
+226</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 224</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_n_seq'>n_seq</span>
+  <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:n_seq</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="seq-instance_method">
+  
+    #<strong>seq</strong>(name, start = 0, stop = 0x7fffffff)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Retrieve a subsequence from the index.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>start</span>
+      
+      
+        <span class='type'></span>
+      
+      
+        <em class="default">(defaults to: <tt>0</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>stop</span>
+      
+      
+        <span class='type'></span>
+      
+      
+        <em class="default">(defaults to: <tt>0x7fffffff</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+203
+204
+205
+206
+207
+208
+209
+210</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 203</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='int'>0x7fffffff</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_lp'>lp</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mappy_fetch_seq'>mappy_fetch_seq</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='comma'>,</span> <span class='id identifier rubyid_lp'>lp</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='id identifier rubyid_lp'>lp</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_l'>l</span> <span class='op'>==</span> <span class='int'>0</span>
+
+  <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="seq_names-instance_method">
+  
+    #<strong>seq_names</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+228
+229
+230
+231
+232
+233</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 228</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_seq_names'>seq_names</span>
+  <span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:seq</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span>
+  <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:n_seq</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/IdxSeq.html" title="Minimap2::FFI::IdxSeq (class)">IdxSeq</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>+</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/IdxSeq.html" title="Minimap2::FFI::IdxSeq (class)">IdxSeq</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="w-instance_method">
+  
+    #<strong>w</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>minimizer window size, no larger than 255</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+220
+221
+222</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 220</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_w'>w</span>
+  <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:w</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Mar 24 10:53:26 2022 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.27 (ruby-3.1.1).
+</div>
+
+    </div>
+  </body>
+</html>
