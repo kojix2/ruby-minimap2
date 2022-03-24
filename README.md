@@ -2,8 +2,9 @@
 
 [![Gem Version](https://img.shields.io/gem/v/minimap2?color=brightgreen)](https://rubygems.org/gems/minimap2)
 [![CI](https://github.com/kojix2/ruby-minimap2/workflows/CI/badge.svg)](https://github.com/kojix2/ruby-minimap2/actions)
+[![Docs Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubydoc.info/gems/minimap2)
+[![Docs Latest](https://img.shields.io/badge/docs-latest-blue.svg)](https://kojix2.github.io/ruby-minimap2/)
 [![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
-[![Docs Latest](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubydoc.info/gems/minimap2)
 [![DOI](https://zenodo.org/badge/325711305.svg)](https://zenodo.org/badge/latestdoi/325711305)
 
 :dna: [minimap2](https://github.com/lh3/minimap2) - the long-read mapper - for [Ruby](https://github.com/ruby/ruby)
@@ -107,7 +108,7 @@ pp hits
 
 * API is based on [Mappy](https://github.com/lh3/minimap2/tree/master/python), the official Python binding for Minimap2. 
 * `Aligner#map` has been changed to `align`, because `map` means iterator in Ruby.
-* See [RubyDoc](https://rubydoc.info/gems/minimap2/) for details.
+* See [documentation](https://kojix2.github.io/ruby-minimap2/) for details.
 
 <details>
 <summary><b>C Structures and Functions</b></summary>
