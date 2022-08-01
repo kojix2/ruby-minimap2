@@ -7,7 +7,6 @@ if ARGV.size < 3
   exit 1
 end
 
-
 # Prepare aligner
 
 REFERENCE = ARGV[0] # reference.fa
@@ -24,9 +23,9 @@ aligner = Minimap2::Aligner.new(
 a1 = Minimap2.fastx_read(FASTQ1) # Enumerator
 a2 = Minimap2.fastx_read(FASTQ2) # Enumerator
 
-# Output file
+# Output
 
-loop do |_i|
+loop do
   r1 = a1.first
   r2 = a2.first 
   break if r1.nil? or r2.nil?
