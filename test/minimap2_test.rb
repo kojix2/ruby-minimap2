@@ -12,13 +12,17 @@ class Minimap2Test < Minitest::Test
   # unique features of ruby bindings
 
   def test_execute_with_string_arg
-    out, err = capture_subprocess_io do
-      pid = fork do
-        MM2.execute("--version")
+    begin
+      out, err = capture_subprocess_io do
+        pid = fork do
+          MM2.execute("--version")
+        end
+        Process.waitpid(pid)
       end
-      Process.waitpid(pid)
+    rescue NotImplementedError
+      skip "Fork not supported on this platform"
     end
-    assert_kind_of String, out
+    assert_match(/^[\d,\.,\-,r]+\n$/, out)
     assert_equal "", err
   end
 
