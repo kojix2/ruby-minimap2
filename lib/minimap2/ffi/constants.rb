@@ -135,9 +135,9 @@ module Minimap2
         :pe_bonus,             :int,
         :mid_occ_frac,         :float,   # only used by mm_mapopt_update(); see below
         :q_occ_frac,           :float,
-        :min_mid_occ,          :int32_t,
-        :mid_occ,              :int32_t, # ignore seeds with occurrences above this threshold
-        :max_occ,              :int32_t,
+        :min_mid_occ,          :int32,
+        :mid_occ,              :int32, # ignore seeds with occurrences above this threshold
+        :max_occ,              :int32,
         :mini_batch_size,      :int64_t, # size of a batch of query bases to process in parallel
         :max_sw_mat,           :int64_t,
         :cap_kalloc,           :int64_t,
@@ -149,19 +149,19 @@ module Minimap2
       layout \
         :name,   :string,    # name of the db sequence
         :offset, :uint64_t,  # offset in mm_idx_t::S
-        :len,    :uint32_t,  # length
-        :is_alt, :uint32_t
+        :len,    :uint32,  # length
+        :is_alt, :uint32
     end
 
     class Idx < ::FFI::Struct
       layout \
-        :b,     :int32_t,
-        :w,     :int32_t,
-        :k,     :int32_t,
-        :flag,  :int32_t,
-        :n_seq, :uint32_t,   # number of reference sequences
-        :index, :int32_t,
-        :n_alt, :int32_t,
+        :b,     :int32,
+        :w,     :int32,
+        :k,     :int32,
+        :flag,  :int32,
+        :n_seq, :uint32,   # number of reference sequences
+        :index, :int32,
+        :n_alt, :int32,
         :seq,   IdxSeq.ptr,  # sequence name, length and offset
         :S,     :pointer,    # 4-bit packed sequence
         :B,     :pointer,    # index (hidden)
@@ -203,23 +203,23 @@ module Minimap2
 
     class Reg1 < ::FFI::BitStruct
       layout \
-        :id,     :int32_t, # ID for internal uses (see also parent below)
-        :cnt,    :int32_t, # number of minimizers; if on the reverse strand
-        :rid,    :int32_t, # reference index; if this is an alignment from inversion rescue
-        :score,  :int32_t, # DP alignment score
-        :qs,     :int32_t, # query start
-        :qe,     :int32_t, # query end
-        :rs,     :int32_t, # reference start
-        :re,     :int32_t, # reference end
-        :parent, :int32_t, # parent==id if primary
-        :subsc,  :int32_t, # best alternate mapping score
-        :as,     :int32_t, # offset in the a[] array (for internal uses only)
-        :mlen,   :int32_t, # seeded exact match length
-        :blen,   :int32_t, # seeded alignment block length
-        :n_sub,  :int32_t, # number of suboptimal mappings
-        :score0, :int32_t, # initial chaining score (before chain merging/spliting)
-        :fields, :uint32_t,
-        :hash,   :uint32_t,
+        :id,     :int32, # ID for internal uses (see also parent below)
+        :cnt,    :int32, # number of minimizers; if on the reverse strand
+        :rid,    :int32, # reference index; if this is an alignment from inversion rescue
+        :score,  :int32, # DP alignment score
+        :qs,     :int32, # query start
+        :qe,     :int32, # query end
+        :rs,     :int32, # reference start
+        :re,     :int32, # reference end
+        :parent, :int32, # parent==id if primary
+        :subsc,  :int32, # best alternate mapping score
+        :as,     :int32, # offset in the a[] array (for internal uses only)
+        :mlen,   :int32, # seeded exact match length
+        :blen,   :int32, # seeded alignment block length
+        :n_sub,  :int32, # number of suboptimal mappings
+        :score0, :int32, # initial chaining score (before chain merging/spliting)
+        :fields, :uint32,
+        :hash,   :uint32,
         :div,    :float,
         :p,      Extra.ptr
 
