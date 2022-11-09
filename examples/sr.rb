@@ -15,7 +15,7 @@ FASTQ2    = ARGV[2] # a_2.fa
 
 aligner = Minimap2::Aligner.new(
   REFERENCE,
-  preset: "sr"    # Paired short reads
+  preset: "sr" # Paired short reads
 )
 
 # Read Fastq file
@@ -27,8 +27,9 @@ a2 = Minimap2.fastx_read(FASTQ2) # Enumerator
 
 loop do
   r1 = a1.first
-  r2 = a2.first 
+  r2 = a2.first
   break if r1.nil? or r2.nil?
+
   s1 = r1[1]
   s2 = r2[1]
 
@@ -36,4 +37,3 @@ loop do
     puts aln.to_s
   end
 end
-
