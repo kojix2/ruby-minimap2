@@ -22,8 +22,7 @@ class Minimap2Test < Minitest::Test
     rescue NotImplementedError
       skip "Fork not supported on this platform"
     end
-    p err
-    assert_match(/^[0-9,\.,\-,r]+\n/, out)
+    assert_match(/^[\d,\.,\-,r]+\n$/, out)
     assert_equal "", err
   end
 
