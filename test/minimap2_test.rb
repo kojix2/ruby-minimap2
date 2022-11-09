@@ -18,7 +18,7 @@ class Minimap2Test < Minitest::Test
       end
       Process.waitpid(pid)
     end
-    assert_kind_of String, out
+    assert_match /^[0-9,\.,\-,r]+\n/, out
     assert_equal "", err
   end
 
