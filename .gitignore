@@ -13,3 +13,4 @@
 
 *.so
 *.dylib
+*.dll
