@@ -34,10 +34,12 @@ module Minimap2
     NO_END_FLT       = 0x10000000
     HARD_MLEVEL      = 0x20000000
     SAM_HIT_ONLY     = 0x40000000
-    RMQ              = 0x80000000  # LL
-    QSTRAND          = 0x100000000 # LL
-    NO_INV           = 0x200000000 # LL
-    NO_HASH_NAME     = 0x400000000 # LL
+    RMQ              = 0x80000000
+    QSTRAND          = 0x100000000
+    NO_INV           = 0x200000000
+    NO_HASH_NAME     = 0x400000000
+    SPLICE_OLD       = 0x800000000
+    SECONDARY_SEQ    = 0x1000000000 # output SEQ field for seqondary alignments using hard clipping
 
     HPC              = 0x1
     NO_SEQ           = 0x2
