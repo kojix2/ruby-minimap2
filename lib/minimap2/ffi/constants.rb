@@ -76,6 +76,90 @@ module Minimap2
         :a, MM128.ptr
     end
 
+    # minimap2 index
+    class IdxSeq < ::FFI::Struct
+      layout \
+        :name,   :string,    # name of the db sequence
+        :offset, :uint64_t,  # offset in mm_idx_t::S
+        :len,    :uint32,  # length
+        :is_alt, :uint32
+    end
+
+    class Idx < ::FFI::Struct
+      layout \
+        :b,     :int32,
+        :w,     :int32,
+        :k,     :int32,
+        :flag,  :int32,
+        :n_seq, :uint32,   # number of reference sequences
+        :index, :int32,
+        :n_alt, :int32,
+        :seq,   IdxSeq.ptr,  # sequence name, length and offset
+        :S,     :pointer,    # 4-bit packed sequence
+        :B,     :pointer,    # index (hidden)
+        :I,     :pointer,    # intervals (hidden)
+        :km,    :pointer,
+        :h,     :pointer
+    end
+
+    # minimap2 alignment
+    class Extra < ::FFI::BitStruct
+      layout \
+        :capacity,            :uint32,  # the capacity of cigar[]
+        :dp_score,            :int32,   # DP score
+        :dp_max,              :int32,   # score of the max-scoring segment
+        :dp_max2,             :int32,   # score of the best alternate mappings
+        :n_ambi_trans_strand, :uint32,
+        :n_cigar,             :uint32
+
+      bit_field :n_ambi_trans_strand,
+                :n_ambi, 30,      # number of ambiguous bases
+                :trans_strand, 2  # transcript strand: 0 for unknown, 1 for +, 2 for -
+
+      # variable length array
+      def cigar
+        pointer.get_array_of_uint32(size, self[:n_cigar])
+      end
+    end
+
+    class Reg1 < ::FFI::BitStruct
+      layout \
+        :id,     :int32, # ID for internal uses (see also parent below)
+        :cnt,    :int32, # number of minimizers; if on the reverse strand
+        :rid,    :int32, # reference index; if this is an alignment from inversion rescue
+        :score,  :int32, # DP alignment score
+        :qs,     :int32, # query start
+        :qe,     :int32, # query end
+        :rs,     :int32, # reference start
+        :re,     :int32, # reference end
+        :parent, :int32, # parent==id if primary
+        :subsc,  :int32, # best alternate mapping score
+        :as,     :int32, # offset in the a[] array (for internal uses only)
+        :mlen,   :int32, # seeded exact match length
+        :blen,   :int32, # seeded alignment block length
+        :n_sub,  :int32, # number of suboptimal mappings
+        :score0, :int32, # initial chaining score (before chain merging/spliting)
+        :fields, :uint32,
+        :hash,   :uint32,
+        :div,    :float,
+        :p,      Extra.ptr
+
+      bit_field :fields,
+                :mapq,            8,
+                :split,           2,
+                :rev,             1,
+                :inv,             1,
+                :sam_pri,         1,
+                :proper_frag,     1,
+                :pe_thru,         1,
+                :seg_split,       1,
+                :seg_id,          8,
+                :split_inv,       1,
+                :is_alt,          1,
+                :strand_retained, 1,
+                :dummy,           5
+    end
+
     # indexing option
     class IdxOpt < ::FFI::Struct
       layout \
@@ -146,32 +230,6 @@ module Minimap2
         :split_prefix,         :string
     end
 
-    # minimap2 index
-    class IdxSeq < ::FFI::Struct
-      layout \
-        :name,   :string,    # name of the db sequence
-        :offset, :uint64_t,  # offset in mm_idx_t::S
-        :len,    :uint32,  # length
-        :is_alt, :uint32
-    end
-
-    class Idx < ::FFI::Struct
-      layout \
-        :b,     :int32,
-        :w,     :int32,
-        :k,     :int32,
-        :flag,  :int32,
-        :n_seq, :uint32,   # number of reference sequences
-        :index, :int32,
-        :n_alt, :int32,
-        :seq,   IdxSeq.ptr,  # sequence name, length and offset
-        :S,     :pointer,    # 4-bit packed sequence
-        :B,     :pointer,    # index (hidden)
-        :I,     :pointer,    # intervals (hidden)
-        :km,    :pointer,
-        :h,     :pointer
-    end
-
     # index reader
     class IdxReader < ::FFI::Struct
       layout \
@@ -181,64 +239,6 @@ module Minimap2
         :opt,         IdxOpt,
         :fp_out,      :pointer, # FILE
         :seq_or_idx,  :pointer  # FIXME: Union mm_bseq_files or FILE
-    end
-
-    # minimap2 alignment
-    class Extra < ::FFI::BitStruct
-      layout \
-        :capacity,            :uint32,  # the capacity of cigar[]
-        :dp_score,            :int32,   # DP score
-        :dp_max,              :int32,   # score of the max-scoring segment
-        :dp_max2,             :int32,   # score of the best alternate mappings
-        :n_ambi_trans_strand, :uint32,
-        :n_cigar,             :uint32
-
-      bit_field :n_ambi_trans_strand,
-                :n_ambi, 30,      # number of ambiguous bases
-                :trans_strand, 2  # transcript strand: 0 for unknown, 1 for +, 2 for -
-
-      # variable length array
-      def cigar
-        pointer.get_array_of_uint32(size, self[:n_cigar])
-      end
-    end
-
-    class Reg1 < ::FFI::BitStruct
-      layout \
-        :id,     :int32, # ID for internal uses (see also parent below)
-        :cnt,    :int32, # number of minimizers; if on the reverse strand
-        :rid,    :int32, # reference index; if this is an alignment from inversion rescue
-        :score,  :int32, # DP alignment score
-        :qs,     :int32, # query start
-        :qe,     :int32, # query end
-        :rs,     :int32, # reference start
-        :re,     :int32, # reference end
-        :parent, :int32, # parent==id if primary
-        :subsc,  :int32, # best alternate mapping score
-        :as,     :int32, # offset in the a[] array (for internal uses only)
-        :mlen,   :int32, # seeded exact match length
-        :blen,   :int32, # seeded alignment block length
-        :n_sub,  :int32, # number of suboptimal mappings
-        :score0, :int32, # initial chaining score (before chain merging/spliting)
-        :fields, :uint32,
-        :hash,   :uint32,
-        :div,    :float,
-        :p,      Extra.ptr
-
-      bit_field :fields,
-                :mapq,            8,
-                :split,           2,
-                :rev,             1,
-                :inv,             1,
-                :sam_pri,         1,
-                :proper_frag,     1,
-                :pe_thru,         1,
-                :seg_split,       1,
-                :seg_id,          8,
-                :split_inv,       1,
-                :is_alt,          1,
-                :strand_retained, 1,
-                :dummy,           5
     end
 
     # memory buffer for thread-local storage during mapping
