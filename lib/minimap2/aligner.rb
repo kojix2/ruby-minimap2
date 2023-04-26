@@ -139,6 +139,7 @@ module Minimap2
     )
 
       return if index.null?
+      return if (map_opt[:flag] & 4).zero? && (index[:flag] & 2).zero?
 
       map_opt[:max_frag_len] = max_frag_len if max_frag_len
       map_opt[:flag] |= extra_flags if extra_flags
@@ -201,6 +202,8 @@ module Minimap2
     # @param stop
 
     def seq(name, start = 0, stop = 0x7fffffff)
+      return if index.null?
+      return if (map_opt[:flag] & 4).zero? && (index[:flag] & 2).zero?
       lp = ::FFI::MemoryPointer.new(:int)
       s = FFI.mappy_fetch_seq(index, name, start, stop, lp)
       l = lp.read_int
