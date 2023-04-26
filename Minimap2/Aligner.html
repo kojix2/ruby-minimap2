@@ -6,7 +6,7 @@
 <title>
   Class: Minimap2::Aligner
   
-    &mdash; Documentation by YARD 0.9.28
+    &mdash; Documentation by YARD 0.9.34
   
 </title>
 
@@ -1252,8 +1252,8 @@
 
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
 
-  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='period'>.</span><span class='id identifier rubyid_max_frag_len'>max_frag_len</span> <span class='op'>=</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span> <span class='kw'>if</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span>
-  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='period'>.</span><span class='id identifier rubyid_flag'>flag</span> <span class='op'>|=</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span> <span class='kw'>if</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:max_frag_len</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span> <span class='kw'>if</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>|=</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span> <span class='kw'>if</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span>
 
   <span class='id identifier rubyid_buf'>buf</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/TBuf.html" title="Minimap2::FFI::TBuf (class)">TBuf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_km'>km</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_tbuf_get_km'>mm_tbuf_get_km</span><span class='lparen'>(</span><span class='id identifier rubyid_buf'>buf</span><span class='rparen'>)</span>
@@ -1597,9 +1597,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Jan  5 11:05:00 2023 by
+  Generated on Wed Apr 26 16:11:00 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.2.0).
+  0.9.34 (ruby-3.2.2).
 </div>
 
     </div>
