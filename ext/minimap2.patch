@@ -1,5 +1,5 @@
---- Makefile.org	2021-05-27 15:45:11.993128205 +0900
-+++ Makefile	2021-05-27 15:46:02.320569154 +0900
+--- a/Makefile
++++ b/Makefile
 @@ -1,9 +1,9 @@
 -CFLAGS=		-g -Wall -O2 -Wc++-compat #-Wextra
 +CFLAGS=		-g -Wall -O2 -Wc++-compat -fPIC #-Wextra
@@ -12,7 +12,7 @@
  PROG=		minimap2
  PROG_EXTRA=	sdust minimap2-lite
  LIBS=		-lm -lz -lpthread
-@@ -130,3 +130,4 @@ sdust.o: kalloc.h kdq.h kvec.h sdust.h
+@@ -134,3 +134,4 @@ sdust.o: kalloc.h kdq.h kvec.h sdust.h
  seed.o: mmpriv.h minimap.h bseq.h kseq.h kalloc.h ksort.h
  sketch.o: kvec.h kalloc.h mmpriv.h minimap.h bseq.h kseq.h
  splitidx.o: mmpriv.h minimap.h bseq.h kseq.h
