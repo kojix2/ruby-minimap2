@@ -1236,7 +1236,8 @@
 193
 194
 195
-196</pre>
+196
+197</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 132</span>
@@ -1251,6 +1252,7 @@
 <span class='rparen'>)</span>
 
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='int'>4</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
 
   <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:max_frag_len</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span> <span class='kw'>if</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span>
   <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>|=</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span> <span class='kw'>if</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span>
@@ -1378,12 +1380,12 @@
       <pre class="lines">
 
 
-214
-215
-216</pre>
+217
+218
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 217</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_k'>k</span>
   <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span>
@@ -1408,12 +1410,12 @@
       <pre class="lines">
 
 
-224
-225
-226</pre>
+227
+228
+229</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 224</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 227</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_n_seq'>n_seq</span>
   <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:n_seq</span><span class='rbracket'>]</span>
@@ -1490,19 +1492,23 @@
       <pre class="lines">
 
 
-203
 204
 205
 206
 207
 208
 209
-210</pre>
+210
+211
+212
+213</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 204</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='int'>0x7fffffff</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='int'>4</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>&amp;</span> <span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
   <span class='id identifier rubyid_lp'>lp</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:int</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mappy_fetch_seq'>mappy_fetch_seq</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span><span class='comma'>,</span> <span class='id identifier rubyid_lp'>lp</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='id identifier rubyid_lp'>lp</span><span class='period'>.</span><span class='id identifier rubyid_read_int'>read_int</span>
@@ -1530,15 +1536,15 @@
       <pre class="lines">
 
 
-228
-229
-230
 231
 232
-233</pre>
+233
+234
+235
+236</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 231</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq_names'>seq_names</span>
   <span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:seq</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span>
@@ -1577,12 +1583,12 @@
       <pre class="lines">
 
 
-220
-221
-222</pre>
+223
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 223</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_w'>w</span>
   <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:w</span><span class='rbracket'>]</span>
@@ -1597,7 +1603,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Apr 26 16:14:06 2023 by
+  Generated on Wed Apr 26 16:45:49 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.2.2).
 </div>
