@@ -140,8 +140,8 @@ module Minimap2
 
       return if index.null?
 
-      map_opt.max_frag_len = max_frag_len if max_frag_len
-      map_opt.flag |= extra_flags if extra_flags
+      map_opt[:max_frag_len] = max_frag_len if max_frag_len
+      map_opt[:flag] |= extra_flags if extra_flags
 
       buf ||= FFI::TBuf.new
       km = FFI.mm_tbuf_get_km(buf)
