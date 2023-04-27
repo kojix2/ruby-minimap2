@@ -136,8 +136,11 @@ module Minimap2
         :mid_occ_frac,         :float,   # only used by mm_mapopt_update(); see below
         :q_occ_frac,           :float,
         :min_mid_occ,          :int32,
+        :max_mid_occ,          :int32,
         :mid_occ,              :int32, # ignore seeds with occurrences above this threshold
         :max_occ,              :int32,
+        :max_max_occ,          :int32,
+        :occ_dist,             :int32,
         :mini_batch_size,      :int64_t, # size of a batch of query bases to process in parallel
         :max_sw_mat,           :int64_t,
         :cap_kalloc,           :int64_t,
