@@ -176,7 +176,7 @@ ruby-minimap2 is a library under development and there are many points to be imp
 Please feel free to report [bugs](https://github.com/kojix2/ruby-minimap2/issues) and [pull requests](https://github.com/kojix2/ruby-minimap2/pulls)!
 
 Many OSS projects become abandoned because only the founder has commit rights to the original repository. 
-If you need commit rights to my repository or want to get admin rights and take over the project, please feel free to contact me @kojix2.
+If you need commit rights to ruby-minimap2 repository or want to get admin rights and take over the project, please feel free to contact me @kojix2.
 
 ## License
 
