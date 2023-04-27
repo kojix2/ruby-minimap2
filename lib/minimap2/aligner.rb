@@ -204,6 +204,7 @@ module Minimap2
     def seq(name, start = 0, stop = 0x7fffffff)
       return if index.null?
       return if (map_opt[:flag] & 4).zero? && (index[:flag] & 2).zero?
+
       lp = ::FFI::MemoryPointer.new(:int)
       s = FFI.mappy_fetch_seq(index, name, start, stop, lp)
       l = lp.read_int
