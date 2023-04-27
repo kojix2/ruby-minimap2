@@ -80,8 +80,8 @@ module Minimap2
         map_opt[:b] = scoring[1]
         map_opt[:q] = scoring[2]
         map_opt[:e] = scoring[3]
-        map_opt[:q2] = map_opt.q
-        map_opt[:e2] = map_opt.e
+        map_opt[:q2] = map_opt[:q]
+        map_opt[:e2] = map_opt[:e]
         if scoring.size >= 6
           map_opt[:q2] = scoring[4]
           map_opt[:e2] = scoring[5]
