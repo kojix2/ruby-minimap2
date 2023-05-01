@@ -12,6 +12,12 @@ class Minimap2Test < Minitest::Test
   # unique features of ruby bindings
 
   def test_execute_with_string_arg
+    assert_equal 0, MM2.execute("--version")
+    assert_equal 1, MM2.execute("--lh 3")
+    # After executing the "--version" command, the verbosity is changed to 3.
+    # To prevent test_get_verbose from failing, set it back to 1.
+    MM2.verbose = 1
+    
     begin
       out, err = capture_subprocess_io do
         pid = fork do
@@ -23,7 +29,7 @@ class Minimap2Test < Minitest::Test
       skip "Fork not supported on this platform"
     end
     assert_match(/^[\d\.\-r]+\n/, out)
-    assert_equal true, Minimap2::VERSION.include?(out.split("-r")[0])
+    assert_includes Minimap2::VERSION, out.split("-r")[0]
     assert_equal "", err
   end
 
