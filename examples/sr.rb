@@ -34,6 +34,6 @@ loop do
   s2 = r2[1]
 
   aligner.align(s1, s2).each do |aln|
-    puts aln.to_s
+    puts aln
   end
 end
