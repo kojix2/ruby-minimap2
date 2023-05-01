@@ -169,6 +169,15 @@ Run tests.
 bundle exec rake test
 ```
 
+Release a Gem.
+
+```
+bundle exec rake minimap2:cleanall
+bundle exec rake build
+ls -l pkg # Check the size of the Gem and make sure it does not contain any unused code such as shared libraries or lib/simde.
+bundle exec rake release
+```
+
 </details>
 
 ruby-minimap2 is a library under development and there are many points to be improved.
