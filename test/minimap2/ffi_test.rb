@@ -195,7 +195,7 @@ class FFITest < Minitest::Test
     iopt = MM2::FFI::IdxOpt.new
     mopt = MM2::FFI::MapOpt.new
     MM2::FFI.mm_set_opt(nil, iopt, mopt)
-    assert_equal [15, 10, 0, 14, 50_000_000, 4_000_000_000], iopt.values
+    assert_equal [15, 10, 0, 14, 50_000_000, 8_000_000_000], iopt.values
   end
 
   def test_mm_set_opt_short
