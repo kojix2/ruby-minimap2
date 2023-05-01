@@ -23,6 +23,7 @@ class Minimap2Test < Minitest::Test
       skip "Fork not supported on this platform"
     end
     assert_match(/^[\d,.,\-,r]+\n$/, out)
+    assert_equal true, Minimap2::VERSION.include?(out.split("-r")[0])
     assert_equal "", err
   end
 
