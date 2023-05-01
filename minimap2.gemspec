@@ -14,7 +14,10 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.5"
 
-  spec.files         = Dir["*.{md,txt}", "{lib,ext}/**/*", "vendor/libminimap2.{so,dylib,dll}"]
+  # If you include the lib/simde code, the Gem size will be 1MB.
+  # Build with lib/simde is currently not supported, so simde code is not included in the Gem.
+  spec.files         = (Dir["*.{md,txt}", "{lib,ext}/**/*", "vendor/libminimap2.{so,dylib,dll}"] -
+                        Dir["ext/minimap2/lib/**/*"])
   spec.require_paths = ["lib"]
 
   spec.extensions    = %w[ext/Rakefile]
