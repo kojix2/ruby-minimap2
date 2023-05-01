@@ -221,6 +221,14 @@ bundle exec rake install
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_test'>test</span>
 </code></pre>
 
+<p>Release a Gem.</p>
+
+<pre class="code ruby"><code class="ruby">bundle exec rake minimap2:cleanall
+bundle exec rake build
+ls -l pkg # Check the size of the Gem and make sure it does not contain any unused code such as shared libraries or lib/simde.
+bundle exec rake release
+</code></pre>
+
 <p>&lt;/details&gt;</p>
 
 <p>ruby-minimap2 is a library under development and there are many points to be improved.</p>
@@ -239,7 +247,7 @@ bundle exec rake install
 </div></div>
 
       <div id="footer">
-  Generated on Mon May  1 01:54:33 2023 by
+  Generated on Mon May  1 02:51:58 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.2.2).
 </div>
