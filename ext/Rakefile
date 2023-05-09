@@ -18,7 +18,14 @@ namespace :minimap2 do
       # Add -fPIC option to Makefile
       sh "git apply ../minimap2.patch"
       sh "cp ../cmappy/cmappy.h ../cmappy/cmappy.c ."
-      sh "make"
+      case RbConfig::CONFIG["host_cpu"]
+      when /arm64/
+        sh "make arm_neon=1 aarch64=1"
+      when /arm/
+        sh "make arm_neon=1"
+      else
+        sh "make"
+      end
       case RbConfig::CONFIG["host_os"]
       when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
         sh "cc *.o -shared -o #{target_fname} -lm -lz -lpthread"
