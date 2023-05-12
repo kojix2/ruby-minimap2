@@ -17,7 +17,9 @@ class Minimap2Test < Minitest::Test
     # After executing the "--version" command, the verbosity is changed to 3.
     # To prevent test_get_verbose from failing, set it back to 1.
     MM2.verbose = 1
+  end
 
+  def test_if_minimap2_version_numbers_match
     begin
       out, err = capture_subprocess_io do
         pid = fork do
@@ -26,9 +28,12 @@ class Minimap2Test < Minitest::Test
         Process.waitpid(pid)
       end
     rescue NotImplementedError
+      # Windows does not support fork.
       skip "Fork not supported on this platform"
     end
     assert_match(/^[\d.\-r]+\n/, out)
+    # The version number of the gem should match the version number of the
+    # Minimap2 shared library. Prevent version mismatch before release.
     assert_includes Minimap2::VERSION, out.split("-r")[0]
     assert_equal "", err
   end
