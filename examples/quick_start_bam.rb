@@ -20,7 +20,7 @@ HTS::Bam.open("test.bam", "wb") do |bam|
   header.add_lines("@PG\tID:ruby-minimap2\tPN:ruby-minimap2\tVN:#{Minimap2::VERSION}")
   bam.header = header
   record = HTS::Bam::Record.new(
-    header, 
+    header,
     qname: "Read1",
     flag: 0,
     tid: 0,
