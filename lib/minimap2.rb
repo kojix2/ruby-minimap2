@@ -37,7 +37,7 @@ module Minimap2
     # @example Get minimap2 version
     #   Minimap2.execute('--version')
 
-    def Minimap2.execute(*rb_argv)
+    def execute(*rb_argv)
       str_ptrs = []
       # First argument is the program name.
       str_ptrs << ::FFI::MemoryPointer.from_string("minimap2")
