@@ -431,7 +431,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 40</span>
 
-<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="Minimap2 (module)">Minimap2</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_rb_argv'>rb_argv</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_rb_argv'>rb_argv</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_str_ptrs'>str_ptrs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='comment'># First argument is the program name.
 </span>  <span class='id identifier rubyid_str_ptrs'>str_ptrs</span> <span class='op'>&lt;&lt;</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_from_string'>from_string</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>minimap2</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -824,7 +824,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun May 21 06:10:35 2023 by
+  Generated on Sun May 21 06:27:57 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.2.2).
 </div>
