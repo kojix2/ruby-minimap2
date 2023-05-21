@@ -51,10 +51,8 @@ namespace :minimap2 do
     end
   end
 
-  task cleanall: [:clean]
-
   desc "`make clean` and remove shared lib"
-  task :cleanall do
+  task cleanall: [:clean] do
     Dir.chdir(minimap2_dir) do
       sh "rm #{target_path}" if File.exist?(target_path)
     end
