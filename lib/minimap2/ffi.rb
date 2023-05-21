@@ -2,6 +2,7 @@
 
 # bit fields
 require "ffi/bit_struct"
+
 module Minimap2
   # Native APIs
   module FFI
