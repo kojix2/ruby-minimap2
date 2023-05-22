@@ -4,5 +4,11 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "minitest"
-gem "rake"
+group :development do
+  gem "htslib", :git => "https://github.com/kojix2/ruby-htslib"
+end
+
+group :test do
+  gem "minitest"
+  gem "rake"
+end
