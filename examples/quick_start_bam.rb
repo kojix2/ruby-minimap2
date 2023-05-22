@@ -15,9 +15,10 @@ hit = hits[0]
 
 # save result to BAM file
 HTS::Bam.open("test.bam", "wb") do |bam|
-  header = HTS::Bam::Header.new
-  header << %w(SQ SN MT_human LN 16569)
-  header << "@PG\tID:ruby-minimap2\tPN:ruby-minimap2\tVN:#{Minimap2::VERSION}"
+  header = HTS::Bam::Header.new do |h|
+    h << %w[SQ SN MT_human LN 16569]
+    h << "@PG\tID:ruby-minimap2\tPN:ruby-minimap2\tVN:#{Minimap2::VERSION}"
+  end
   bam.header = header
   record = HTS::Bam::Record.new(
     header,
