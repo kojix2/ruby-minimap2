@@ -57,8 +57,6 @@ pp hits
   @strand=1,
   @trans_strand=0>]
 ```
- 
-</details>
 
 ## APIs Overview
 
