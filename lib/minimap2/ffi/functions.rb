@@ -15,10 +15,11 @@ module Minimap2
     private_class_method :mm_set_opt_raw
 
     def self.mm_set_opt(preset, io, mo)
-      ptr = if preset
-              ::FFI::MemoryPointer.from_string(preset.to_s)
-            else
+      ptr = case preset
+            when 0, nil
               ::FFI::Pointer.new(:int, 0)
+            else
+              ::FFI::MemoryPointer.from_string(preset.to_s)
             end
       mm_set_opt_raw(ptr, io, mo)
     end
