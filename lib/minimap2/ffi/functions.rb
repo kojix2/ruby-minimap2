@@ -78,5 +78,17 @@ module Minimap2
       :mm_gen_md, :mm_gen_MD, # Avoid uppercase letters in method names.
       [:pointer, :pointer, :pointer, Idx.by_ref, Reg1.by_ref, :string],
       :int
+
+    attach_function \
+      :mm_mapopt_init,
+      [MapOpt.by_ref],
+      :void
+
+    # mmpriv.h
+
+    attach_function \
+      :mm_idxopt_init,
+      [IdxOpt.by_ref],
+      :void
   end
 end
