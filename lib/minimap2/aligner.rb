@@ -21,10 +21,11 @@ module Minimap2
     #   * ava-ont : Nanopore read overlap
     # @param k [Integer] k-mer length, no larger than 28.
     # @param w [Integer] minimizer window size, no larger than 255.
-    # @param min_cnt [Integer] mininum number of minimizers on a chain.
-    # @param min_chain_score [Integer] minimum chaing score.
+    # @param min_cnt [Integer] minimum number of minimizers on a chain.
+    # @param min_chain_score [Integer] minimum chain score.
     # @param min_dp_score
-    # @param bw [Integer] chaining and alignment band width.
+    # @param bw [Integer] chaining and alignment band width. (initial chaining and extension)
+    # @param bw_long [Integer] chaining and alignment band width (RMQ-based rechaining and closing gaps)
     # @param best_n [Integer] max number of alignments to return.
     # @param n_threads [Integer] number of indexing threads.
     # @param fn_idx_out [String] name of file to which the index is written.

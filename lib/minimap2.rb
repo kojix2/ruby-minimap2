@@ -76,7 +76,7 @@ module Minimap2
     # @param [String] file_path
     # @param [Boolean] comment If True, the comment will be read.
     # @yield [name, seq, qual, comment]
-    # @return [Enumerator] enum Retrun Enumerator if not block given.
+    # @return [Enumerator] enum Return Enumerator if not block given.
     # Note: You can BioRuby instead of this method.
 
     def fastx_read(file_path, comment: false, &block)

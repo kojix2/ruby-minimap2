@@ -23,7 +23,7 @@ module Minimap2
   #   @return [Integer] length of the matching bases in the alignment,
   #     excluding ambiguous base matches.
   # @!attribute nm
-  #   @return [Integer] number of mismatches, gaps and ambiguous poistions in the alignment.
+  #   @return [Integer] number of mismatches, gaps and ambiguous positions in the alignment.
   # @!attribute primary
   #   @return [Integer] if the alignment is primary (typically the best and the first to generate)
   # @!attribute q_st
