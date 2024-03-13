@@ -47,6 +47,7 @@ module Minimap2
       min_chain_score: nil,
       min_dp_score: nil,
       bw: nil,
+      bw_long: nil,
       best_n: nil,
       n_threads: 3,
       fn_idx_out: nil,
@@ -72,6 +73,7 @@ module Minimap2
       map_opt[:min_chain_score] = min_chain_score if min_chain_score
       map_opt[:min_dp_max] = min_dp_score if min_dp_score
       map_opt[:bw] = bw if bw
+      map_opt[:bw_long] = bw_long if bw_long
       map_opt[:best_n] = best_n if best_n
       map_opt[:max_frag_len] = max_frag_len if max_frag_len
       map_opt[:flag] |= extra_flags if extra_flags
