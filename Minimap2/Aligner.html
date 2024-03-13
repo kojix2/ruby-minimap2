@@ -6,7 +6,7 @@
 <title>
   Class: Minimap2::Aligner
   
-    &mdash; Documentation by YARD 0.9.34
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
@@ -257,7 +257,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(fn_idx_in = nil, seq: nil, preset: nil, k: nil, w: nil, min_cnt: nil, min_chain_score: nil, min_dp_score: nil, bw: nil, best_n: nil, n_threads: 3, fn_idx_out: nil, max_frag_len: nil, extra_flags: nil, scoring: nil)  &#x21d2; Aligner </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(fn_idx_in = nil, seq: nil, preset: nil, k: nil, w: nil, min_cnt: nil, min_chain_score: nil, min_dp_score: nil, bw: nil, bw_long: nil, best_n: nil, n_threads: 3, fn_idx_out: nil, max_frag_len: nil, extra_flags: nil, scoring: nil)  &#x21d2; Aligner </a>
     
 
     
@@ -405,7 +405,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(fn_idx_in = nil, seq: nil, preset: nil, k: nil, w: nil, min_cnt: nil, min_chain_score: nil, min_dp_score: nil, bw: nil, best_n: nil, n_threads: 3, fn_idx_out: nil, max_frag_len: nil, extra_flags: nil, scoring: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></tt> 
+    #<strong>initialize</strong>(fn_idx_in = nil, seq: nil, preset: nil, k: nil, w: nil, min_cnt: nil, min_chain_score: nil, min_dp_score: nil, bw: nil, bw_long: nil, best_n: nil, n_threads: 3, fn_idx_out: nil, max_frag_len: nil, extra_flags: nil, scoring: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></tt> 
   
 
   
@@ -797,7 +797,9 @@
 108
 109
 110
-111</pre>
+111
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 40</span>
@@ -812,6 +814,7 @@
   <span class='label'>min_chain_score:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='label'>min_dp_score:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='label'>bw:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>bw_long:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='label'>best_n:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='label'>n_threads:</span> <span class='int'>3</span><span class='comma'>,</span>
   <span class='label'>fn_idx_out:</span> <span class='kw'>nil</span><span class='comma'>,</span>
@@ -837,6 +840,7 @@
   <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:min_chain_score</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_min_chain_score'>min_chain_score</span> <span class='kw'>if</span> <span class='id identifier rubyid_min_chain_score'>min_chain_score</span>
   <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:min_dp_max</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_min_dp_score'>min_dp_score</span> <span class='kw'>if</span> <span class='id identifier rubyid_min_dp_score'>min_dp_score</span>
   <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:bw</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_bw'>bw</span> <span class='kw'>if</span> <span class='id identifier rubyid_bw'>bw</span>
+  <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:bw_long</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_bw_long'>bw_long</span> <span class='kw'>if</span> <span class='id identifier rubyid_bw_long'>bw_long</span>
   <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:best_n</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_best_n'>best_n</span> <span class='kw'>if</span> <span class='id identifier rubyid_best_n'>best_n</span>
   <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:max_frag_len</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span> <span class='kw'>if</span> <span class='id identifier rubyid_max_frag_len'>max_frag_len</span>
   <span class='id identifier rubyid_map_opt'>map_opt</span><span class='lbracket'>[</span><span class='symbol'>:flag</span><span class='rbracket'>]</span> <span class='op'>|=</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span> <span class='kw'>if</span> <span class='id identifier rubyid_extra_flags'>extra_flags</span>
@@ -1172,8 +1176,6 @@
       <pre class="lines">
 
 
-132
-133
 134
 135
 136
@@ -1237,10 +1239,12 @@
 194
 195
 196
-197</pre>
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_align'>align</span><span class='lparen'>(</span>
   <span class='id identifier rubyid_seq'>seq</span><span class='comma'>,</span> <span class='id identifier rubyid_seq2'>seq2</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span>
@@ -1339,12 +1343,12 @@
       <pre class="lines">
 
 
-115
-116
-117</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_free_index'>free_index</span>
   <span class='const'><span class='object_link'><a href="FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_idx_destroy'>mm_idx_destroy</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -1380,12 +1384,12 @@
       <pre class="lines">
 
 
-218
-219
-220</pre>
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 218</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 220</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_k'>k</span>
   <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span>
@@ -1410,12 +1414,12 @@
       <pre class="lines">
 
 
-228
-229
-230</pre>
+230
+231
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 230</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_n_seq'>n_seq</span>
   <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:n_seq</span><span class='rbracket'>]</span>
@@ -1492,8 +1496,6 @@
       <pre class="lines">
 
 
-204
-205
 206
 207
 208
@@ -1502,10 +1504,12 @@
 211
 212
 213
-214</pre>
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 206</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_stop'>stop</span> <span class='op'>=</span> <span class='int'>0x7fffffff</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
@@ -1538,15 +1542,15 @@
       <pre class="lines">
 
 
-232
-233
 234
 235
 236
-237</pre>
+237
+238
+239</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 234</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seq_names'>seq_names</span>
   <span class='id identifier rubyid_ptr'>ptr</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:seq</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_ptr'>to_ptr</span>
@@ -1585,12 +1589,12 @@
       <pre class="lines">
 
 
-224
-225
-226</pre>
+226
+227
+228</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 224</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 226</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_w'>w</span>
   <span class='id identifier rubyid_index'>index</span><span class='lbracket'>[</span><span class='symbol'>:w</span><span class='rbracket'>]</span>
@@ -1605,9 +1609,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Feb 10 00:31:46 2024 by
+  Generated on Wed Mar 13 14:44:39 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.34 (ruby-3.3.0).
+  0.9.36 (ruby-3.3.0).
 </div>
 
     </div>
