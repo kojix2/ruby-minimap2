@@ -111,6 +111,7 @@ module Minimap2
         :dp_max2,             :int32,   # score of the best alternate mappings
         :n_ambi_trans_strand, :uint32,
         :n_cigar,             :uint32
+        # :cigar,             :pointer  # variable length array (see cigar method below)
 
       bit_field :n_ambi_trans_strand,
                 :n_ambi, 30,      # number of ambiguous bases
@@ -223,7 +224,7 @@ module Minimap2
         :q_occ_frac,           :float,
         :min_mid_occ,          :int32,
         :max_mid_occ,          :int32,
-        :mid_occ,              :int32, # ignore seeds with occurrences above this threshold
+        :mid_occ,              :int32,   # ignore seeds with occurrences above this threshold
         :max_occ,              :int32,
         :max_max_occ,          :int32,
         :occ_dist,             :int32,
