@@ -40,6 +40,7 @@ module Minimap2
     NO_HASH_NAME     = 0x400000000
     SPLICE_OLD       = 0x800000000
     SECONDARY_SEQ    = 0x1000000000 # output SEQ field for seqondary alignments using hard clipping
+    OUT_DS           = 0x2000000000
 
     HPC              = 0x1
     NO_SEQ           = 0x2
@@ -109,6 +110,7 @@ module Minimap2
         :dp_score,            :int32,   # DP score
         :dp_max,              :int32,   # score of the max-scoring segment
         :dp_max2,             :int32,   # score of the best alternate mappings
+        :dp_max0,             :int32,   # DP score before mm_update_dp_max() adjustment
         :n_ambi_trans_strand, :uint32,
         :n_cigar,             :uint32
         # :cigar,             :pointer  # variable length array (see cigar method below)
@@ -205,6 +207,7 @@ module Minimap2
         :e,                    :int,     # gap-ext
         :q2,                   :int,     # gap-open
         :e2,                   :int,     # gap-ext
+        :transition,           :int,     # transition mismatch score (A:G, C:T)
         :sc_ambi,              :int,     # score when one or both bases are "N"
         :noncan,               :int,     # cost of non-canonical splicing sites
         :junc_bonus,           :int,
