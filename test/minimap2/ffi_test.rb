@@ -91,7 +91,7 @@ class FFITest < Minitest::Test
     assert_equal 500, mo[:occ_dist]
     assert_equal 500_000_000, mo[:mini_batch_size]
     assert_equal 100_000_000, mo[:max_sw_mat]
-    assert_equal 1_000_000_000, mo[:cap_kalloc]
+    assert_equal 500_000_000, mo[:cap_kalloc]
     assert_nil mo[:split_prefix]
   end
 
