@@ -118,6 +118,7 @@ class AlignmentTest < Minitest::Test
   end
 
   def test_to_s
-    assert_equal "0\t200\t+\tMT_human\t16569\t100\t300\t200\t200\t60\ttp:A:P\tts:A:.\tcg:Z:200M\tcs:Z::200", @a.to_s
+    assert_equal "0\t200\t+\tMT_human\t16569\t100\t300\t200\t200\t60\ttp:A:P\tts:A:.\tcg:Z:200M\tcs:Z::200\tMD:Z:200",
+                 @a.to_s
   end
 end

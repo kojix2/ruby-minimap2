@@ -107,6 +107,7 @@ module Minimap2
       a = [@q_st, @q_en, strand, @ctg, @ctg_len, @r_st, @r_en,
            @mlen, @blen, @mapq, tp, ts, "cg:Z:#{@cigar_str}"]
       a << "cs:Z:#{@cs}" if @cs
+      a << "MD:Z:#{@md}" if @md
       a.join("\t")
     end
   end
