@@ -940,7 +940,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -1006,6 +1007,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1123,7 +1125,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -1189,6 +1192,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1306,7 +1310,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -1372,6 +1377,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1489,7 +1495,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -1555,6 +1562,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1672,7 +1680,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -1738,6 +1747,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1855,7 +1865,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -1921,6 +1932,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2038,7 +2050,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -2104,6 +2117,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2221,7 +2235,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -2287,6 +2302,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2404,7 +2420,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -2470,6 +2487,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2587,7 +2605,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -2653,6 +2672,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2770,7 +2790,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -2836,6 +2857,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2953,7 +2975,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -3019,6 +3042,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -3136,7 +3160,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -3202,6 +3227,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -3319,7 +3345,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -3385,6 +3412,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -3502,7 +3530,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -3568,6 +3597,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -3685,7 +3715,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -3751,6 +3782,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -3868,7 +3900,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -3934,6 +3967,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -4051,7 +4085,8 @@
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 49</span>
@@ -4117,6 +4152,7 @@
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
          <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+    <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
     <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -4309,7 +4345,8 @@
 108
 109
 110
-111</pre>
+111
+112</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/minimap2/alignment.rb', line 91</span>
@@ -4333,6 +4370,7 @@
   <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='ivar'>@q_st</span><span class='comma'>,</span> <span class='ivar'>@q_en</span><span class='comma'>,</span> <span class='id identifier rubyid_strand'>strand</span><span class='comma'>,</span> <span class='ivar'>@ctg</span><span class='comma'>,</span> <span class='ivar'>@ctg_len</span><span class='comma'>,</span> <span class='ivar'>@r_st</span><span class='comma'>,</span> <span class='ivar'>@r_en</span><span class='comma'>,</span>
        <span class='ivar'>@mlen</span><span class='comma'>,</span> <span class='ivar'>@blen</span><span class='comma'>,</span> <span class='ivar'>@mapq</span><span class='comma'>,</span> <span class='id identifier rubyid_tp'>tp</span><span class='comma'>,</span> <span class='id identifier rubyid_ts'>ts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cg:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cigar_str</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cs:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@cs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@cs</span>
+  <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MD:Z:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@md</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@md</span>
   <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -4345,7 +4383,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 29 09:59:02 2024 by
+  Generated on Fri Mar 29 10:17:30 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.36 (ruby-3.3.0).
 </div>
