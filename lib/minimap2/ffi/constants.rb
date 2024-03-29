@@ -113,7 +113,7 @@ module Minimap2
         :dp_max0,             :int32,   # DP score before mm_update_dp_max() adjustment
         :n_ambi_trans_strand, :uint32,
         :n_cigar,             :uint32
-        # :cigar,             :pointer  # variable length array (see cigar method below)
+      # :cigar,               :pointer  # variable length array (see cigar method below)
 
       bit_field :n_ambi_trans_strand,
                 :n_ambi, 30,      # number of ambiguous bases
