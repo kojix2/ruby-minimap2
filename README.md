@@ -65,6 +65,7 @@ pp hits
 * Minimap2 module
   - fastx_read                  Read fasta/fastq file.
   - revcomp                     Reverse complement sequence.
+  - execute                     Calls the main function of Minimap2 with arguments. `Minimap2.execute("--version")`
 
   * Aligner class
     * attributes
