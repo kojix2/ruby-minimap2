@@ -33,7 +33,7 @@ int mm_verbose_level(int v);
 void mm_reset_timer(void);
 
 extern unsigned char seq_comp_table[256];
-mm_reg1_t *mm_map_aux(const mm_idx_t *mi, const char *seq1, const char *seq2, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt);
+mm_reg1_t *mm_map_aux(const mm_idx_t *mi, const char* seqname, const char *seq1, const char *seq2, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt);
 
 char *mappy_revcomp(int len, const uint8_t *seq);
 

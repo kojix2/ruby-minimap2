@@ -41,6 +41,9 @@ module Minimap2
     SPLICE_OLD       = 0x800000000
     SECONDARY_SEQ    = 0x1000000000 # output SEQ field for seqondary alignments using hard clipping
     OUT_DS           = 0x2000000000
+    WEAK_PAIRING     = 0x4000000000
+    SR_RNA           = 0x8000000000
+    OUT_JUNC         = 0x10000000000
 
     HPC              = 0x1
     NO_SEQ           = 0x2
@@ -99,6 +102,8 @@ module Minimap2
         :S,     :pointer,    # 4-bit packed sequence
         :B,     :pointer,    # index (hidden)
         :I,     :pointer,    # intervals (hidden)
+        :spsc,  :pointer,    # splice score (hidden)
+        :J,     :pointer,    # junctions to create jumps (hidden)
         :km,    :pointer,
         :h,     :pointer
     end
@@ -160,7 +165,8 @@ module Minimap2
                 :split_inv,       1,
                 :is_alt,          1,
                 :strand_retained, 1,
-                :dummy,           5
+                :is_spliced,      1,
+                :dummy,           4
     end
 
     # indexing option
@@ -210,6 +216,7 @@ module Minimap2
         :transition,           :int,     # transition mismatch score (A:G, C:T)
         :sc_ambi,              :int,     # score when one or both bases are "N"
         :noncan,               :int,     # cost of non-canonical splicing sites
+        :junc_pen,             :int,
         :junc_bonus,           :int,
         :zdrop,                :int,     # break alignment if alignment score drops too fast along the diagonal
         :zdrop_inv,            :int,
@@ -223,6 +230,7 @@ module Minimap2
         :rank_frac,            :float,
         :pe_ori,               :int,
         :pe_bonus,             :int,
+        :jump_min_match,       :int32,
         :mid_occ_frac,         :float,   # only used by mm_mapopt_update(); see below
         :q_occ_frac,           :float,
         :min_mid_occ,          :int32,

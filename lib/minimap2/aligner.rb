@@ -54,9 +54,10 @@ module Minimap2
       fn_idx_out: nil,
       max_frag_len: nil,
       extra_flags: nil,
-      scoring: nil
+      scoring: nil,
+      sc_ambi: nil,
+      max_chain_skip: nil
     )
-
       @idx_opt = FFI::IdxOpt.new
       @map_opt = FFI::MapOpt.new
 
@@ -91,6 +92,8 @@ module Minimap2
           map_opt[:sc_ambi] = scoring[6] if scoring.size >= 7
         end
       end
+      map_opt[:sc_ambi] = sc_ambi if sc_ambi
+      map_opt[:max_chain_skip] = max_chain_skip if max_chain_skip
 
       if fn_idx_in
         warn "Since fn_idx_in is specified, the seq argument will be ignored." if seq
@@ -134,13 +137,13 @@ module Minimap2
 
     def align(
       seq, seq2 = nil,
+      name: nil,
       buf: nil,
       cs: false,
       md: false,
       max_frag_len: nil,
       extra_flags: nil
     )
-
       return if index.null?
       return if (map_opt[:flag] & 4).zero? && (index[:flag] & 2).zero?
 
@@ -151,7 +154,7 @@ module Minimap2
       km = FFI.mm_tbuf_get_km(buf)
 
       n_regs_ptr = ::FFI::MemoryPointer.new :int
-      regs_ptr = FFI.mm_map_aux(index, seq, seq2, n_regs_ptr, buf, map_opt)
+      regs_ptr = FFI.mm_map_aux(index, name, seq, seq2, n_regs_ptr, buf, map_opt)
       n_regs = n_regs_ptr.read_int
 
       regs = Array.new(n_regs) do |i|
@@ -174,15 +177,19 @@ module Minimap2
           cigar = c.map { |x| [x >> 4, x & 0xf] } # 32-bit CIGAR encoding -> Ruby array
 
           _cs = ""
-          if cs
-            l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, @index, regs[i], seq, 1)
-            _cs = cs_str.read_pointer.read_string(l_cs_str)
-          end
-
           _md = ""
-          if md
-            l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, @index, regs[i], seq)
-            _md = cs_str.read_pointer.read_string(l_cs_str)
+          if cs or md
+            cur_seq = hit[:seg_id] > 0 && seq2 ? seq2 : seq
+
+            if cs
+              l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, @index, regs[i], cur_seq, 1)
+              _cs = cs_str.read_pointer.read_string(l_cs_str)
+            end
+
+            if md
+              l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, @index, regs[i], cur_seq)
+              _md = cs_str.read_pointer.read_string(l_cs_str)
+            end
           end
 
           alignments << Alignment.new(hit, cigar, _cs, _md)
