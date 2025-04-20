@@ -6,13 +6,13 @@
  CPPFLAGS=	-DHAVE_KALLOC
  INCLUDES=
  OBJS=		kthread.o kalloc.o misc.o bseq.o sketch.o sdust.o options.o index.o \
- 			lchain.o align.o hit.o seed.o map.o format.o pe.o esterr.o splitidx.o \
+ 			lchain.o align.o hit.o seed.o jump.o map.o format.o pe.o esterr.o splitidx.o \
 -			ksw2_ll_sse.o
 +			ksw2_ll_sse.o cmappy.o
  PROG=		minimap2
  PROG_EXTRA=	sdust minimap2-lite
  LIBS=		-lm -lz -lpthread
-@@ -134,3 +134,4 @@ sdust.o: kalloc.h kdq.h kvec.h sdust.h
+@@ -135,3 +135,4 @@ sdust.o: kalloc.h kdq.h kvec.h sdust.h
  seed.o: mmpriv.h minimap.h bseq.h kseq.h kalloc.h ksort.h
  sketch.o: kvec.h kalloc.h mmpriv.h minimap.h bseq.h kseq.h
  splitidx.o: mmpriv.h minimap.h bseq.h kseq.h
