@@ -68,6 +68,7 @@ class FFITest < Minitest::Test
     assert_equal 1, mo[:e2]
     assert_equal 1, mo[:sc_ambi]
     assert_equal 0, mo[:noncan]
+    assert_equal 0, mo[:junc_pen]
     assert_equal 0, mo[:junc_bonus]
     assert_equal 400, mo[:zdrop]
     assert_equal 200, mo[:zdrop_inv]
@@ -81,6 +82,7 @@ class FFITest < Minitest::Test
     assert_in_epsilon 0.9, mo[:rank_frac]
     assert_equal 0, mo[:pe_ori]
     assert_equal 33, mo[:pe_bonus]
+    assert_equal 3, mo[:jump_min_match]
     assert_in_epsilon 0.0002, mo[:mid_occ_frac]
     assert_in_epsilon 0.01, mo[:q_occ_frac]
     assert_equal 10, mo[:min_mid_occ]
@@ -117,6 +119,8 @@ class FFITest < Minitest::Test
     assert_equal true, obj[:S].null?
     assert_equal true, obj[:B].null?
     assert_equal true, obj[:I].null?
+    assert_equal true, obj[:spsc].null?
+    assert_equal true, obj[:J].null?
     assert_equal true, obj[:km].null?
     assert_equal true, obj[:h].null?
   end
@@ -184,6 +188,7 @@ class FFITest < Minitest::Test
     assert_equal 0, obj[:split_inv]
     assert_equal 0, obj[:is_alt]
     assert_equal 0, obj[:strand_retained]
+    assert_equal 0, obj[:is_spliced]
     assert_equal 0, obj[:dummy]
   end
 
