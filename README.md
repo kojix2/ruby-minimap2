@@ -2,10 +2,10 @@
 
 [![Gem Version](https://img.shields.io/gem/v/minimap2?color=brightgreen)](https://rubygems.org/gems/minimap2)
 [![test](https://github.com/kojix2/ruby-minimap2/actions/workflows/ci.yml/badge.svg)](https://github.com/kojix2/ruby-minimap2/actions/workflows/ci.yml)
-[![Docs Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://rubydoc.info/gems/minimap2)
 [![Docs Latest](https://img.shields.io/badge/docs-latest-blue.svg)](https://kojix2.github.io/ruby-minimap2/)
 [![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 [![DOI](https://zenodo.org/badge/325711305.svg)](https://zenodo.org/badge/latestdoi/325711305)
+[![Lines of Code](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fruby-minimap2%2Flines)](https://tokei.kojix2.net/github/kojix2/ruby-minimap2)
 
 :dna: [minimap2](https://github.com/lh3/minimap2) - the long-read mapper - for [Ruby](https://github.com/ruby/ruby)
 
