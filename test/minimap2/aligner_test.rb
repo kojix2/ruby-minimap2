@@ -41,14 +41,18 @@ class AlignerTest < Minitest::Test
 
   def test_align
     qseq = @a.seq("MT_human", 100, 200)
-    @a.align(qseq) do |h|
+    alignments = @a.align(qseq)
+    assert_instance_of Array, alignments
+    alignments.each do |h|
       assert_instance_of MM2::Alignment, h
     end
   end
 
   def test_align2
     qseq = MM2.revcomp(@a.seq("MT_human", 300, 400))
-    @a.align(qseq) do |h|
+    alignments = @a.align(qseq)
+    assert_instance_of Array, alignments
+    alignments.each do |h|
       assert_instance_of MM2::Alignment, h
     end
   end
@@ -57,7 +61,9 @@ class AlignerTest < Minitest::Test
     qseq = @a.seq("MT_human", 100, 200)
     ref = @a.seq("MT_human", 0, 3000)
     a = MM2::Aligner.new(seq: ref)
-    a.align(qseq) do |h|
+    alignments = a.align(qseq)
+    assert_instance_of Array, alignments
+    alignments.each do |h|
       assert_instance_of MM2::Alignment, h
     end
   end
@@ -67,7 +73,9 @@ class AlignerTest < Minitest::Test
     qseq2 = MM2.revcomp(@a.seq("MT_human", 300, 400))
     ref = @a.seq("MT_human", 0, 3000)
     a = MM2::Aligner.new(seq: ref)
-    a.align(qseq1, qseq2) do |h|
+    alignments = a.align(qseq1, qseq2)
+    assert_instance_of Array, alignments
+    alignments.each do |h|
       assert_instance_of MM2::Alignment, h
     end
   end
