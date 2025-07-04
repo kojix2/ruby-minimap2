@@ -68,8 +68,8 @@ class FFITest < Minitest::Test
     assert_equal 1, mo[:e2]
     assert_equal 1, mo[:sc_ambi]
     assert_equal 0, mo[:noncan]
-    assert_equal 0, mo[:junc_pen]
     assert_equal 0, mo[:junc_bonus]
+    assert_equal 0, mo[:junc_pen]
     assert_equal 400, mo[:zdrop]
     assert_equal 200, mo[:zdrop_inv]
     assert_equal(-1, mo[:end_bonus])
