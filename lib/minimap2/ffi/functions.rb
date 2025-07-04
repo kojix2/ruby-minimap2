@@ -205,6 +205,12 @@ module Minimap2
       [Idx.by_ref, :string, :int32],
       :int32
 
+    # int32_t mm_idx_spsc_read2(mm_idx_t *idx, const char *fn, int32_t max_sc, float scale);
+    attach_function \
+      :mm_idx_spsc_read2,
+      [Idx.by_ref, :string, :int32, :float],
+      :int32
+
     # int64_t mm_idx_spsc_get(const mm_idx_t *db, int32_t cid, int64_t st0, int64_t en0, int32_t rev, uint8_t *sc);
     attach_function \
       :mm_idx_spsc_get,
