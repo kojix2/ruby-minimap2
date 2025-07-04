@@ -11,8 +11,18 @@
 
 ## Installation
 
+ruby-minimap2 bundles the Minimap2 C source code and builds it automatically during installation.
+
+Just install the gem. Works on Linux, macOS, and Windows.
+
 ```
 gem install minimap2
+```
+
+Show minimap2 version (check installation)
+
+```sh
+ruby -r minimap2 -e 'Minimap2.execute("--version")'
 ```
 
 <details>
@@ -190,7 +200,7 @@ If you need commit rights to ruby-minimap2 repository or want to get admin right
 
 ## License
 
-[MIT License](https://opensource.org/licenses/MIT).
+[MIT License](LICENSE.txt)
 
 ## Acknowledgements
 
