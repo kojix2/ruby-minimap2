@@ -216,8 +216,8 @@ module Minimap2
         :transition,           :int,     # transition mismatch score (A:G, C:T)
         :sc_ambi,              :int,     # score when one or both bases are "N"
         :noncan,               :int,     # cost of non-canonical splicing sites
-        :junc_pen,             :int,
-        :junc_bonus,           :int,
+        :junc_bonus,           :int,     # bonus for a splice site in annotation
+        :junc_pen,             :int,     # penalty for GT- or -AG not scored in --spsc
         :zdrop,                :int,     # break alignment if alignment score drops too fast along the diagonal
         :zdrop_inv,            :int,
         :end_bonus,            :int,
