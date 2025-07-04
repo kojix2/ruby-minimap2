@@ -66,7 +66,16 @@
 
 <h2 id="label-Installation">Installation</h2>
 
+<p>ruby-minimap2 bundles the Minimap2 C source code and builds it automatically during installation.</p>
+
+<p>Just install the gem. Works on Linux, macOS, and Windows.</p>
+
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_minimap2'>minimap2</span>
+</code></pre>
+
+<p>Show minimap2 version (check installation)</p>
+
+<pre class="code ruby"><code class="ruby">ruby -r minimap2 -e &#39;Minimap2.execute(&quot;--version&quot;)&#39;
 </code></pre>
 
 <p>&lt;details&gt; &lt;summary&gt;<strong>Compiling from source</strong>&lt;/summary&gt;</p>
@@ -238,7 +247,7 @@ bundle exec rake release
 
 <h2 id="label-License">License</h2>
 
-<p><a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+<p><a href="LICENSE.txt">MIT License</a></p>
 
 <h2 id="label-Acknowledgements">Acknowledgements</h2>
 
@@ -246,7 +255,7 @@ bundle exec rake release
 </div></div>
 
       <div id="footer">
-  Generated on Fri Jul  4 04:45:05 2025 by
+  Generated on Fri Jul  4 05:41:34 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>
