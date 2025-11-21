@@ -14,8 +14,8 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.5"
 
-  # If you include the lib/simde code, the Gem size will be 1MB.
-  # Build with lib/simde is currently not supported, so simde code is not included in the Gem.
+  # This gem uses the standard Minimap2 build with native SIMD.
+  # The optional lib/simde fallback is not supported and excluded to keep the gem small.
   spec.files         = (Dir["*.{md,txt}", "{lib,ext}/**/*", "vendor/libminimap2.{so,dylib,dll}"] -
                         Dir["ext/minimap2/lib/**/*"])
   spec.require_paths = ["lib"]
