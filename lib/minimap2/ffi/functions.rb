@@ -130,7 +130,7 @@ module Minimap2
     # void mm_map_frag(const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname);
     attach_function \
       :mm_map_frag,
-      [Idx.by_ref, :int, :pointer, :pointer, :pointer, TBuf.by_ref, MapOpt.by_ref, :string],
+      [Idx.by_ref, :int, :pointer, :pointer, :pointer, :pointer, TBuf.by_ref, MapOpt.by_ref, :string],
       :void
 
     # int mm_map_file(const mm_idx_t *idx, const char *fn, const mm_mapopt_t *opt, int n_threads);
