@@ -39,7 +39,7 @@ module Minimap2
     NO_INV           = 0x200000000
     NO_HASH_NAME     = 0x400000000
     SPLICE_OLD       = 0x800000000
-    SECONDARY_SEQ    = 0x1000000000 # output SEQ field for seqondary alignments using hard clipping
+    SECONDARY_SEQ    = 0x1000000000 # output SEQ field for secondary alignments using hard clipping
     OUT_DS           = 0x2000000000
     WEAK_PAIRING     = 0x4000000000
     SR_RNA           = 0x8000000000
