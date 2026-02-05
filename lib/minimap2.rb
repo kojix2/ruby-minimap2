@@ -105,7 +105,14 @@ module Minimap2
       l = seq.size
       bseq = ::FFI::MemoryPointer.new(:char, l)
       bseq.put_bytes(0, seq)
-      FFI.mappy_revcomp(l, bseq)
+      p = FFI.mappy_revcomp(l, bseq)
+      return "" if p.nil? || p.null?
+
+      begin
+        p.read_string(l)
+      ensure
+        FFI.mappy_free(p) unless p.nil? || p.null?
+      end
     end
 
     private

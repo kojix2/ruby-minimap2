@@ -127,3 +127,8 @@ mm_idx_t *mappy_idx_seq(int w, int k, int is_hpc, int bucket_bits, const char *s
 	free(s);
 	return mi;
 }
+
+void mappy_free(void *p)
+{
+	free(p);
+}

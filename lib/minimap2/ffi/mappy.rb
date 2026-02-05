@@ -79,7 +79,12 @@ module Minimap2
     attach_function \
       :mappy_revcomp,
       %i[int pointer],
-      :string
+      :pointer
+
+    attach_function \
+      :mappy_free,
+      [:pointer],
+      :void
 
     attach_function \
       :mappy_fetch_seq,

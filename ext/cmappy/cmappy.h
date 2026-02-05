@@ -41,4 +41,6 @@ char *mappy_fetch_seq(const mm_idx_t *mi, const char *name, int st, int en, int 
 
 mm_idx_t *mappy_idx_seq(int w, int k, int is_hpc, int bucket_bits, const char *seq, int len);
 
+void mappy_free(void *p);
+
 #endif

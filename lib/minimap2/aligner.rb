@@ -218,9 +218,16 @@ module Minimap2
       lp = ::FFI::MemoryPointer.new(:int)
       s = FFI.mappy_fetch_seq(index, name, start, stop, lp)
       l = lp.read_int
-      return nil if l == 0
+      if l == 0
+        FFI.mappy_free(s) unless s.nil? || s.null?
+        return nil
+      end
 
-      s.read_string(l)
+      begin
+        s.read_string(l)
+      ensure
+        FFI.mappy_free(s) unless s.nil? || s.null?
+      end
     end
 
     # k-mer length, no larger than 28
