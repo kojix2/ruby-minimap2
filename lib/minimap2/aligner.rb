@@ -181,8 +181,8 @@ module Minimap2
       return if index.null?
       return if (map_opt[:flag] & 4).zero? && (index[:flag] & 2).zero?
 
-      map_opt[:max_frag_len] = max_frag_len if max_frag_len
-      map_opt[:flag] |= extra_flags if extra_flags
+      orig_map_opt_bytes = map_opt.to_ptr.read_bytes(FFI::MapOpt.size)
+      orig_best_n = map_opt[:best_n]
 
       owned_buf = false
       if buf.nil?
@@ -203,6 +203,12 @@ module Minimap2
           # Update options for this specific index part
           FFI.mm_mapopt_update(map_opt, idx_part)
 
+          # Per-call options (do not leak across calls)
+          map_opt[:flag] |= 4
+          map_opt[:best_n] = orig_best_n
+          map_opt[:max_frag_len] = max_frag_len if max_frag_len
+          map_opt[:flag] |= extra_flags if extra_flags
+
           n_regs_ptr = ::FFI::MemoryPointer.new :int
           regs_ptr = FFI.mm_map_aux(idx_part, name, seq, seq2, n_regs_ptr, buf, map_opt)
           n_regs = n_regs_ptr.read_int
@@ -215,8 +221,14 @@ module Minimap2
 
           hit = FFI::Hit.new
 
-          cs_str     = ::FFI::MemoryPointer.new(::FFI::MemoryPointer.new(:string))
-          m_cs_str   = ::FFI::MemoryPointer.new :int
+          cs_buf_ptr = nil
+          m_cs_ptr = nil
+          if cs || md
+            cs_buf_ptr = ::FFI::MemoryPointer.new(:pointer)
+            cs_buf_ptr.write_pointer(::FFI::Pointer::NULL)
+            m_cs_ptr = ::FFI::MemoryPointer.new(:int)
+            m_cs_ptr.write_int(0)
+          end
 
           i = 0
           begin
@@ -232,13 +244,15 @@ module Minimap2
                 cur_seq = hit[:seg_id] > 0 && seq2 ? seq2 : seq
 
                 if cs
-                  l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, idx_part, regs[i], cur_seq, 1)
-                  _cs = cs_str.read_pointer.read_string(l_cs_str)
+                  l_cs_str = FFI.mm_gen_cs(km, cs_buf_ptr, m_cs_ptr, idx_part, regs[i], cur_seq, 1)
+                  cs_ptr = cs_buf_ptr.read_pointer
+                  _cs = cs_ptr.null? || l_cs_str <= 0 ? "" : cs_ptr.read_string(l_cs_str)
                 end
 
                 if md
-                  l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, idx_part, regs[i], cur_seq)
-                  _md = cs_str.read_pointer.read_string(l_cs_str)
+                  l_cs_str = FFI.mm_gen_md(km, cs_buf_ptr, m_cs_ptr, idx_part, regs[i], cur_seq)
+                  cs_ptr = cs_buf_ptr.read_pointer
+                  _md = cs_ptr.null? || l_cs_str <= 0 ? "" : cs_ptr.read_string(l_cs_str)
                 end
               end
 
@@ -253,12 +267,34 @@ module Minimap2
               i += 1
             end
 
+            if cs_buf_ptr
+              cs_ptr = cs_buf_ptr.read_pointer
+              FFI.mappy_free(cs_ptr) unless cs_ptr.nil? || cs_ptr.null?
+            end
+
             # Free the mm_map/mm_map_aux return value array itself
             FFI.mappy_free(regs_ptr) unless regs_ptr.nil? || regs_ptr.null?
           end
         end
       ensure
         FFI.mm_tbuf_destroy(buf) if owned_buf
+
+        # Restore map_opt to the state before this call
+        map_opt.to_ptr.put_bytes(0, orig_map_opt_bytes)
+      end
+
+      if orig_best_n && orig_best_n > 0 && alignments.length > orig_best_n
+        alignments.sort_by! do |aln|
+          [
+            aln.primary? ? 1 : 0,
+            aln.mapq,
+            aln.mlen,
+            aln.blen,
+            -aln.nm
+          ]
+        end
+        alignments.reverse!
+        alignments = alignments.take(orig_best_n)
       end
 
       alignments
@@ -310,14 +346,35 @@ module Minimap2
     end
 
     def n_seq
-      index[:n_seq]
+      return 0 if index.null?
+
+      indexes = @indexes
+      return index[:n_seq] if indexes.nil? || indexes.empty?
+
+      indexes.sum { |idx| idx.nil? || idx.null? ? 0 : idx[:n_seq] }
     end
 
     def seq_names
-      ptr = index[:seq].to_ptr
-      Array.new(index[:n_seq]) do |i|
-        FFI::IdxSeq.new(ptr + i * FFI::IdxSeq.size)[:name]
+      return [] if index.null?
+
+      indexes = @indexes
+      indexes = [index] if indexes.nil? || indexes.empty?
+
+      names = []
+      seen = {}
+      indexes.each do |idx|
+        next if idx.nil? || idx.null?
+
+        ptr = idx[:seq].to_ptr
+        idx[:n_seq].times do |i|
+          name = FFI::IdxSeq.new(ptr + i * FFI::IdxSeq.size)[:name]
+          next if seen[name]
+
+          seen[name] = true
+          names << name
+        end
       end
+      names
     end
   end
 end

@@ -123,7 +123,7 @@ class AlignerTest < Minitest::Test
 
       # Force index splitting by using a very small batch_size.
       # This validates that ruby-minimap2 reads all parts from mm_idx_reader_read.
-      a = MM2::Aligner.new(tmp_fa, batch_size: 1000, n_threads: 1)
+      a = MM2::Aligner.new(tmp_fa, batch_size: 1000, n_threads: 1, best_n: 1)
       indexes = a.instance_variable_get(:@indexes)
       assert_instance_of Array, indexes
       assert_operator indexes.length, :>, 1
@@ -135,6 +135,20 @@ class AlignerTest < Minitest::Test
 
       alignments = a.align(qseq)
       assert_instance_of Array, alignments
+      assert_operator alignments.length, :<=, 1
     end
+  end
+
+  def test_align_does_not_leak_map_opt
+    a = MM2::Aligner.new(fa_path, n_threads: 1)
+    qseq = a.seq("MT_human", 100, 200)
+
+    orig_flag = a.map_opt[:flag]
+    orig_max_frag_len = a.map_opt[:max_frag_len]
+
+    a.align(qseq, extra_flags: (1 << 20), max_frag_len: 1234)
+
+    assert_equal orig_flag, a.map_opt[:flag]
+    assert_equal orig_max_frag_len, a.map_opt[:max_frag_len]
   end
 end
