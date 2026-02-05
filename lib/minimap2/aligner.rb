@@ -56,7 +56,8 @@ module Minimap2
       extra_flags: nil,
       scoring: nil,
       sc_ambi: nil,
-      max_chain_skip: nil
+      max_chain_skip: nil,
+      batch_size: nil
     )
       @idx_opt = FFI::IdxOpt.new
       @map_opt = FFI::MapOpt.new
@@ -66,7 +67,11 @@ module Minimap2
 
       # always perform alignment
       map_opt[:flag] |= 4
+
+      # Keep a large batch_size by default (mappy-compatible behavior) to avoid
+      # splitting indexes unless explicitly requested.
       idx_opt[:batch_size] = 0x7fffffffffffffff
+      idx_opt[:batch_size] = batch_size if batch_size
 
       # override preset options
       idx_opt[:k] = k if k
@@ -102,24 +107,53 @@ module Minimap2
         # The Ruby version raises an error here
         raise "Cannot open : #{fn_idx_in}" if reader.null?
 
-        @index = FFI.mm_idx_reader_read(reader, n_threads)
-        FFI.mm_idx_reader_close(reader)
+        @indexes = []
+        begin
+          loop do
+            idx = FFI.mm_idx_reader_read(reader, n_threads)
+            break if idx.nil? || idx.null?
+
+            # Initialize sequence name index for each part
+            FFI.mm_idx_index_name(idx)
+            @indexes << idx
+          end
+        ensure
+          FFI.mm_idx_reader_close(reader)
+        end
+
+        raise "Failed to read index parts from: #{fn_idx_in}" if @indexes.empty?
+
+        # Keep backward-compatible accessor for a single index
+        @index = @indexes[0]
         FFI.mm_mapopt_update(map_opt, index)
-        FFI.mm_idx_index_name(index)
       elsif seq
         @index = FFI.mappy_idx_seq(
           idx_opt[:w], idx_opt[:k], idx_opt[:flag] & 1,
           idx_opt[:bucket_bits], seq, seq.size
         )
+        @indexes = [@index]
         FFI.mm_mapopt_update(map_opt, index)
         map_opt[:mid_occ] = 1000 # don't filter high-occ seeds
+      else
+        @indexes = []
+        @index = FFI::Idx.new(::FFI::Pointer::NULL)
       end
     end
 
     # Explicitly releases the memory of the index object.
 
     def free_index
-      FFI.mm_idx_destroy(index) unless index.null?
+      indexes = @indexes
+      if indexes && !indexes.empty?
+        indexes.each do |idx|
+          FFI.mm_idx_destroy(idx) unless idx.nil? || idx.null?
+        end
+      elsif defined?(@index) && !@index.nil? && !@index.null?
+        FFI.mm_idx_destroy(@index)
+      end
+    ensure
+      @indexes = []
+      @index = FFI::Idx.new(::FFI::Pointer::NULL)
     end
 
     # @param seq [String]
@@ -150,59 +184,83 @@ module Minimap2
       map_opt[:max_frag_len] = max_frag_len if max_frag_len
       map_opt[:flag] |= extra_flags if extra_flags
 
-      buf ||= FFI::TBuf.new
-      km = FFI.mm_tbuf_get_km(buf)
-
-      n_regs_ptr = ::FFI::MemoryPointer.new :int
-      regs_ptr = FFI.mm_map_aux(index, name, seq, seq2, n_regs_ptr, buf, map_opt)
-      n_regs = n_regs_ptr.read_int
-
-      regs = Array.new(n_regs) do |i|
-        FFI::Reg1.new(regs_ptr + i * FFI::Reg1.size)
+      owned_buf = false
+      if buf.nil?
+        buf = FFI.mm_tbuf_init
+        owned_buf = true
       end
 
-      hit = FFI::Hit.new
-
-      cs_str     = ::FFI::MemoryPointer.new(::FFI::MemoryPointer.new(:string))
-      m_cs_str   = ::FFI::MemoryPointer.new :int
-
+      km = FFI.mm_tbuf_get_km(buf)
       alignments = []
 
-      i = 0
+      idx_parts = @indexes
+      idx_parts = [index] if idx_parts.nil? || idx_parts.empty?
+
       begin
-        while i < n_regs
-          FFI.mm_reg2hitpy(index, regs[i], hit)
+        idx_parts.each do |idx_part|
+          next if idx_part.nil? || idx_part.null?
 
-          c = hit[:cigar32].read_array_of_uint32(hit[:n_cigar32])
-          cigar = c.map { |x| [x >> 4, x & 0xf] } # 32-bit CIGAR encoding -> Ruby array
+          # Update options for this specific index part
+          FFI.mm_mapopt_update(map_opt, idx_part)
 
-          _cs = ""
-          _md = ""
-          if cs or md
-            cur_seq = hit[:seg_id] > 0 && seq2 ? seq2 : seq
+          n_regs_ptr = ::FFI::MemoryPointer.new :int
+          regs_ptr = FFI.mm_map_aux(idx_part, name, seq, seq2, n_regs_ptr, buf, map_opt)
+          n_regs = n_regs_ptr.read_int
 
-            if cs
-              l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, @index, regs[i], cur_seq, 1)
-              _cs = cs_str.read_pointer.read_string(l_cs_str)
-            end
+          next if regs_ptr.nil? || regs_ptr.null? || n_regs <= 0
 
-            if md
-              l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, @index, regs[i], cur_seq)
-              _md = cs_str.read_pointer.read_string(l_cs_str)
-            end
+          regs = Array.new(n_regs) do |i|
+            FFI::Reg1.new(regs_ptr + i * FFI::Reg1.size)
           end
 
-          alignments << Alignment.new(hit, cigar, _cs, _md)
+          hit = FFI::Hit.new
 
-          FFI.mm_free_reg1(regs[i])
-          i += 1
+          cs_str     = ::FFI::MemoryPointer.new(::FFI::MemoryPointer.new(:string))
+          m_cs_str   = ::FFI::MemoryPointer.new :int
+
+          i = 0
+          begin
+            while i < n_regs
+              FFI.mm_reg2hitpy(idx_part, regs[i], hit)
+
+              c = hit[:cigar32].read_array_of_uint32(hit[:n_cigar32])
+              cigar = c.map { |x| [x >> 4, x & 0xf] } # 32-bit CIGAR encoding -> Ruby array
+
+              _cs = ""
+              _md = ""
+              if cs or md
+                cur_seq = hit[:seg_id] > 0 && seq2 ? seq2 : seq
+
+                if cs
+                  l_cs_str = FFI.mm_gen_cs(km, cs_str, m_cs_str, idx_part, regs[i], cur_seq, 1)
+                  _cs = cs_str.read_pointer.read_string(l_cs_str)
+                end
+
+                if md
+                  l_cs_str = FFI.mm_gen_md(km, cs_str, m_cs_str, idx_part, regs[i], cur_seq)
+                  _md = cs_str.read_pointer.read_string(l_cs_str)
+                end
+              end
+
+              alignments << Alignment.new(hit, cigar, _cs, _md)
+
+              FFI.mm_free_reg1(regs[i])
+              i += 1
+            end
+          ensure
+            while i < n_regs
+              FFI.mm_free_reg1(regs[i])
+              i += 1
+            end
+
+            # Free the mm_map/mm_map_aux return value array itself
+            FFI.mappy_free(regs_ptr) unless regs_ptr.nil? || regs_ptr.null?
+          end
         end
       ensure
-        while i < n_regs
-          FFI.mm_free_reg1(regs[i])
-          i += 1
-        end
+        FFI.mm_tbuf_destroy(buf) if owned_buf
       end
+
       alignments
     end
 
@@ -215,19 +273,28 @@ module Minimap2
       return if index.null?
       return if (map_opt[:flag] & 4).zero? && (index[:flag] & 2).zero?
 
-      lp = ::FFI::MemoryPointer.new(:int)
-      s = FFI.mappy_fetch_seq(index, name, start, stop, lp)
-      l = lp.read_int
-      if l == 0
-        FFI.mappy_free(s) unless s.nil? || s.null?
-        return nil
+      idx_parts = @indexes
+      idx_parts = [index] if idx_parts.nil? || idx_parts.empty?
+
+      idx_parts.each do |idx_part|
+        next if idx_part.nil? || idx_part.null?
+
+        lp = ::FFI::MemoryPointer.new(:int)
+        s = FFI.mappy_fetch_seq(idx_part, name, start, stop, lp)
+        l = lp.read_int
+        if l == 0
+          FFI.mappy_free(s) unless s.nil? || s.null?
+          next
+        end
+
+        begin
+          return s.read_string(l)
+        ensure
+          FFI.mappy_free(s) unless s.nil? || s.null?
+        end
       end
 
-      begin
-        s.read_string(l)
-      ensure
-        FFI.mappy_free(s) unless s.nil? || s.null?
-      end
+      nil
     end
 
     # k-mer length, no larger than 28

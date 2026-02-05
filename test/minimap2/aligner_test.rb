@@ -105,4 +105,36 @@ class AlignerTest < Minitest::Test
     @a = MM2::Aligner.new(path)
     assert_equal %w[read1 read2], @a.seq_names
   end
+
+  def test_multi_part_index_from_fasta
+    # minimap2 can only split between sequences (contigs). The bundled MT-human.fa
+    # is a single contig, so it cannot produce a multi-part index even if
+    # batch_size is tiny. Generate a temporary multi-contig FASTA instead.
+    require "tmpdir"
+
+    Dir.mktmpdir("ruby-minimap2-") do |dir|
+      tmp_fa = File.join(dir, "multi_contig.fa")
+      File.open(tmp_fa, "w") do |f|
+        12.times do |i|
+          f.puts ">ctg#{i + 1}"
+          f.puts "A" * 600
+        end
+      end
+
+      # Force index splitting by using a very small batch_size.
+      # This validates that ruby-minimap2 reads all parts from mm_idx_reader_read.
+      a = MM2::Aligner.new(tmp_fa, batch_size: 1000, n_threads: 1)
+      indexes = a.instance_variable_get(:@indexes)
+      assert_instance_of Array, indexes
+      assert_operator indexes.length, :>, 1
+
+      qseq = a.seq("ctg1", 0, 100)
+      refseq = a.seq("ctg1", 0, 600)
+      refute_nil qseq
+      refute_nil refseq
+
+      alignments = a.align(qseq)
+      assert_instance_of Array, alignments
+    end
+  end
 end
