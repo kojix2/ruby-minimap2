@@ -16,6 +16,9 @@ namespace :minimap2 do
   task :build do
     Dir.chdir(minimap2_dir) do
       # Add -fPIC option to Makefile
+      unless system("git", "--version", out: File::NULL, err: File::NULL)
+        abort "Git is required to build ruby-minimap2 from source. Install Git and ensure `git` is on PATH."
+      end
       sh "git apply ../minimap2.patch"
       sh "cp ../cmappy/cmappy.h ../cmappy/cmappy.c ."
       case RbConfig::CONFIG["host_cpu"]
