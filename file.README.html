@@ -6,13 +6,13 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.38
+    &mdash; Documentation by YARD 0.9.43
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" />
+  <link rel="stylesheet" href="css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "README";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="file_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -57,55 +59,47 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="label-ruby-minimap2">ruby-minimap2</h1>
-
-<p><a href="https://rubygems.org/gems/minimap2"><img src="https://img.shields.io/gem/v/minimap2?color=brightgreen" alt="Gem Version"></a> <a href="https://github.com/kojix2/ruby-minimap2/actions/workflows/ci.yml"><img src="https://github.com/kojix2/ruby-minimap2/actions/workflows/ci.yml/badge.svg" alt="test"></a> <a href="https://kojix2.github.io/ruby-minimap2/"><img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Docs Latest"></a> <a href="LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="The MIT License"></a> <a href="https://zenodo.org/badge/latestdoi/325711305"><img src="https://zenodo.org/badge/325711305.svg" alt="DOI"></a> <a href="https://tokei.kojix2.net/github/kojix2/ruby-minimap2"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fruby-minimap2%2Flines" alt="Lines of Code"></a></p>
-
+      <div id="content"><div id='filecontents'><h1 id="ruby_minimap2">ruby-minimap2</h1>
+<p><a href="https://rubygems.org/gems/minimap2"><img src="https://img.shields.io/gem/v/minimap2?color=brightgreen" alt="Gem Version" /></a>
+<a href="https://github.com/kojix2/ruby-minimap2/actions/workflows/ci.yml"><img src="https://github.com/kojix2/ruby-minimap2/actions/workflows/ci.yml/badge.svg" alt="test" /></a>
+<a href="https://kojix2.github.io/ruby-minimap2/"><img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Docs Latest" /></a>
+<a href="LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="The MIT License" /></a>
+<a href="https://zenodo.org/badge/latestdoi/325711305"><img src="https://zenodo.org/badge/325711305.svg" alt="DOI" /></a>
+<a href="https://tokei.kojix2.net/github/kojix2/ruby-minimap2"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fruby-minimap2%2Flines" alt="Lines of Code" /></a></p>
 <p>:dna: <a href="https://github.com/lh3/minimap2">minimap2</a> - the long-read mapper - for <a href="https://github.com/ruby/ruby">Ruby</a></p>
-
-<h2 id="label-Installation">Installation</h2>
-
+<h2 id="Installation">Installation</h2>
 <p>ruby-minimap2 bundles the Minimap2 C source code and builds it automatically during installation.</p>
-
 <p>Just install the gem. Works on Linux, macOS, and Windows.</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_minimap2'>minimap2</span>
 </code></pre>
-
 <p>Show minimap2 version (check installation)</p>
-
-<pre class="code ruby"><code class="ruby">ruby -r minimap2 -e &#39;Minimap2.execute(&quot;--version&quot;)&#39;
+<pre class="code sh"><code class="sh">ruby -r minimap2 -e &#39;Minimap2.execute(&quot;--version&quot;)&#39;
 </code></pre>
-
-<p>&lt;details&gt; &lt;summary&gt;<strong>Compiling from source</strong>&lt;/summary&gt;</p>
-
+<details>
+<summary><b>Compiling from source</b></summary>
 <pre class="code ruby"><code class="ruby">git clone --recursive https://github.com/kojix2/ruby-minimap2
 cd ruby-minimap2
 bundle install
 bundle exec rake minimap2:build
 bundle exec rake install
 </code></pre>
-
-<p>&lt;/details&gt;</p>
-
-<h2 id="label-Quick+Start">Quick Start</h2>
-
+</details>
+<h2 id="Quick_Start">Quick Start</h2>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>minimap2</span><span class='tstring_end'>&quot;</span></span>
 
 <span class='id identifier rubyid_aligner'>aligner</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Minimap2.html" title="Minimap2 (module)">Minimap2</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Minimap2/Aligner.html" title="Minimap2::Aligner (class)">Aligner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Minimap2/Aligner.html#initialize-instance_method" title="Minimap2::Aligner#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ext/minimap2/test/MT-human.fa</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_seq'>seq</span>     <span class='op'>=</span> <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MT_human</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>100</span><span class='comma'>,</span> <span class='int'>200</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_hits'>hits</span>    <span class='op'>=</span> <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_align'>align</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_hits'>hits</span>    <span class='op'>=</span> <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_align'>align</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='comma'>,</span> <span class='label'>cs:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>ds:</span> <span class='kw'>true</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_pp'>pp</span> <span class='id identifier rubyid_hits'>hits</span>
 </code></pre>
-
 <pre class="code ruby"><code class="ruby">[#&lt;Minimap2::Alignment:0x000055bbfde2d128
   @blen=100,
   @cigar=[[100, 0]],
   @cigar_str=&quot;100M&quot;,
-  @cs=&quot;&quot;,
+  @cs=&quot;:100&quot;,
   @ctg=&quot;MT_human&quot;,
   @ctg_len=16569,
+  @ds=&quot;:100&quot;,
   @mapq=60,
   @md=&quot;&quot;,
   @mlen=100,
@@ -119,10 +113,8 @@ bundle exec rake install
   @strand=1,
   @trans_strand=0&gt;]
 </code></pre>
-
-<h2 id="label-APIs+Overview">APIs Overview</h2>
-
-<pre class="code ruby"><code class="ruby">* Minimap2 module
+<h2 id="APIs_Overview">APIs Overview</h2>
+<pre class="code markdown"><code class="markdown">* Minimap2 module
   - fastx_read                  Read fasta/fastq file.
   - revcomp                     Reverse complement sequence.
   - execute                     Calls the main function of Minimap2 with arguments. `Minimap2.execute(&quot;--version&quot;)`
@@ -155,6 +147,7 @@ bundle exec rake install
       - cigar                   Returns CIGAR returned as an array of shape (n_cigar,2). The two numbers give the length and the operator of each CIGAR operation.
       - read_num                Returns read number that the alignment corresponds to; 1 for the first read and 2 for the second read.
       - cs                      Returns the cs tag.
+      - ds                      Returns the ds tag.
       - md                      Returns the MD tag as in the SAM format. It is an empty string unless the md argument is applied when calling Aligner#align.
       - cigar_str               Returns CIGAR string.
     * methods
@@ -165,27 +158,23 @@ bundle exec rake install
     * IdxOpt class              Indexing options.
     * MapOpt class              Mapping options.
 </code></pre>
-<ul><li>
-<p>API is based on <a href="https://github.com/lh3/minimap2/tree/master/python">Mappy</a>, the official Python binding for Minimap2.</p>
-</li><li>
-<p><code>Aligner#map</code> has been changed to <code>align</code>, because <code>map</code> means iterator in Ruby.</p>
-</li><li>
-<p>See <a href="https://kojix2.github.io/ruby-minimap2/">documentation</a> for details.</p>
-</li></ul>
-
-<p>&lt;details&gt; &lt;summary&gt;<strong>C Structures and Functions</strong>&lt;/summary&gt;</p>
-
-<h3 id="label-FFI">FFI</h3>
-<ul><li>
-<p>Ruby-Minimap2 is built on top of <a href="https://github.com/ffi/ffi">Ruby-FFI</a>.</p>
-</li><li>
-<p>Native C functions can be called from the <code>Minimap2::FFI</code> module.</p>
-</li><li>
-<p>Native C structure members can be accessed.</p>
-</li><li>
-<p>Bitfields are supported by <a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> gems.</p>
-</li></ul>
-
+<ul>
+<li>API is based on <a href="https://github.com/lh3/minimap2/tree/master/python">Mappy</a>, the official Python binding for Minimap2.</li>
+<li><code>Aligner#map</code> has been changed to <code>align</code>, because <code>map</code> means iterator in Ruby.</li>
+<li>See <a href="https://kojix2.github.io/ruby-minimap2/">documentation</a> for details.</li>
+</ul>
+<details>
+<summary><b>C Structures and Functions</b></summary>
+<h3 id="FFI">FFI</h3>
+<ul>
+<li>Ruby-Minimap2 is built on top of <a href="https://github.com/ffi/ffi">Ruby-FFI</a>.
+<ul>
+<li>Native C functions can be called from the <code>Minimap2::FFI</code> module.</li>
+<li>Native C structure members can be accessed.</li>
+<li>Bitfields are supported by <a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> gems.</li>
+</ul>
+</li>
+</ul>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='period'>.</span><span class='id identifier rubyid_members'>members</span>
 <span class='comment'># =&gt; [:k, :w, :flag, :bucket_bits, :mini_batch_size, :batch_size]
 </span><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_kds_opt'>kds_opt</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span>
@@ -196,68 +185,49 @@ bundle exec rake install
 <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span>
 <span class='comment'># =&gt; 14
 </span></code></pre>
-
-<p>&lt;/details&gt;</p>
-
-<h2 id="label-Contributing">Contributing</h2>
-
-<p>&lt;details&gt; &lt;summary&gt;<strong>Development</strong>&lt;/summary&gt;</p>
-
-<p>Fork your repository. then clone.</p>
-
-<pre class="code ruby"><code class="ruby">git clone --recursive https://github.com/kojix2/ruby-minimap2
+</details>
+<h2 id="Contributing">Contributing</h2>
+<details>
+<summary><b>Development</b></summary>
+<p>Fork your repository.
+then clone.</p>
+<pre class="code sh"><code class="sh">git clone --recursive https://github.com/kojix2/ruby-minimap2
 # git clone https://github.com/kojix2/ruby-minimap2
 # cd ruby-minimap2
 # git submodule update -i
 </code></pre>
-
 <p>Build Minimap2 and Mappy.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_cd'>cd</span> <span class='id identifier rubyid_ruby'>ruby</span><span class='op'>-</span><span class='id identifier rubyid_minimap2'>minimap2</span>
-<span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span> <span class='comment'># Install dependent packages including Ruby-FFI
-</span><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rake'>rake</span> <span class='label'>minimap2:</span><span class='id identifier rubyid_build'>build</span>
+<pre class="code sh"><code class="sh">cd ruby-minimap2
+bundle install # Install dependent packages including Ruby-FFI
+bundle exec rake minimap2:build
 </code></pre>
-
 <p>A shared library will be created in the vendor directory.</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_└──'>└──</span> <span class='id identifier rubyid_vendor'>vendor</span>
    <span class='id identifier rubyid_└──'>└──</span> <span class='id identifier rubyid_libminimap2'>libminimap2</span><span class='period'>.</span><span class='id identifier rubyid_so'>so</span>
 </code></pre>
-
 <p>Run tests.</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_test'>test</span>
 </code></pre>
-
 <p>Release a Gem.</p>
-
 <pre class="code ruby"><code class="ruby">bundle exec rake minimap2:cleanall
 bundle exec rake build
 ls -l pkg # Check the size of the Gem and make sure it does not contain any unused code such as shared libraries or lib/simde.
 bundle exec rake release
 </code></pre>
-
-<p>&lt;/details&gt;</p>
-
+</details>
 <p>ruby-minimap2 is a library under development and there are many points to be improved.</p>
-
 <p>Please feel free to report <a href="https://github.com/kojix2/ruby-minimap2/issues">bugs</a> and <a href="https://github.com/kojix2/ruby-minimap2/pulls">pull requests</a>!</p>
-
-<p>Many OSS projects become abandoned because only the founder has commit rights to the original repository. If you need commit rights to ruby-minimap2 repository or want to get admin rights and take over the project, please feel free to contact me @kojix2.</p>
-
-<h2 id="label-License">License</h2>
-
+<p>Many OSS projects become abandoned because only the founder has commit rights to the original repository.
+If you need commit rights to ruby-minimap2 repository or want to get admin rights and take over the project, please feel free to contact me @kojix2.</p>
+<h2 id="License">License</h2>
 <p><a href="LICENSE.txt">MIT License</a></p>
-
-<h2 id="label-Acknowledgements">Acknowledgements</h2>
-
-<p>I would like to thank Heng Li for making Minimap2, and all the readers who read the README to the end.</p>
-</div></div>
+<h2 id="Acknowledgements">Acknowledgements</h2>
+<p>I would like to thank Heng Li for making Minimap2, and all the readers who read the README to the end.</p></div></div>
 
       <div id="footer">
-  Generated on Thu Feb  5 02:42:26 2026 by
+  Generated on Wed May 20 02:01:31 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-4.0.1).
+  0.9.43 (ruby-4.0.4).
 </div>
 
     </div>
