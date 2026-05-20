@@ -48,6 +48,23 @@ class AlignerTest < Minitest::Test
     end
   end
 
+  def test_align_with_ds
+    qseq = @a.seq("MT_human", 100, 200)
+    alignment = @a.align(qseq, ds: true).first
+
+    refute_nil alignment
+    assert_equal ":100", alignment.ds
+  end
+
+  def test_align_without_ds_keeps_ds_empty
+    qseq = @a.seq("MT_human", 100, 200)
+    alignment = @a.align(qseq).first
+
+    refute_nil alignment
+    assert_equal "", alignment.ds
+    refute_includes alignment.to_s, "\tds:Z:"
+  end
+
   def test_align2
     qseq = MM2.revcomp(@a.seq("MT_human", 300, 400))
     alignments = @a.align(qseq)

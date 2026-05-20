@@ -151,6 +151,12 @@ module Minimap2
       [:pointer, :pointer, :pointer, Idx.by_ref, Reg1.by_ref, :string, :int],
       :int
 
+    # int mm_gen_ds(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq, int no_iden);
+    attach_function \
+      :mm_gen_ds,
+      [:pointer, :pointer, :pointer, Idx.by_ref, Reg1.by_ref, :string, :int],
+      :int
+
     # int mm_gen_MD(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq);
     attach_function \
       :mm_gen_md, :mm_gen_MD, # Avoid uppercase letters in method names.

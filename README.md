@@ -43,7 +43,7 @@ require "minimap2"
 
 aligner = Minimap2::Aligner.new("ext/minimap2/test/MT-human.fa")
 seq     = aligner.seq("MT_human", 100, 200)
-hits    = aligner.align(seq)
+hits    = aligner.align(seq, cs: true, ds: true)
 pp hits
 ```
 
@@ -52,9 +52,10 @@ pp hits
   @blen=100,
   @cigar=[[100, 0]],
   @cigar_str="100M",
-  @cs="",
+  @cs=":100",
   @ctg="MT_human",
   @ctg_len=16569,
+  @ds=":100",
   @mapq=60,
   @md="",
   @mlen=100,
@@ -105,6 +106,7 @@ pp hits
       - cigar                   Returns CIGAR returned as an array of shape (n_cigar,2). The two numbers give the length and the operator of each CIGAR operation.
       - read_num                Returns read number that the alignment corresponds to; 1 for the first read and 2 for the second read.
       - cs                      Returns the cs tag.
+      - ds                      Returns the ds tag.
       - md                      Returns the MD tag as in the SAM format. It is an empty string unless the md argument is applied when calling Aligner#align.
       - cigar_str               Returns CIGAR string.
     * methods

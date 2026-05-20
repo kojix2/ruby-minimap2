@@ -6,7 +6,7 @@ class AlignmentTest < Minitest::Test
     path = File.expand_path("../../ext/minimap2/test/MT-human.fa", __dir__)
     aligner = MM2::Aligner.new(path)
     seq = aligner.seq("MT_human", 100, 300)
-    @a = aligner.align(seq, cs: true, md: true).first
+    @a = aligner.align(seq, cs: true, ds: true, md: true).first
   end
 
   def test_keys
@@ -85,6 +85,10 @@ class AlignmentTest < Minitest::Test
     assert_equal "200", @a.md
   end
 
+  def test_ds
+    assert_equal ":200", @a.ds
+  end
+
   def test_cigar_str
     assert_equal "200M", @a.cigar_str
   end
@@ -111,6 +115,7 @@ class AlignmentTest < Minitest::Test
       cigar: [[200, 0]],
       read_num: 1,
       cs: ":200",
+      ds: ":200",
       md: "200",
       cigar_str: "200M"
     }
@@ -118,7 +123,7 @@ class AlignmentTest < Minitest::Test
   end
 
   def test_to_s
-    assert_equal "0\t200\t+\tMT_human\t16569\t100\t300\t200\t200\t60\ttp:A:P\tts:A:.\tcg:Z:200M\tcs:Z::200\tMD:Z:200",
+    assert_equal "0\t200\t+\tMT_human\t16569\t100\t300\t200\t200\t60\ttp:A:P\tts:A:.\tcg:Z:200M\tcs:Z::200\tds:Z::200\tMD:Z:200",
                  @a.to_s
   end
 end

@@ -160,6 +160,7 @@ module Minimap2
     # @param seq2 [String]
     # @param buf [FFI::TBuf]
     # @param cs [true, false]
+    # @param ds [true, false]
     # @param md [true, false]
     # @param max_frag_len [Integer]
     # @param extra_flags [Integer]
@@ -174,6 +175,7 @@ module Minimap2
       name: nil,
       buf: nil,
       cs: false,
+      ds: false,
       md: false,
       max_frag_len: nil,
       extra_flags: nil
@@ -223,7 +225,7 @@ module Minimap2
 
           cs_buf_ptr = nil
           m_cs_ptr = nil
-          if cs || md
+          if cs || ds || md
             cs_buf_ptr = ::FFI::MemoryPointer.new(:pointer)
             cs_buf_ptr.write_pointer(::FFI::Pointer::NULL)
             m_cs_ptr = ::FFI::MemoryPointer.new(:int)
@@ -239,14 +241,21 @@ module Minimap2
               cigar = c.map { |x| [x >> 4, x & 0xf] } # 32-bit CIGAR encoding -> Ruby array
 
               _cs = ""
+              _ds = ""
               _md = ""
-              if cs or md
+              if cs || ds || md
                 cur_seq = hit[:seg_id] > 0 && seq2 ? seq2 : seq
 
                 if cs
                   l_cs_str = FFI.mm_gen_cs(km, cs_buf_ptr, m_cs_ptr, idx_part, regs[i], cur_seq, 1)
                   cs_ptr = cs_buf_ptr.read_pointer
                   _cs = cs_ptr.null? || l_cs_str <= 0 ? "" : cs_ptr.read_string(l_cs_str)
+                end
+
+                if ds
+                  l_cs_str = FFI.mm_gen_ds(km, cs_buf_ptr, m_cs_ptr, idx_part, regs[i], cur_seq, 1)
+                  cs_ptr = cs_buf_ptr.read_pointer
+                  _ds = cs_ptr.null? || l_cs_str <= 0 ? "" : cs_ptr.read_string(l_cs_str)
                 end
 
                 if md
@@ -256,7 +265,7 @@ module Minimap2
                 end
               end
 
-              alignments << Alignment.new(hit, cigar, _cs, _md)
+              alignments << Alignment.new(hit, cigar, _cs, _ds, _md)
 
               FFI.mm_free_reg1(regs[i])
               i += 1

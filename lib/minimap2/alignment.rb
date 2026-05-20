@@ -40,6 +40,8 @@ module Minimap2
   #     1 for the first read and 2 for the second read.
   # @!attribute cs
   #   @return [String] the cs tag.
+  # @!attribute ds
+  #   @return [String] the ds tag.
   # @!attribute md
   #   @return [String] the MD tag as in the SAM format.
   #     It is an empty string unless the md argument is applied when calling Aligner#align.
@@ -49,12 +51,12 @@ module Minimap2
   class Alignment
     def self.keys
       %i[ctg ctg_len r_st r_en strand trans_strand blen mlen nm primary
-         q_st q_en mapq cigar read_num cs md cigar_str]
+         q_st q_en mapq cigar read_num cs ds md cigar_str]
     end
 
     attr_reader(*keys)
 
-    def initialize(h, cigar, cs = nil, md = nil)
+    def initialize(h, cigar, cs = nil, ds = nil, md = nil)
       @ctg          = h[:ctg]
       @ctg_len      = h[:ctg_len]
       @r_st         = h[:ctg_start]
@@ -71,6 +73,7 @@ module Minimap2
       @cigar        = cigar
       @read_num     = h[:seg_id] + 1
       @cs           = cs
+      @ds           = ds
       @md           = md
 
       @cigar_str = cigar.map { |x| x[0].to_s + FFI::CIGAR_STR[x[1]] }.join
@@ -106,8 +109,9 @@ module Minimap2
            end
       a = [@q_st, @q_en, strand, @ctg, @ctg_len, @r_st, @r_en,
            @mlen, @blen, @mapq, tp, ts, "cg:Z:#{@cigar_str}"]
-      a << "cs:Z:#{@cs}" if @cs
-      a << "MD:Z:#{@md}" if @md
+      a << "cs:Z:#{@cs}" unless @cs.nil? || @cs.empty?
+      a << "ds:Z:#{@ds}" unless @ds.nil? || @ds.empty?
+      a << "MD:Z:#{@md}" unless @md.nil? || @md.empty?
       a.join("\t")
     end
   end
