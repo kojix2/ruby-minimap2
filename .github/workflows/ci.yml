@@ -24,8 +24,8 @@ jobs:
       - name: Install and load source gem
         shell: bash
         env:
-          GEM_HOME: ${{ runner.temp }}/ruby-minimap2-gems
-          GEM_PATH: ${{ runner.temp }}/ruby-minimap2-gems
+          GEM_HOME: ${{ runner.temp }}/ruby minimap2 gems
+          GEM_PATH: ${{ runner.temp }}/ruby minimap2 gems
         run: |
           gem install --local pkg/minimap2-*.gem --no-document
           ruby -r minimap2 -e 'puts Minimap2::VERSION'

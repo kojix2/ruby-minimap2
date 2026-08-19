@@ -15,6 +15,7 @@ rescue LoadError => e
 end
 
 require_relative "minimap2/alignment"
+require_relative "minimap2/aligner"
 require_relative "minimap2/version"
 
 # Ruby bindings for the minimap2 sequence aligner.

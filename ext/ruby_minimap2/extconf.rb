@@ -21,24 +21,27 @@ FileUtils.mkdir_p(build_dir)
 FileUtils.cp_r(Dir.glob(File.join(source_dir, "*")), build_dir)
 
 host_cpu = RbConfig::CONFIG.fetch("host_cpu")
-cflags = %w[-O2 -fPIC -DHAVE_KALLOC]
-make_args = ["libminimap2.a", "CFLAGS=#{cflags.join(' ')}"]
+cflags = %w[-O2 -fPIC]
+cflags.concat(Shellwords.split(RbConfig::CONFIG["ARCH_FLAG"].to_s))
+make_args = ["libminimap2.a", "CC=#{RbConfig::CONFIG.fetch('CC')}"]
+make_args << "AR=#{RbConfig::CONFIG['AR']}" unless RbConfig::CONFIG["AR"].to_s.empty?
 
 case host_cpu
 when /arm64|aarch64/
-  make_args.concat(["aarch64=1", "INCLUDES=-Isse2neon",
-                    "CFLAGS=#{(cflags + %w[-D_FILE_OFFSET_BITS=64 -fsigned-char]).join(' ')}"])
+  make_args.concat(["aarch64=1", "INCLUDES=-Isse2neon"])
+  cflags.concat(%w[-D_FILE_OFFSET_BITS=64 -fsigned-char])
 when /arm/
-  make_args.concat(["arm_neon=1", "INCLUDES=-Isse2neon",
-                    "CFLAGS=#{(cflags + %w[-D_FILE_OFFSET_BITS=64 -mfpu=neon -fsigned-char]).join(' ')}"])
+  make_args.concat(["arm_neon=1", "INCLUDES=-Isse2neon"])
+  cflags.concat(%w[-D_FILE_OFFSET_BITS=64 -mfpu=neon -fsigned-char])
 end
+make_args << "CFLAGS=#{cflags.join(' ')}"
 
 Dir.chdir(build_dir) do
   abort "failed to build bundled minimap2" unless system(RbConfig::CONFIG.fetch("MAKE", "make"), *make_args)
 end
 
-$INCFLAGS << " -I#{build_dir}"
-$LOCAL_LIBS << " #{File.join(build_dir, 'libminimap2.a').shellescape}"
+$INCFLAGS << " -I#{build_dir.quote}"
+$LOCAL_LIBS << " #{File.join(build_dir, 'libminimap2.a').quote}"
 $defs << "-DRUBY_MINIMAP2_TESTING" if enable_config("testing", false)
 
 create_makefile("minimap2/minimap2_ext")

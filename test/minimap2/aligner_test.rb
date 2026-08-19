@@ -17,6 +17,7 @@ class AlignerTest < Minitest::Test
 
   def test_initialize
     assert_instance_of MM2::Aligner, @a
+    assert @a.index?
   end
 
   def test_initialize_preset_short
@@ -60,9 +61,10 @@ class AlignerTest < Minitest::Test
     aligner.free_index
 
     assert_equal before - 1, MM2::Native.resource_counts[:indexes]
+    refute aligner.index?
     assert_equal 0, aligner.n_seq
     assert_equal [], aligner.seq_names
-    assert_nil aligner.align("ACGT")
+    assert_equal [], aligner.align("ACGT")
     assert_nil aligner.seq("N/A")
     assert_raises(MM2::Error) { aligner.k }
     assert_raises(MM2::Error) { aligner.w }
@@ -78,7 +80,11 @@ class AlignerTest < Minitest::Test
   end
 
   def test_align_without_index_returns_empty_array
-    assert_equal [], MM2::Aligner.new.align("ACGT")
+    aligner = MM2::Aligner.new
+    refute aligner.index?
+    assert_equal [], aligner.align("ACGT")
+    error = assert_raises(MM2::Error) { aligner.k }
+    assert_equal "index is not initialized", error.message
   end
 
   def test_align_with_ds
@@ -166,6 +172,22 @@ class AlignerTest < Minitest::Test
     assert_equal %w[read1 read2], @a.seq_names
   end
 
+  def test_seq_names_preserves_duplicate_names
+    require "tempfile"
+
+    Tempfile.create(["duplicate-names", ".fa"]) do |file|
+      2.times do
+        file.puts ">duplicate"
+        file.puts "ACGT" * 100
+      end
+      file.flush
+      aligner = MM2::Aligner.new(file.path)
+
+      assert_equal 2, aligner.n_seq
+      assert_equal %w[duplicate duplicate], aligner.seq_names
+    end
+  end
+
   def test_multi_part_index_from_fasta
     # minimap2 can only split between sequences (contigs). The bundled MT-human.fa
     # is a single contig, so it cannot produce a multi-part index even if
@@ -242,6 +264,29 @@ class AlignerTest < Minitest::Test
     Dir.mktmpdir do |dir|
       assert_raises(MM2::Error) { MM2::Aligner.new(dir) }
     end
+  end
+
+  def test_index_without_sequence_data_is_rejected
+    require "tmpdir"
+
+    Dir.mktmpdir do |dir|
+      index = File.join(dir, "no-sequence.mmi")
+      assert_equal 0, MM2.execute("-v", "1", "--idx-no-seq", "-d", index, fa_path)
+      error = assert_raises(MM2::Error) { MM2::Aligner.new(index) }
+      assert_match(/does not contain sequence data/, error.message)
+    end
+  end
+
+  def test_native_timer_is_initialized
+    require "open3"
+
+    script = 'require "minimap2"; Minimap2.verbose = 3; Minimap2::Aligner.new(ARGV.fetch(0))'
+    _out, err, status = Open3.capture3(RbConfig.ruby, "-Ilib", "-e", script, fa_path)
+    timestamps = err.scan(/\[M::[^:]+::([0-9]+(?:\.[0-9]+)?)\*/).flatten.map(&:to_f)
+
+    assert_predicate status, :success?, err
+    refute_empty timestamps
+    assert_operator timestamps.max, :<, 300
   end
 
   def test_paired_alignment_releases_temporary_buffer

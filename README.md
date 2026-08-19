@@ -41,32 +41,39 @@ ruby -r minimap2 -e 'Minimap2.execute("--version")'
 ```ruby
 require "minimap2"
 
-aligner = Minimap2::Aligner.new("ext/minimap2/test/MT-human.fa")
-seq     = aligner.seq("MT_human", 100, 200)
-hits    = aligner.align(seq, cs: true, ds: true)
+reference = <<~DNA.delete("\n")
+  GATCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGCATTTGGTATTTTCGTCTGGGGGGTATGCACGC
+  GATAGCATTGCGAGACGCTGGAGCCGGAGCACCCTATGTCGCAGTATCTGTCTTTGATTCCTGCCTCATCCTATTATTTAT
+  CGCACCTACGTTCAATATTACAGGCGAACATACTTACTAAAGTGTGTTAATTAATTAATGCTTGTAGGACATAATAATAACA
+  ATTGAATGTCTGCACAGCCACTTTCCACACAGACATCATAACAAAAAATTTCCACCAAACCCCCCCTCCCCCGCTTC
+DNA
+
+aligner = Minimap2::Aligner.new(seq: reference)
+query   = reference[50, 200]
+hits    = aligner.align(query, name: "query", cs: true, ds: true)
 pp hits
 ```
 
 ```
 [#<Minimap2::Alignment:0x000055bbfde2d128
-  @blen=100,
-  @cigar=[[100, 0]],
-  @cigar_str="100M",
-  @cs=":100",
-  @ctg="MT_human",
-  @ctg_len=16569,
-  @ds=":100",
+  @blen=200,
+  @cigar=[[200, 0]],
+  @cigar_str="200M",
+  @cs=":200",
+  @ctg="N/A",
+  @ctg_len=320,
+  @ds=":200",
   @mapq=60,
   @md=nil,
-  @mlen=100,
+  @mlen=200,
   @nm=0,
   @primary=1,
-  @q_en=100,
+  @q_en=200,
   @q_st=0,
-  @qlen=100,
-  @qname="*",
-  @r_en=200,
-  @r_st=100,
+  @qlen=200,
+  @qname="query",
+  @r_en=250,
+  @r_st=50,
   @read_num=1,
   @strand=1,
   @trans_strand=0>]
@@ -91,6 +98,7 @@ pp hits
       - w                       Returns the minimizer window size.
       - n_seq                   Returns the number of sequences in the index.
       - seq_names               Returns sequence names in the index.
+      - index?                  Returns whether the aligner has a live index.
       - free_index              Releases the index.
 
   * Alignment class
@@ -123,6 +131,9 @@ pp hits
 
 - API is based on [Mappy](https://github.com/lh3/minimap2/tree/master/python), the official Python binding for Minimap2.
 - `Aligner#map` has been changed to `align`, because `map` means iterator in Ruby.
+- Calls on the same Aligner are thread-safe and serialized. Different Aligner instances can run concurrently.
+- Multipart indexes are supported, but primary alignments and mapping quality are calculated independently for each part.
+- Sequence data uses ASCII-8BIT. Names read from an index use UTF-8.
 - See [documentation](https://kojix2.github.io/ruby-minimap2/) for details.
 
 ## Contributing

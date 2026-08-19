@@ -27,6 +27,7 @@ KSEQ_INIT(gzFile, gzread)
 
 extern int mm2_embedded_main(int argc, char **argv);
 extern unsigned char seq_comp_table[256];
+extern double realtime(void);
 
 typedef struct {
     mm_idxopt_t idx_opt;
@@ -314,7 +315,7 @@ static VALUE aligner_initialize(int argc, VALUE *argv, VALUE self)
         job.output_path = output_copy;
         job.options = aligner->idx_opt;
         job.threads = threads;
-        rb_thread_call_without_gvl(load_indexes_without_gvl, &job, RUBY_UBF_IO, NULL);
+        rb_thread_call_without_gvl(load_indexes_without_gvl, &job, NULL, NULL);
         free(path_copy);
         free(output_copy);
         if (job.allocation_failed) {
@@ -324,10 +325,16 @@ static VALUE aligner_initialize(int argc, VALUE *argv, VALUE self)
         }
         if (job.open_failed) rb_raise(eMinimap2Error, "Cannot open: %s", StringValueCStr(path_string));
         uint64_t sequence_count = 0;
+        int sequence_data_missing = 0;
         for (size_t i = 0; i < job.count; ++i) sequence_count += job.indexes[i]->n_seq;
-        if (job.count == 0 || sequence_count == 0) {
+        for (size_t i = 0; i < job.count; ++i) {
+            if (job.indexes[i]->flag & MM_I_NO_SEQ) sequence_data_missing = 1;
+        }
+        if (job.count == 0 || sequence_count == 0 || sequence_data_missing) {
             for (size_t i = 0; i < job.count; ++i) mm_idx_destroy(job.indexes[i]);
             free(job.indexes);
+            if (sequence_data_missing)
+                rb_raise(eMinimap2Error, "Index does not contain sequence data: %s", StringValueCStr(path_string));
             rb_raise(eMinimap2Error, "Failed to read index parts from: %s", StringValueCStr(path_string));
         }
         aligner->indexes = job.indexes;
@@ -376,8 +383,20 @@ static VALUE aligner_free_index(VALUE self)
 
 static void require_live_index(rb_mm2_aligner_t *aligner)
 {
-    if (aligner->released || aligner->index_count == 0)
-        rb_raise(eMinimap2Error, "index has been released");
+    if (aligner->released) rb_raise(eMinimap2Error, "index has been released");
+    if (aligner->index_count == 0) rb_raise(eMinimap2Error, "index is not initialized");
+}
+
+static VALUE aligner_index_p_locked(VALUE argument)
+{
+    rb_mm2_aligner_t *aligner = (rb_mm2_aligner_t *)(uintptr_t)argument;
+    return (!aligner->released && aligner->index_count > 0) ? Qtrue : Qfalse;
+}
+
+static VALUE aligner_index_p(VALUE self)
+{
+    rb_mm2_aligner_t *aligner = get_aligner(self);
+    return rb_mutex_synchronize(aligner->mutex, aligner_index_p_locked, (VALUE)(uintptr_t)aligner);
 }
 
 static VALUE aligner_k_locked(VALUE argument)
@@ -426,7 +445,6 @@ static VALUE aligner_seq_names_locked(VALUE argument)
 {
     rb_mm2_aligner_t *aligner = (rb_mm2_aligner_t *)(uintptr_t)argument;
     VALUE result = rb_ary_new();
-    VALUE seen = rb_hash_new();
     size_t i;
     if (aligner->released) return result;
     for (i = 0; i < aligner->index_count; ++i) {
@@ -434,10 +452,7 @@ static VALUE aligner_seq_names_locked(VALUE argument)
         uint32_t j;
         for (j = 0; j < index->n_seq; ++j) {
             VALUE name = rb_utf8_str_new_cstr(index->seq[j].name);
-            if (NIL_P(rb_hash_aref(seen, name))) {
-                rb_hash_aset(seen, name, Qtrue);
-                rb_ary_push(result, name);
-            }
+            rb_ary_push(result, name);
         }
     }
     return result;
@@ -618,6 +633,10 @@ static VALUE convert_regs(VALUE argument)
     void *km = mm_tbuf_get_km(job->buffer);
     for (i = 0; i < job->n_regs; ++i) {
         mm_reg1_t *reg = &job->regs[i];
+        if (!reg->p) {
+            ctx->converted = i + 1;
+            continue;
+        }
         VALUE cigar = rb_ary_new_capa(reg->p->n_cigar);
         VALUE cs = Qnil;
         VALUE ds = Qnil;
@@ -780,8 +799,7 @@ static VALUE align_cleanup(VALUE argument)
 static VALUE align_locked(VALUE argument)
 {
     align_args_t *args = (align_args_t *)(uintptr_t)argument;
-    if (args->aligner->released) return Qnil;
-    if (args->aligner->index_count == 0) return rb_ary_new();
+    if (args->aligner->released || args->aligner->index_count == 0) return rb_ary_new();
     args->seq1_copy = strdup(StringValueCStr(args->seq1));
     if (!NIL_P(args->seq2)) args->seq2_copy = strdup(StringValueCStr(args->seq2));
     if (!NIL_P(args->name)) args->name_copy = strdup(StringValueCStr(args->name));
@@ -1079,6 +1097,7 @@ static VALUE native_resource_counts(VALUE module)
 
 void Init_minimap2_ext(void)
 {
+    mm_realtime0 = realtime();
     id_new = rb_intern("new");
     id_sort_by = rb_intern("sort_by");
     mMinimap2 = rb_define_module("Minimap2");
@@ -1095,6 +1114,7 @@ void Init_minimap2_ext(void)
     rb_define_method(cAligner, "w", aligner_w, 0);
     rb_define_method(cAligner, "n_seq", aligner_n_seq, 0);
     rb_define_method(cAligner, "seq_names", aligner_seq_names, 0);
+    rb_define_method(cAligner, "index?", aligner_index_p, 0);
 
     cFastxReader = rb_define_class_under(mNative, "FastxReader", rb_cObject);
     rb_define_alloc_func(cFastxReader, fastx_alloc);
