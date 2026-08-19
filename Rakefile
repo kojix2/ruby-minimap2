@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 require "bundler/gem_tasks"
+require "rake/clean"
 require "rake/extensiontask"
 require "rake/testtask"
 
 spec = Gem::Specification.load("minimap2.gemspec")
+
+CLOBBER.include "ext/ruby_minimap2/build"
 
 Rake::ExtensionTask.new("minimap2_ext", spec) do |ext|
   ext.ext_dir = "ext/ruby_minimap2"
