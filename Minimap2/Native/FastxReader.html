@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Minimap2::Native::FastxReader
+  
+    &mdash; Documentation by YARD 0.9.45
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "Minimap2::Native::FastxReader";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (F)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Minimap2.html" title="Minimap2 (module)">Minimap2</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Native.html" title="Minimap2::Native (module)">Native</a></span></span>
+     &raquo; 
+    <span class="title">FastxReader</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Minimap2::Native::FastxReader
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Minimap2::Native::FastxReader</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>ext/ruby_minimap2/ruby_minimap2.c
+</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close-instance_method" title="#close (instance method)">#<strong>close</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(path)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#next_record-instance_method" title="#next_record (instance method)">#<strong>next_record</strong>(read_comment)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(path)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 882</span>
+
+static VALUE fastx_initialize(VALUE self, VALUE path)
+{
+    rb_mm2_fastx_t *reader;
+    VALUE path_string = rb_get_path(path);
+    const char *path_ptr = StringValueCStr(path_string);
+    int first;
+    TypedData_Get_Struct(self, rb_mm2_fastx_t, &amp;fastx_type, reader);
+    if (strcmp(path_ptr, &quot;-&quot;) == 0) {
+#ifdef _WIN32
+        int fd = _dup(_fileno(stdin));
+        if (fd &gt;= 0) _setmode(fd, _O_BINARY);
+#else
+        int fd = dup(fileno(stdin));
+#endif
+        if (fd &gt;= 0) {
+            reader-&gt;file = gzdopen(fd, &quot;r&quot;);
+            if (!reader-&gt;file) {
+#ifdef _WIN32
+                _close(fd);
+#else
+                close(fd);
+#endif
+            }
+        }
+    } else {
+        reader-&gt;file = gzopen(path_ptr, &quot;r&quot;);
+    }
+    if (!reader-&gt;file) rb_raise(eMinimap2Error, &quot;Cannot open FASTA/FASTQ file: %s&quot;, StringValueCStr(path_string));
+    first = gzgetc(reader-&gt;file);
+    if (first != &#39;&gt;&#39; &amp;&amp; first != &#39;@&#39;) {
+        gzclose(reader-&gt;file);
+        reader-&gt;file = NULL;
+        rb_raise(eMinimap2Error, &quot;Invalid FASTA/FASTQ file: %s&quot;, path_ptr);
+    }
+    if (gzungetc(first, reader-&gt;file) == -1) {
+        gzclose(reader-&gt;file);
+        reader-&gt;file = NULL;
+        rb_raise(eMinimap2Error, &quot;Cannot read FASTA/FASTQ file: %s&quot;, path_ptr);
+    }
+    reader-&gt;seq = kseq_init(reader-&gt;file);
+    if (!reader-&gt;seq) {
+        gzclose(reader-&gt;file);
+        reader-&gt;file = NULL;
+        rb_raise(eMinimap2Error, &quot;Cannot initialize FASTA/FASTQ reader&quot;);
+    }
+    reader-&gt;closed = 0;
+#ifdef RUBY_MINIMAP2_TESTING
+    ++live_fastx_readers;
+#endif
+    return self;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="close-instance_method">
+  
+    #<strong>close</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+963
+964
+965
+966
+967
+968
+969</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 963</span>
+
+static VALUE fastx_close(VALUE self)
+{
+    rb_mm2_fastx_t *reader;
+    TypedData_Get_Struct(self, rb_mm2_fastx_t, &amp;fastx_type, reader);
+    fastx_close_native(reader);
+    return Qnil;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="next_record-instance_method">
+  
+    #<strong>next_record</strong>(read_comment)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 934</span>
+
+static VALUE fastx_next(VALUE self, VALUE read_comment)
+{
+    rb_mm2_fastx_t *reader;
+    VALUE result;
+    int status;
+    TypedData_Get_Struct(self, rb_mm2_fastx_t, &amp;fastx_type, reader);
+    if (reader-&gt;closed) return Qnil;
+    status = kseq_read(reader-&gt;seq);
+    if (status == -1) {
+        fastx_close_native(reader);
+        return Qnil;
+    }
+    if (status &lt; -1) {
+        fastx_close_native(reader);
+        rb_raise(eMinimap2Error, &quot;Malformed FASTA/FASTQ record&quot;);
+    }
+    if (reader-&gt;seq-&gt;name.l == 0 || reader-&gt;seq-&gt;seq.l == 0) {
+        fastx_close_native(reader);
+        rb_raise(eMinimap2Error, &quot;Malformed FASTA/FASTQ record&quot;);
+    }
+    result = rb_ary_new_capa(RTEST(read_comment) ? 4 : 3);
+    rb_ary_push(result, rb_str_new(reader-&gt;seq-&gt;name.s, reader-&gt;seq-&gt;name.l));
+    rb_ary_push(result, rb_str_new(reader-&gt;seq-&gt;seq.s, reader-&gt;seq-&gt;seq.l));
+    rb_ary_push(result, reader-&gt;seq-&gt;qual.l &gt; 0 ? rb_str_new(reader-&gt;seq-&gt;qual.s, reader-&gt;seq-&gt;qual.l) : Qnil);
+    if (RTEST(read_comment))
+        rb_ary_push(result, reader-&gt;seq-&gt;comment.l &gt; 0 ? rb_str_new(reader-&gt;seq-&gt;comment.s, reader-&gt;seq-&gt;comment.l) : Qnil);
+    return result;
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Aug 19 08:51:39 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.45 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

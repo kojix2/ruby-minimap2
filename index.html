@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.44
+    &mdash; Documentation by YARD 0.9.45
   
 </title>
 
@@ -68,8 +68,8 @@
 <a href="https://tokei.kojix2.net/github/kojix2/ruby-minimap2"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fruby-minimap2%2Flines" alt="Lines of Code" /></a></p>
 <p>:dna: <a href="https://github.com/lh3/minimap2">minimap2</a> - the long-read mapper - for <a href="https://github.com/ruby/ruby">Ruby</a></p>
 <h2 id="Installation">Installation</h2>
-<p>ruby-minimap2 bundles the Minimap2 C source code and builds it automatically during installation.</p>
-<p>Just install the gem. Works on Linux, macOS, and Windows.</p>
+<p>ruby-minimap2 bundles the Minimap2 C source code and builds a native extension during installation.</p>
+<p>Ruby 3.3 or later is required. Works on Linux, macOS, and Windows.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_minimap2'>minimap2</span>
 </code></pre>
 <p>Show minimap2 version (check installation)</p>
@@ -101,12 +101,14 @@ bundle exec rake install
   @ctg_len=16569,
   @ds=&quot;:100&quot;,
   @mapq=60,
-  @md=&quot;&quot;,
+  @md=nil,
   @mlen=100,
   @nm=0,
   @primary=1,
   @q_en=100,
   @q_st=0,
+  @qlen=100,
+  @qname=&quot;*&quot;,
   @r_en=200,
   @r_st=100,
   @read_num=1,
@@ -118,19 +120,24 @@ bundle exec rake install
   - fastx_read                  Read fasta/fastq file.
   - revcomp                     Reverse complement sequence.
   - execute                     Calls the main function of Minimap2 with arguments. `Minimap2.execute(&quot;--version&quot;)`
+  - verbose                     Returns the Minimap2 verbosity level.
+  - verbose=                    Sets the Minimap2 verbosity level.
 
   * Aligner class
-    * attributes
-      - index                   Returns the value of attribute index.
-      - idx_opt                 Returns the value of attribute idx_opt.
-      - map_opt                 Returns the value of attribute map_opt.
     * methods
-      - new(path, preset: nil)  Create a new aligner. (presets: sr, map-pb, map-out, map-hifi, splice, asm5, etc.)
+      - new(path, preset: nil)  Create a new aligner. (presets: sr, map-pb, map-ont, map-hifi, splice, asm5, etc.)
       - align                   Maps and returns alignments.
       - seq                     Retrieve a subsequence from the index.
+      - k                       Returns the minimizer k-mer length.
+      - w                       Returns the minimizer window size.
+      - n_seq                   Returns the number of sequences in the index.
+      - seq_names               Returns sequence names in the index.
+      - free_index              Releases the index.
 
   * Alignment class
     * attributes
+      - qname                   Returns the query sequence name.
+      - qlen                    Returns the query sequence length.
       - ctg                     Returns name of the reference sequence the query is mapped to.
       - ctg_len                 Returns total length of the reference sequence.
       - r_st                    Returns start positions on the reference.
@@ -146,46 +153,19 @@ bundle exec rake install
       - mapq                    Returns mapping quality.
       - cigar                   Returns CIGAR returned as an array of shape (n_cigar,2). The two numbers give the length and the operator of each CIGAR operation.
       - read_num                Returns read number that the alignment corresponds to; 1 for the first read and 2 for the second read.
-      - cs                      Returns the cs tag.
-      - ds                      Returns the ds tag.
-      - md                      Returns the MD tag as in the SAM format. It is an empty string unless the md argument is applied when calling Aligner#align.
+      - cs                      Returns the cs tag, or nil unless requested.
+      - ds                      Returns the ds tag, or nil unless requested.
+      - md                      Returns the MD tag, or nil unless requested.
       - cigar_str               Returns CIGAR string.
     * methods
       - to_h                    Convert Alignment to hash.
-      - to_s                    Convert to the PAF format without the QueryName and QueryLength columns.
-
-  ## FFI module
-    * IdxOpt class              Indexing options.
-    * MapOpt class              Mapping options.
+      - to_s                    Convert to the PAF format.
 </code></pre>
 <ul>
 <li>API is based on <a href="https://github.com/lh3/minimap2/tree/master/python">Mappy</a>, the official Python binding for Minimap2.</li>
 <li><code>Aligner#map</code> has been changed to <code>align</code>, because <code>map</code> means iterator in Ruby.</li>
 <li>See <a href="https://kojix2.github.io/ruby-minimap2/">documentation</a> for details.</li>
 </ul>
-<details>
-<summary><b>C Structures and Functions</b></summary>
-<h3 id="FFI">FFI</h3>
-<ul>
-<li>Ruby-Minimap2 is built on top of <a href="https://github.com/ffi/ffi">Ruby-FFI</a>.
-<ul>
-<li>Native C functions can be called from the <code>Minimap2::FFI</code> module.</li>
-<li>Native C structure members can be accessed.</li>
-<li>Bitfields are supported by <a href="https://github.com/kojix2/ffi-bitfield">ffi-bitfield</a> gems.</li>
-</ul>
-</li>
-</ul>
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='period'>.</span><span class='id identifier rubyid_members'>members</span>
-<span class='comment'># =&gt; [:k, :w, :flag, :bucket_bits, :mini_batch_size, :batch_size]
-</span><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_kds_opt'>kds_opt</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span>
-<span class='comment'># =&gt; [15, 10, 0, 14, 50000000, 9223372036854775807]
-</span><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span>
-<span class='comment'># =&gt; 15
-</span><span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>14</span>
-<span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_idx_opt'>idx_opt</span><span class='lbracket'>[</span><span class='symbol'>:k</span><span class='rbracket'>]</span>
-<span class='comment'># =&gt; 14
-</span></code></pre>
-</details>
 <h2 id="Contributing">Contributing</h2>
 <details>
 <summary><b>Development</b></summary>
@@ -196,14 +176,10 @@ then clone.</p>
 # cd ruby-minimap2
 # git submodule update -i
 </code></pre>
-<p>Build Minimap2 and Mappy.</p>
+<p>Build the native extension.</p>
 <pre class="code sh"><code class="sh">cd ruby-minimap2
-bundle install # Install dependent packages including Ruby-FFI
+bundle install
 bundle exec rake minimap2:build
-</code></pre>
-<p>A shared library will be created in the vendor directory.</p>
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_└──'>└──</span> <span class='id identifier rubyid_vendor'>vendor</span>
-   <span class='id identifier rubyid_└──'>└──</span> <span class='id identifier rubyid_libminimap2'>libminimap2</span><span class='period'>.</span><span class='id identifier rubyid_so'>so</span>
 </code></pre>
 <p>Run tests.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_test'>test</span>
@@ -211,7 +187,7 @@ bundle exec rake minimap2:build
 <p>Release a Gem.</p>
 <pre class="code ruby"><code class="ruby">bundle exec rake minimap2:cleanall
 bundle exec rake build
-ls -l pkg # Check the size of the Gem and make sure it does not contain any unused code such as shared libraries or lib/simde.
+ls -l pkg # Check the size of the Gem.
 bundle exec rake release
 </code></pre>
 </details>
@@ -225,9 +201,9 @@ If you need commit rights to ruby-minimap2 repository or want to get admin right
 <p>I would like to thank Heng Li for making Minimap2, and all the readers who read the README to the end.</p></div></div>
 
       <div id="footer">
-  Generated on Fri Jun 19 00:32:16 2026 by
+  Generated on Wed Aug 19 08:51:38 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.44 (ruby-4.0.5).
+  0.9.45 (ruby-4.0.6).
 </div>
 
     </div>

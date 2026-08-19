@@ -6,7 +6,7 @@
 <title>
   Module: Minimap2
   
-    &mdash; Documentation by YARD 0.9.44
+    &mdash; Documentation by YARD 0.9.45
   
 </title>
 
@@ -81,7 +81,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/minimap2.rb<span class="defines">,<br>
-  lib/minimap2/ffi.rb,<br> lib/minimap2/aligner.rb,<br> lib/minimap2/version.rb,<br> lib/minimap2/alignment.rb,<br> lib/minimap2/ffi/mappy.rb,<br> lib/minimap2/ffi/constants.rb,<br> lib/minimap2/ffi/functions.rb</span>
+  lib/minimap2.rb,<br> lib/minimap2/version.rb,<br> lib/minimap2/alignment.rb,<br> ext/ruby_minimap2/ruby_minimap2.c</span>
 
 </dd>
   </dl>
@@ -90,7 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p><a href="https://github.com/lh3/minimap2/blob/master/python/cmappy.h">https://github.com/lh3/minimap2/blob/master/python/cmappy.h</a></p>
+    <p>Ruby bindings for the minimap2 sequence aligner.</p>
 
   </div>
 </div>
@@ -101,7 +101,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Minimap2/FFI.html" title="Minimap2::FFI (module)">FFI</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span>
     
   
     
@@ -121,43 +121,13 @@
         <dt id="VERSION-constant" class="">VERSION =
           
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.2.31.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.2.31.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
     </dl>
   
 
 
 
-
-  <h2>Class Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
-  <ul class="summary">
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#ffi_lib-class_method" title="ffi_lib (class method)">.<strong>ffi_lib</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute ffi_lib.</p></div></span>
-  
-</li>
-
-    
-  </ul>
 
 
 
@@ -173,7 +143,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#execute-class_method" title="execute (class method)">.<strong>execute</strong>(arg0, arg1, ...)  &#x21d2; Object </a>
+      <a href="#execute-class_method" title="execute (class method)">.<strong>execute</strong>(*arguments)  &#x21d2; Object </a>
     
 
     
@@ -187,7 +157,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Execute minimap2 comannd with given options.</p></div></span>
+    <span class="summary_desc"><div class='inline'><p>Run minimap2's command entry point.</p></div></span>
   
 </li>
 
@@ -195,7 +165,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#fastx_read-class_method" title="fastx_read (class method)">.<strong>fastx_read</strong>(file_path, comment: false) {|name, seq, qual, comment| ... } &#x21d2; Enumerator </a>
+      <a href="#fastx_read-class_method" title="fastx_read (class method)">.<strong>fastx_read</strong>(file_path, comment: false)  &#x21d2; Object </a>
     
 
     
@@ -209,7 +179,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Read fasta/fastq file.</p></div></span>
+    <span class="summary_desc"><div class='inline'><p>Read records from a FASTA or FASTQ file.</p></div></span>
   
 </li>
 
@@ -217,7 +187,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#revcomp-class_method" title="revcomp (class method)">.<strong>revcomp</strong>(seq)  &#x21d2; string </a>
+      <a href="#revcomp-class_method" title="revcomp (class method)">.<strong>revcomp</strong>(sequence)  &#x21d2; Object </a>
     
 
     
@@ -231,7 +201,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Reverse complement sequence.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -239,7 +209,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#verbose-class_method" title="verbose (class method)">.<strong>verbose</strong>  &#x21d2; Integer </a>
+      <a href="#verbose-class_method" title="verbose (class method)">.<strong>verbose</strong>  &#x21d2; Object </a>
     
 
     
@@ -253,7 +223,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Get verbosity level.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -261,7 +231,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#verbose=-class_method" title="verbose= (class method)">.<strong>verbose=</strong>(level)  &#x21d2; Integer </a>
+      <a href="#verbose=-class_method" title="verbose= (class method)">.<strong>verbose=</strong>(level)  &#x21d2; Object </a>
     
 
     
@@ -275,7 +245,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Set verbosity level.</p></div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -285,52 +255,6 @@
   
 
 
-  <div id="class_attr_details" class="attr_details">
-    <h2>Class Attribute Details</h2>
-    
-      
-      <span id="ffi_lib=-class_method"></span>
-      <div class="method_details first">
-  <h3 class="signature first" id="ffi_lib-class_method">
-  
-    .<strong>ffi_lib</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Returns the value of attribute ffi_lib.</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-19
-20
-21</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 19</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_ffi_lib'>ffi_lib</span>
-  <span class='ivar'>@ffi_lib</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
-
 
   <div id="class_method_details" class="method_details_list">
     <h2>Class Method Details</h2>
@@ -339,7 +263,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="execute-class_method">
   
-    .<strong>execute</strong>(arg0, arg1, ...)  &#x21d2; <tt>Object</tt> 
+    .<strong>execute</strong>(*arguments)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -347,42 +271,12 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Execute minimap2 comannd with given options.</p>
+    <p>Run minimap2's command entry point. Each Ruby argument is one argv item.</p>
 
   </div>
 </div>
 <div class="tags">
   
-  <div class="examples">
-    <h4 class="tag_title">Examples:</h4>
-    
-      
-        <h5 class="example_title"><div class='inline'><p>Get minimap2 version</p></div></h5>
-      
-      <pre class="example code"><code><span class='const'><span class='object_link'><a href="" title="Minimap2 (module)">Minimap2</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--version</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
-    
-  </div>
-
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>arg</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>minimap2 command option.</p></div>
-      
-    </li>
-  
-</ul>
-
 
 </div><table class="source_code">
   <tr>
@@ -390,6 +284,61 @@
       <pre class="lines">
 
 
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'><span class='object_link'><a href="Minimap2/Native.html#execute-class_method" title="Minimap2::Native.execute (method)">execute</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="fastx_read-class_method">
+  
+    .<strong>fastx_read</strong>(file_path, comment: false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Read records from a FASTA or FASTQ file.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Minimap2/Error.html" title="Minimap2::Error (class)">Error</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
 40
 41
 42
@@ -408,168 +357,32 @@
 55
 56
 57
-58</pre>
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 37</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_rb_argv'>rb_argv</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_str_ptrs'>str_ptrs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='comment'># First argument is the program name.
-</span>  <span class='id identifier rubyid_str_ptrs'>str_ptrs</span> <span class='op'>&lt;&lt;</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_from_string'>from_string</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>minimap2</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rb_argv'>rb_argv</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
-    <span class='id identifier rubyid_arg'>arg</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s+</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span>
-      <span class='id identifier rubyid_str_ptrs'>str_ptrs</span> <span class='op'>&lt;&lt;</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_from_string'>from_string</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_str_ptrs'>str_ptrs</span> <span class='op'>&lt;&lt;</span> <span class='kw'>nil</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fastx_read'>fastx_read</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='comma'>,</span> <span class='label'>comment:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_file_path'>file_path</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Minimap2/Error.html" title="Minimap2::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot open FASTA/FASTQ file: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_path'>path</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_file?'>file?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
 
-  <span class='comment'># Load all the pointers into a native memory block
-</span>  <span class='id identifier rubyid_argv'>argv</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:pointer</span><span class='comma'>,</span> <span class='id identifier rubyid_str_ptrs'>str_ptrs</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_str_ptrs'>str_ptrs</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='id identifier rubyid_argv'>argv</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_put_pointer'>put_pointer</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span>  <span class='id identifier rubyid_p'>p</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-
-  <span class='const'><span class='object_link'><a href="Minimap2/FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_main'>main</span><span class='lparen'>(</span><span class='id identifier rubyid_str_ptrs'>str_ptrs</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>-</span> <span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="fastx_read-class_method">
-  
-    .<strong>fastx_read</strong>(file_path, comment: false) {|name, seq, qual, comment| ... } &#x21d2; <tt>Enumerator</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Read fasta/fastq file.
-Note: You can BioRuby instead of this method.</p>
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>file_path</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>comment</span>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>false</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>If True, the comment will be read.</p></div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Yields:</p>
-<ul class="yield">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>name</tt>, <tt>seq</tt>, <tt>qual</tt>, <tt>comment</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Enumerator</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>enum Return Enumerator if not block given.</p></div>
-      
-    </li>
-  
-</ul>
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>ArgumentError</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 82</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_fastx_read'>fastx_read</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='comma'>,</span> <span class='label'>comment:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='rparen'>)</span>
-
-  <span class='comment'># raise error in Ruby because ks.null? is false even if file not exist.
-</span>  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>File not found: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_ks'>ks</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Minimap2/FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_fastx_open'>mm_fastx_open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-
+  <span class='id identifier rubyid_reader'>reader</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Minimap2/Native/FastxReader.html" title="Minimap2::Native::FastxReader (class)">FastxReader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Minimap2/Native/FastxReader.html#initialize-instance_method" title="Minimap2::Native::FastxReader#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
-    <span class='id identifier rubyid_fastx_each'>fastx_each</span><span class='lparen'>(</span><span class='id identifier rubyid_ks'>ks</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>begin</span>
+      <span class='kw'>while</span> <span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span> <span class='op'>=</span> <span class='id identifier rubyid_reader'>reader</span><span class='period'>.</span><span class='id identifier rubyid_next_record'>next_record</span><span class='lparen'>(</span><span class='id identifier rubyid_comment'>comment</span><span class='rparen'>)</span><span class='rparen'>)</span>
+        <span class='kw'>yield</span> <span class='id identifier rubyid_record'>record</span>
+      <span class='kw'>end</span>
+    <span class='kw'>ensure</span>
+      <span class='id identifier rubyid_reader'>reader</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+    <span class='kw'>end</span>
   <span class='kw'>else</span>
-    <span class='const'>Enumerator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_y'>y</span><span class='op'>|</span>
-      <span class='comment'># rewind not work
-</span>      <span class='id identifier rubyid_fastx_each'>fastx_each</span><span class='lparen'>(</span><span class='id identifier rubyid_ks'>ks</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span> <span class='id identifier rubyid_y'>y</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_r'>r</span> <span class='rbrace'>}</span>
+    <span class='const'>Enumerator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_yielder'>yielder</span><span class='op'>|</span>
+      <span class='kw'>while</span> <span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span> <span class='op'>=</span> <span class='id identifier rubyid_reader'>reader</span><span class='period'>.</span><span class='id identifier rubyid_next_record'>next_record</span><span class='lparen'>(</span><span class='id identifier rubyid_comment'>comment</span><span class='rparen'>)</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_yielder'>yielder</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_record'>record</span>
+      <span class='kw'>end</span>
+    <span class='kw'>ensure</span>
+      <span class='id identifier rubyid_reader'>reader</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -581,87 +394,27 @@ Note: You can BioRuby instead of this method.</p>
       <div class="method_details ">
   <h3 class="signature " id="revcomp-class_method">
   
-    .<strong>revcomp</strong>(seq)  &#x21d2; <tt>string</tt> 
+    .<strong>revcomp</strong>(sequence)  &#x21d2; <tt>Object</tt> 
   
 
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Reverse complement sequence.</p>
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>seq</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>string</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>seq</p></div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 61</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_revcomp'>revcomp</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='id identifier rubyid_seq'>seq</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
-  <span class='id identifier rubyid_bseq'>bseq</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>FFI</span><span class='op'>::</span><span class='const'>MemoryPointer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:char</span><span class='comma'>,</span> <span class='id identifier rubyid_l'>l</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_bseq'>bseq</span><span class='period'>.</span><span class='id identifier rubyid_put_bytes'>put_bytes</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_seq'>seq</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Minimap2/FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mappy_revcomp'>mappy_revcomp</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='comma'>,</span> <span class='id identifier rubyid_bseq'>bseq</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_read_string'>read_string</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='rparen'>)</span>
-  <span class='kw'>ensure</span>
-    <span class='const'><span class='object_link'><a href="Minimap2/FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mappy_free'>mappy_free</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_null?'>null?</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_revcomp'>revcomp</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_revcomp'><span class='object_link'><a href="Minimap2/Native.html#revcomp-class_method" title="Minimap2::Native.revcomp (method)">revcomp</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -671,52 +424,27 @@ Note: You can BioRuby instead of this method.</p>
       <div class="method_details ">
   <h3 class="signature " id="verbose-class_method">
   
-    .<strong>verbose</strong>  &#x21d2; <tt>Integer</tt> 
+    .<strong>verbose</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Get verbosity level.</p>
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>verbosity level.</p></div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-63
-64
-65</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_verbose'>verbose</span>
-  <span class='const'><span class='object_link'><a href="Minimap2/FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_verbose_level'>mm_verbose_level</span><span class='lparen'>(</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_verbose'><span class='object_link'><a href="Minimap2/Native.html#verbose-class_method" title="Minimap2::Native.verbose (method)">verbose</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -726,70 +454,27 @@ Note: You can BioRuby instead of this method.</p>
       <div class="method_details ">
   <h3 class="signature " id="verbose=-class_method">
   
-    .<strong>verbose=</strong>(level)  &#x21d2; <tt>Integer</tt> 
+    .<strong>verbose=</strong>(level)  &#x21d2; <tt>Object</tt> 
   
 
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Set verbosity level.</p>
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>verbosity</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>level</p></div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>verbosity level.</p></div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-71
-72
-73</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_verbose='>verbose=</span><span class='lparen'>(</span><span class='id identifier rubyid_level'>level</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="Minimap2/FFI.html" title="Minimap2::FFI (module)">FFI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mm_verbose_level'>mm_verbose_level</span><span class='lparen'>(</span><span class='id identifier rubyid_level'>level</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_verbose'><span class='object_link'><a href="Minimap2/Native.html#verbose-class_method" title="Minimap2::Native.verbose (method)">verbose</a></span></span> <span class='op'>=</span> <span class='id identifier rubyid_level'>level</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -801,9 +486,9 @@ Note: You can BioRuby instead of this method.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jun 19 00:32:16 2026 by
+  Generated on Wed Aug 19 08:51:38 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.44 (ruby-4.0.5).
+  0.9.45 (ruby-4.0.6).
 </div>
 
     </div>
