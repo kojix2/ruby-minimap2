@@ -25,10 +25,8 @@ a2 = Minimap2.fastx_read(FASTQ2) # Enumerator
 
 # Output
 
-loop do
-  r1 = a1.first
-  r2 = a2.first
-  break if r1.nil? or r2.nil?
+a1.zip(a2) do |r1, r2|
+  break if r1.nil? || r2.nil?
 
   s1 = r1[1]
   s2 = r2[1]

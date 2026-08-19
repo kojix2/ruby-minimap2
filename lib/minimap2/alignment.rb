@@ -3,6 +3,10 @@
 module Minimap2
   # Alignment result.
   #
+  # @!attribute qname
+  #   @return [String] query sequence name.
+  # @!attribute qlen
+  #   @return [Integer] query sequence length.
   # @!attribute ctg
   #   @return [String] name of the reference sequence the query is mapped to.
   # @!attribute ctg_len
@@ -39,24 +43,27 @@ module Minimap2
   #   @return [Integer] read number that the alignment corresponds to;
   #     1 for the first read and 2 for the second read.
   # @!attribute cs
-  #   @return [String] the cs tag.
+  #   @return [String, nil] the cs tag.
   # @!attribute ds
-  #   @return [String] the ds tag.
+  #   @return [String, nil] the ds tag.
   # @!attribute md
-  #   @return [String] the MD tag as in the SAM format.
-  #     It is an empty string unless the md argument is applied when calling Aligner#align.
+  #   @return [String, nil] the MD tag as in the SAM format.
   # @!attribute cigar_str
   #   @return [String] CIGAR string.
 
   class Alignment
+    CIGAR_STR = "MIDNSHP=XB"
+
     def self.keys
-      %i[ctg ctg_len r_st r_en strand trans_strand blen mlen nm primary
+      %i[qname qlen ctg ctg_len r_st r_en strand trans_strand blen mlen nm primary
          q_st q_en mapq cigar read_num cs ds md cigar_str]
     end
 
     attr_reader(*keys)
 
     def initialize(h, cigar, cs = nil, ds = nil, md = nil)
+      @qname        = h[:qname]
+      @qlen         = h[:qlen]
       @ctg          = h[:ctg]
       @ctg_len      = h[:ctg_len]
       @r_st         = h[:ctg_start]
@@ -76,7 +83,7 @@ module Minimap2
       @ds           = ds
       @md           = md
 
-      @cigar_str = cigar.map { |x| x[0].to_s + FFI::CIGAR_STR[x[1]] }.join
+      @cigar_str = cigar.map { |x| x[0].to_s + CIGAR_STR[x[1]] }.join
     end
 
     def primary?
@@ -89,7 +96,7 @@ module Minimap2
       self.class.keys.map { |k| [k, __send__(k)] }.to_h
     end
 
-    # Convert to the PAF format without the QueryName and QueryLength columns.
+    # Convert to the PAF format.
 
     def to_s
       strand = if @strand > 0
@@ -107,7 +114,7 @@ module Minimap2
            else
              "ts:A:."
            end
-      a = [@q_st, @q_en, strand, @ctg, @ctg_len, @r_st, @r_en,
+      a = [@qname, @qlen, @q_st, @q_en, strand, @ctg, @ctg_len, @r_st, @r_en,
            @mlen, @blen, @mapq, tp, ts, "cg:Z:#{@cigar_str}"]
       a << "cs:Z:#{@cs}" unless @cs.nil? || @cs.empty?
       a << "ds:Z:#{@ds}" unless @ds.nil? || @ds.empty?

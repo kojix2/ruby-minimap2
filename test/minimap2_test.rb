@@ -11,10 +11,19 @@ class Minimap2Test < Minitest::Test
 
   def test_execute_with_string_arg
     assert_equal 0, MM2.execute("--version")
-    assert_equal 1, MM2.execute("--lh 3")
-    # After executing the "--version" command, the verbosity is changed to 3.
-    # To prevent test_get_verbose from failing, set it back to 1.
-    MM2.verbose = 1
+    assert_equal 1, MM2.execute("--lh", "3")
+    assert_equal 1, MM2.verbose
+  end
+
+  def test_execute_preserves_spaces_in_argv
+    require "tmpdir"
+    Dir.mktmpdir("ruby minimap2 ") do |dir|
+      output = File.join(dir, "reference index.mmi")
+      reference = File.expand_path("ext/minimap2/test/MT-human.fa")
+
+      assert_equal 0, MM2.execute("-v", "1", "-d", output, reference)
+      assert_path_exists output
+    end
   end
 
   def test_if_minimap2_version_numbers_match
@@ -30,9 +39,7 @@ class Minimap2Test < Minitest::Test
       skip "Fork not supported on this platform"
     end
     assert_match(/^[\d.\-r]+\n/, out)
-    # The version number of the gem should match the version number of the
-    # Minimap2 shared library. Prevent version mismatch before release.
-    assert_includes Minimap2::VERSION, out.split("-r")[0]
+    assert_match(/2\.31-r1302/, out)
     assert_equal "", err
   end
 
@@ -94,6 +101,54 @@ class Minimap2Test < Minitest::Test
       assert_equal "GATOGATOGATO", q
       assert_equal "katze", c
     end
+  end
+
+  def test_fastx_read_rejects_invalid_input
+    baseline = MM2::Native.resource_counts[:fastx_readers]
+    assert_raises(MM2::Error) { MM2.fastx_read("README.md") }
+
+    require "tmpdir"
+    require "tempfile"
+    Dir.mktmpdir do |dir|
+      assert_raises(MM2::Error) { MM2.fastx_read(dir) }
+    end
+    Tempfile.create(["empty", ".fa"]) do |file|
+      assert_raises(MM2::Error) { MM2.fastx_read(file.path) }
+    end
+    Tempfile.create(["empty-sequence", ".fa"]) do |file|
+      file.write(">empty\n")
+      file.flush
+      assert_raises(MM2::Error) { MM2.fastx_read(file.path).to_a }
+    end
+    assert_equal baseline, MM2::Native.resource_counts[:fastx_readers]
+  end
+
+  def test_fastx_read_supports_stdin
+    require "open3"
+    script = 'require "minimap2"; print Minimap2.fastx_read("-").to_a.inspect'
+    out, err, status = Open3.capture3(RbConfig.ruby, "-Ilib", "-e", script, stdin_data: ">stdin\nACGT\n")
+
+    assert_predicate status, :success?, err
+    assert_equal '[["stdin", "ACGT", nil]]', out
+  end
+
+  def test_fastx_reader_closes_after_partial_enumeration
+    baseline = MM2::Native.resource_counts[:fastx_readers]
+    enum = MM2.fastx_read("ext/minimap2/test/q-inv.fa")
+    assert_equal 1, enum.take(1).length
+    10.times do
+      GC.start(full_mark: true, immediate_sweep: true)
+      break if MM2::Native.resource_counts[:fastx_readers] == baseline
+    end
+    assert_equal baseline, MM2::Native.resource_counts[:fastx_readers]
+  end
+
+  def test_fastx_reader_closes_when_block_raises
+    baseline = MM2::Native.resource_counts[:fastx_readers]
+    assert_raises(RuntimeError) do
+      MM2.fastx_read("ext/minimap2/test/q-inv.fa") { raise "stop" }
+    end
+    assert_equal baseline, MM2::Native.resource_counts[:fastx_readers]
   end
 
   def test_revcomp

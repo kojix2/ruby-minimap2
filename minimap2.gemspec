@@ -12,16 +12,18 @@ Gem::Specification.new do |spec|
   spec.description   = "Ruby bindings to the Minimap2 aligner."
   spec.homepage      = "https://github.com/kojix2/ruby-minimap2"
   spec.license       = "MIT"
-  spec.required_ruby_version = ">= 2.5"
+  spec.required_ruby_version = ">= 3.3"
 
-  # This gem uses the standard Minimap2 build with native SIMD.
-  # The optional lib/simde fallback is not supported and excluded to keep the gem small.
-  spec.files         = (Dir["*.{md,txt}", "{lib,ext}/**/*", "vendor/libminimap2.{so,dylib,dll}"] -
-                        Dir["ext/minimap2/lib/**/*"])
+  spec.files = Dir[
+    "README.md",
+    "LICENSE.txt",
+    "lib/**/*.rb",
+    "ext/ruby_minimap2/*.{c,h,rb}",
+    "ext/minimap2/{Makefile,LICENSE.txt}",
+    "ext/minimap2/*.{c,h}",
+    "ext/minimap2/sse2neon/*.h"
+  ]
   spec.require_paths = ["lib"]
 
-  spec.extensions    = %w[ext/Rakefile]
-
-  spec.add_dependency "ffi"
-  spec.add_dependency "ffi-bitfield"
+  spec.extensions    = %w[ext/ruby_minimap2/extconf.rb]
 end

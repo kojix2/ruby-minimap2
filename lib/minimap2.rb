@@ -1,137 +1,65 @@
 # frozen_string_literal: true
 
-# dependencies
-require "ffi"
+module Minimap2
+  class Error < StandardError; end
+end
 
-# modules
-require_relative "minimap2/aligner"
+begin
+  require "minimap2/minimap2_ext"
+rescue LoadError => e
+  # Allow running directly from a source checkout after `rake compile`.
+  extension = File.expand_path("../ext/ruby_minimap2/minimap2_ext", __dir__)
+  raise e unless Dir["#{extension}.{so,bundle,dylib,dll}"].any?
+
+  require extension
+end
+
 require_relative "minimap2/alignment"
 require_relative "minimap2/version"
 
-# Minimap2 mapper for long read sequences
-# https://github.com/lh3/minimap2
-# Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics, 34:3094-3100.
-# doi:10.1093/bioinformatics/bty191
+# Ruby bindings for the minimap2 sequence aligner.
 module Minimap2
-  class Error < StandardError; end
-
   class << self
-    attr_accessor :ffi_lib
-  end
-
-  lib_name = ::FFI.map_library_name("minimap2")
-  self.ffi_lib = if ENV["MINIMAPDIR"]
-                   File.expand_path(lib_name, ENV["MINIMAPDIR"])
-                 else
-                   File.expand_path("../vendor/#{lib_name}", __dir__)
-                 end
-
-  # friendlier error message
-  autoload :FFI, "minimap2/ffi"
-
-  # methods from mappy
-  class << self
-    # Execute minimap2 comannd with given options.
-    # @overload  execute(arg0,arg1,...)
-    # @param [String] arg minimap2 command option.
-    # @example Get minimap2 version
-    #   Minimap2.execute('--version')
-
-    def execute(*rb_argv)
-      str_ptrs = []
-      # First argument is the program name.
-      str_ptrs << ::FFI::MemoryPointer.from_string("minimap2")
-      rb_argv.each do |arg|
-        arg.to_s.split(/\s+/).each do |s|
-          str_ptrs << ::FFI::MemoryPointer.from_string(s)
-        end
-      end
-      str_ptrs << nil
-
-      # Load all the pointers into a native memory block
-      argv = ::FFI::MemoryPointer.new(:pointer, str_ptrs.length)
-      str_ptrs.each_with_index do |p, i|
-        argv[i].put_pointer(0,  p)
-      end
-
-      FFI.main(str_ptrs.length - 1, argv)
+    # Run minimap2's command entry point. Each Ruby argument is one argv item.
+    def execute(*arguments)
+      Native.execute(*arguments)
     end
-
-    # Get verbosity level.
-    # @return [Integer] verbosity level.
 
     def verbose
-      FFI.mm_verbose_level(-1)
+      Native.verbose
     end
-
-    # Set verbosity level.
-    # @param [Integer] verbosity level
-    # @return [Integer] verbosity level.
 
     def verbose=(level)
-      FFI.mm_verbose_level(level)
+      Native.verbose = level
     end
 
-    # Read fasta/fastq file.
-    # @param [String] file_path
-    # @param [Boolean] comment If True, the comment will be read.
-    # @yield [name, seq, qual, comment]
-    # @return [Enumerator] enum Return Enumerator if not block given.
-    # Note: You can BioRuby instead of this method.
+    # Read records from a FASTA or FASTQ file.
+    def fastx_read(file_path, comment: false)
+      path = file_path.to_s == "-" ? "-" : File.expand_path(file_path)
+      raise Error, "Cannot open FASTA/FASTQ file: #{path}" unless path == "-" || File.file?(path)
 
-    def fastx_read(file_path, comment: false, &block)
-      path = File.expand_path(file_path)
-
-      # raise error in Ruby because ks.null? is false even if file not exist.
-      raise ArgumentError, "File not found: #{path}" unless File.exist?(path)
-
-      ks = FFI.mm_fastx_open(path)
-
+      reader = Native::FastxReader.new(path)
       if block_given?
-        fastx_each(ks, comment, &block)
+        begin
+          while (record = reader.next_record(comment))
+            yield record
+          end
+        ensure
+          reader.close
+        end
       else
-        Enumerator.new do |y|
-          # rewind not work
-          fastx_each(ks, comment) { |r| y << r }
+        Enumerator.new do |yielder|
+          while (record = reader.next_record(comment))
+            yielder << record
+          end
+        ensure
+          reader.close
         end
       end
     end
 
-    # Reverse complement sequence.
-    # @param [String] seq
-    # @return [string] seq
-
-    def revcomp(seq)
-      l = seq.size
-      bseq = ::FFI::MemoryPointer.new(:char, l)
-      bseq.put_bytes(0, seq)
-      p = FFI.mappy_revcomp(l, bseq)
-      return "" if p.nil? || p.null?
-
-      begin
-        p.read_string(l)
-      ensure
-        FFI.mappy_free(p) unless p.nil? || p.null?
-      end
-    end
-
-    private
-
-    def fastx_each(ks, comment)
-      yield fastx_next(ks, comment) while FFI.kseq_read(ks) >= 0
-      FFI.mm_fastx_close(ks)
-    end
-
-    def fastx_next(ks, read_comment)
-      qual = ks[:qual][:s] if ks[:qual][:l] > 0
-      name = ks[:name][:s]
-      seq  = ks[:seq][:s]
-      if read_comment
-        comment = ks[:comment][:s] if ks[:comment][:l] > 0
-        [name, seq, qual, comment]
-      else
-        [name, seq, qual]
-      end
+    def revcomp(sequence)
+      Native.revcomp(sequence)
     end
   end
 end

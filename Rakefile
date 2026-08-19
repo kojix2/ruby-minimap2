@@ -1,26 +1,28 @@
 # frozen_string_literal: true
 
 require "bundler/gem_tasks"
+require "rake/extensiontask"
 require "rake/testtask"
 
-# Prevent releasing the gem including htslib shared library.
+spec = Gem::Specification.load("minimap2.gemspec")
 
-task :check_shared_library_exist do
-  unless Dir.glob("vendor/*.{so,dylib,dll}").empty?
-    magenta = "\e[35m"
-    clear = "\e[0m"
-    abort "#{magenta}Shared library exists in the vendor directory.#{clear}"
-  end
+Rake::ExtensionTask.new("minimap2_ext", spec) do |ext|
+  ext.ext_dir = "ext/ruby_minimap2"
+  ext.lib_dir = "lib/minimap2"
+  ext.config_options << "--enable-testing"
 end
 
-Rake::Task["release:guard_clean"].enhance(["check_shared_library_exist"])
+namespace :minimap2 do
+  task build: :compile
+  task clean: :clean
+  task cleanall: :clobber
+end
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
   t.libs << "lib"
   t.test_files = FileList["test/**/*_test.rb"]
 end
+task test: :compile
 
 task default: :test
-
-load "ext/Rakefile"

@@ -12,8 +12,17 @@
 *.lock
 
 *.so
+*.bundle
 *.dylib
 *.dll
 
 *.sam
 *.bam
+
+/Makefile
+/mkmf.log
+/ext/ruby_minimap2/Makefile
+/ext/ruby_minimap2/build/
+/ext/ruby_minimap2/mkmf.log
+/ext/ruby_minimap2/*.o
+/ext/ruby_minimap2/*.dSYM/

@@ -21,6 +21,14 @@ class AlignmentTest < Minitest::Test
     assert_equal "MT_human", @a.ctg
   end
 
+  def test_qname
+    assert_equal "*", @a.qname
+  end
+
+  def test_qlen
+    assert_equal 200, @a.qlen
+  end
+
   def test_ctg_len
     assert_equal 16_569, @a.ctg_len
   end
@@ -99,6 +107,8 @@ class AlignmentTest < Minitest::Test
 
   def test_to_h
     hit = {
+      qname: "*",
+      qlen: 200,
       ctg: "MT_human",
       ctg_len: 16_569,
       r_st: 100,
@@ -123,7 +133,7 @@ class AlignmentTest < Minitest::Test
   end
 
   def test_to_s
-    assert_equal "0\t200\t+\tMT_human\t16569\t100\t300\t200\t200\t60\ttp:A:P\tts:A:.\tcg:Z:200M\tcs:Z::200\tds:Z::200\tMD:Z:200",
+    assert_equal "*\t200\t0\t200\t+\tMT_human\t16569\t100\t300\t200\t200\t60\ttp:A:P\tts:A:.\tcg:Z:200M\tcs:Z::200\tds:Z::200\tMD:Z:200",
                  @a.to_s
   end
 end

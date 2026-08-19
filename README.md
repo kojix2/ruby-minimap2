@@ -11,9 +11,9 @@
 
 ## Installation
 
-ruby-minimap2 bundles the Minimap2 C source code and builds it automatically during installation.
+ruby-minimap2 bundles the Minimap2 C source code and builds a native extension during installation.
 
-Just install the gem. Works on Linux, macOS, and Windows.
+Ruby 3.3 or later is required. Works on Linux, macOS, and Windows.
 
 ```
 gem install minimap2
@@ -57,12 +57,14 @@ pp hits
   @ctg_len=16569,
   @ds=":100",
   @mapq=60,
-  @md="",
+  @md=nil,
   @mlen=100,
   @nm=0,
   @primary=1,
   @q_en=100,
   @q_st=0,
+  @qlen=100,
+  @qname="*",
   @r_en=200,
   @r_st=100,
   @read_num=1,
@@ -77,19 +79,24 @@ pp hits
   - fastx_read                  Read fasta/fastq file.
   - revcomp                     Reverse complement sequence.
   - execute                     Calls the main function of Minimap2 with arguments. `Minimap2.execute("--version")`
+  - verbose                     Returns the Minimap2 verbosity level.
+  - verbose=                    Sets the Minimap2 verbosity level.
 
   * Aligner class
-    * attributes
-      - index                   Returns the value of attribute index.
-      - idx_opt                 Returns the value of attribute idx_opt.
-      - map_opt                 Returns the value of attribute map_opt.
     * methods
-      - new(path, preset: nil)  Create a new aligner. (presets: sr, map-pb, map-out, map-hifi, splice, asm5, etc.)
+      - new(path, preset: nil)  Create a new aligner. (presets: sr, map-pb, map-ont, map-hifi, splice, asm5, etc.)
       - align                   Maps and returns alignments.
       - seq                     Retrieve a subsequence from the index.
+      - k                       Returns the minimizer k-mer length.
+      - w                       Returns the minimizer window size.
+      - n_seq                   Returns the number of sequences in the index.
+      - seq_names               Returns sequence names in the index.
+      - free_index              Releases the index.
 
   * Alignment class
     * attributes
+      - qname                   Returns the query sequence name.
+      - qlen                    Returns the query sequence length.
       - ctg                     Returns name of the reference sequence the query is mapped to.
       - ctg_len                 Returns total length of the reference sequence.
       - r_st                    Returns start positions on the reference.
@@ -105,46 +112,18 @@ pp hits
       - mapq                    Returns mapping quality.
       - cigar                   Returns CIGAR returned as an array of shape (n_cigar,2). The two numbers give the length and the operator of each CIGAR operation.
       - read_num                Returns read number that the alignment corresponds to; 1 for the first read and 2 for the second read.
-      - cs                      Returns the cs tag.
-      - ds                      Returns the ds tag.
-      - md                      Returns the MD tag as in the SAM format. It is an empty string unless the md argument is applied when calling Aligner#align.
+      - cs                      Returns the cs tag, or nil unless requested.
+      - ds                      Returns the ds tag, or nil unless requested.
+      - md                      Returns the MD tag, or nil unless requested.
       - cigar_str               Returns CIGAR string.
     * methods
       - to_h                    Convert Alignment to hash.
-      - to_s                    Convert to the PAF format without the QueryName and QueryLength columns.
-
-  ## FFI module
-    * IdxOpt class              Indexing options.
-    * MapOpt class              Mapping options.
+      - to_s                    Convert to the PAF format.
 ```
 
 - API is based on [Mappy](https://github.com/lh3/minimap2/tree/master/python), the official Python binding for Minimap2.
 - `Aligner#map` has been changed to `align`, because `map` means iterator in Ruby.
 - See [documentation](https://kojix2.github.io/ruby-minimap2/) for details.
-
-<details>
-<summary><b>C Structures and Functions</b></summary>
-
-### FFI
-
-- Ruby-Minimap2 is built on top of [Ruby-FFI](https://github.com/ffi/ffi).
-  - Native C functions can be called from the `Minimap2::FFI` module.
-  - Native C structure members can be accessed.
-  - Bitfields are supported by [ffi-bitfield](https://github.com/kojix2/ffi-bitfield) gems.
-
-```ruby
-aligner.idx_opt.members
-# => [:k, :w, :flag, :bucket_bits, :mini_batch_size, :batch_size]
-aligner.kds_opt.values
-# => [15, 10, 0, 14, 50000000, 9223372036854775807]
-aligner.idx_opt[:k]
-# => 15
-aligner.idx_opt[:k] = 14
-aligner.idx_opt[:k]
-# => 14
-```
-
-</details>
 
 ## Contributing
 
@@ -161,19 +140,12 @@ git clone --recursive https://github.com/kojix2/ruby-minimap2
 # git submodule update -i
 ```
 
-Build Minimap2 and Mappy.
+Build the native extension.
 
 ```sh
 cd ruby-minimap2
-bundle install # Install dependent packages including Ruby-FFI
+bundle install
 bundle exec rake minimap2:build
-```
-
-A shared library will be created in the vendor directory.
-
-```
-└── vendor
-   └── libminimap2.so
 ```
 
 Run tests.
@@ -187,7 +159,7 @@ Release a Gem.
 ```
 bundle exec rake minimap2:cleanall
 bundle exec rake build
-ls -l pkg # Check the size of the Gem and make sure it does not contain any unused code such as shared libraries or lib/simde.
+ls -l pkg # Check the size of the Gem.
 bundle exec rake release
 ```
 
