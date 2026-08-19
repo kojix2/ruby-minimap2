@@ -42,8 +42,8 @@ module Minimap2
   #   @param extra_flags [Integer, nil] per-call additional mapping flags
   #   @return [Array<Alignment>] alignments, or an empty array when no index or hit is available
   #
-  # @!method seq(name, start = 0, stop = -1)
-  #   Retrieves a subsequence from the index.
+  # @!method seq(name, start = 0, stop = 0x7fffffff)
+  #   Retrieves a subsequence from the index. By default, reads to the end of the sequence.
   #   @return [String, nil] an ASCII-8BIT sequence, or nil if unavailable
   #
   # @!method k

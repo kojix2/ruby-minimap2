@@ -487,7 +487,7 @@ static VALUE aligner_seq_locked(VALUE argument)
         if (rid < 0) continue;
         if (start < 0) start = 0;
         if ((uint32_t)start >= index->seq[rid].len || start >= stop) return Qnil;
-        if (stop < 0 || (uint32_t)stop > index->seq[rid].len) stop = (int)index->seq[rid].len;
+        if ((uint32_t)stop > index->seq[rid].len) stop = (int)index->seq[rid].len;
         buffer = malloc((size_t)(stop - start));
         if (!buffer) rb_memerror();
         length = mm_idx_getseq(index, (uint32_t)rid, (uint32_t)start, (uint32_t)stop, buffer);
