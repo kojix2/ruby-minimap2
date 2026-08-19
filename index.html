@@ -87,30 +87,37 @@ bundle exec rake install
 <h2 id="Quick_Start">Quick Start</h2>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>minimap2</span><span class='tstring_end'>&quot;</span></span>
 
-<span class='id identifier rubyid_aligner'>aligner</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Minimap2.html" title="Minimap2 (module)">Minimap2</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Minimap2/Aligner.html" title="Minimap2::Aligner (class)">Aligner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Minimap2/Aligner.html#initialize-instance_method" title="Minimap2::Aligner#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ext/minimap2/test/MT-human.fa</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_seq'>seq</span>     <span class='op'>=</span> <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MT_human</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>100</span><span class='comma'>,</span> <span class='int'>200</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_hits'>hits</span>    <span class='op'>=</span> <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_align'>align</span><span class='lparen'>(</span><span class='id identifier rubyid_seq'>seq</span><span class='comma'>,</span> <span class='label'>cs:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>ds:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='heredoc_beg'>&lt;&lt;~DNA</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='tstring_content'>  GATCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGCATTTGGTATTTTCGTCTGGGGGGTATGCACGC
+</span><span class='tstring_content'>  GATAGCATTGCGAGACGCTGGAGCCGGAGCACCCTATGTCGCAGTATCTGTCTTTGATTCCTGCCTCATCCTATTATTTAT
+</span><span class='tstring_content'>  CGCACCTACGTTCAATATTACAGGCGAACATACTTACTAAAGTGTGTTAATTAATTAATGCTTGTAGGACATAATAATAACA
+</span><span class='tstring_content'>  ATTGAATGTCTGCACAGCCACTTTCCACACAGACATCATAACAAAAAATTTCCACCAAACCCCCCCTCCCCCGCTTC
+</span><span class='heredoc_end'>DNA
+</span>
+<span class='id identifier rubyid_aligner'>aligner</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Minimap2.html" title="Minimap2 (module)">Minimap2</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Minimap2/Aligner.html" title="Minimap2::Aligner (class)">Aligner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Minimap2/Aligner.html#initialize-instance_method" title="Minimap2::Aligner#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>seq:</span> <span class='id identifier rubyid_reference'>reference</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_query'>query</span>   <span class='op'>=</span> <span class='id identifier rubyid_reference'>reference</span><span class='lbracket'>[</span><span class='int'>50</span><span class='comma'>,</span> <span class='int'>200</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_hits'>hits</span>    <span class='op'>=</span> <span class='id identifier rubyid_aligner'>aligner</span><span class='period'>.</span><span class='id identifier rubyid_align'>align</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>query</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>cs:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>ds:</span> <span class='kw'>true</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_pp'>pp</span> <span class='id identifier rubyid_hits'>hits</span>
 </code></pre>
 <pre class="code ruby"><code class="ruby">[#&lt;Minimap2::Alignment:0x000055bbfde2d128
-  @blen=100,
-  @cigar=[[100, 0]],
-  @cigar_str=&quot;100M&quot;,
-  @cs=&quot;:100&quot;,
-  @ctg=&quot;MT_human&quot;,
-  @ctg_len=16569,
-  @ds=&quot;:100&quot;,
+  @blen=200,
+  @cigar=[[200, 0]],
+  @cigar_str=&quot;200M&quot;,
+  @cs=&quot;:200&quot;,
+  @ctg=&quot;N/A&quot;,
+  @ctg_len=320,
+  @ds=&quot;:200&quot;,
   @mapq=60,
   @md=nil,
-  @mlen=100,
+  @mlen=200,
   @nm=0,
   @primary=1,
-  @q_en=100,
+  @q_en=200,
   @q_st=0,
-  @qlen=100,
-  @qname=&quot;*&quot;,
-  @r_en=200,
-  @r_st=100,
+  @qlen=200,
+  @qname=&quot;query&quot;,
+  @r_en=250,
+  @r_st=50,
   @read_num=1,
   @strand=1,
   @trans_strand=0&gt;]
@@ -132,6 +139,7 @@ bundle exec rake install
       - w                       Returns the minimizer window size.
       - n_seq                   Returns the number of sequences in the index.
       - seq_names               Returns sequence names in the index.
+      - index?                  Returns whether the aligner has a live index.
       - free_index              Releases the index.
 
   * Alignment class
@@ -164,6 +172,9 @@ bundle exec rake install
 <ul>
 <li>API is based on <a href="https://github.com/lh3/minimap2/tree/master/python">Mappy</a>, the official Python binding for Minimap2.</li>
 <li><code>Aligner#map</code> has been changed to <code>align</code>, because <code>map</code> means iterator in Ruby.</li>
+<li>Calls on the same Aligner are thread-safe and serialized. Different Aligner instances can run concurrently.</li>
+<li>Multipart indexes are supported, but primary alignments and mapping quality are calculated independently for each part.</li>
+<li>Sequence data uses ASCII-8BIT. Names read from an index use UTF-8.</li>
 <li>See <a href="https://kojix2.github.io/ruby-minimap2/">documentation</a> for details.</li>
 </ul>
 <h2 id="Contributing">Contributing</h2>
@@ -201,7 +212,7 @@ If you need commit rights to ruby-minimap2 repository or want to get admin right
 <p>I would like to thank Heng Li for making Minimap2, and all the readers who read the README to the end.</p></div></div>
 
       <div id="footer">
-  Generated on Wed Aug 19 08:55:33 2026 by
+  Generated on Wed Aug 19 09:24:02 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

@@ -96,13 +96,26 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>ext/ruby_minimap2/ruby_minimap2.c
+    <dd>lib/minimap2/aligner.rb<span class="defines">,<br>
+  ext/ruby_minimap2/ruby_minimap2.c</span>
+
 </dd>
   </dl>
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Builds or loads a minimap2 index and maps sequences against it.</p>
+<p>Calls on the same Aligner are thread-safe and serialized. Different Aligner
+instances can map concurrently.</p>
 
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -120,7 +133,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#align-instance_method" title="#align (instance method)">#<strong>align</strong>(*args)  &#x21d2; Object </a>
+      <a href="#align-instance_method" title="#align (instance method)">#<strong>align</strong>(*args)  &#x21d2; Array&lt;Alignment&gt; </a>
     
 
     
@@ -134,7 +147,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Maps one sequence or a paired sequence.</p></div></span>
   
 </li>
 
@@ -142,7 +155,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#free_index-instance_method" title="#free_index (instance method)">#<strong>free_index</strong>  &#x21d2; Object </a>
+      <a href="#free_index-instance_method" title="#free_index (instance method)">#<strong>free_index</strong>  &#x21d2; nil </a>
     
 
     
@@ -156,7 +169,29 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Releases every native index owned by this object.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#index%3F-instance_method" title="#index? (instance method)">#<strong>index?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Whether a live index is available.</p></div></span>
   
 </li>
 
@@ -180,7 +215,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Creates an aligner from a FASTA/FASTQ/index file or one in-memory sequence.</p></div></span>
   
 </li>
 
@@ -188,7 +223,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#k-instance_method" title="#k (instance method)">#<strong>k</strong>  &#x21d2; Object </a>
+      <a href="#k-instance_method" title="#k (instance method)">#<strong>k</strong>  &#x21d2; Integer </a>
     
 
     
@@ -202,7 +237,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Minimizer k-mer length.</p></div></span>
   
 </li>
 
@@ -210,7 +245,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#n_seq-instance_method" title="#n_seq (instance method)">#<strong>n_seq</strong>  &#x21d2; Object </a>
+      <a href="#n_seq-instance_method" title="#n_seq (instance method)">#<strong>n_seq</strong>  &#x21d2; Integer </a>
     
 
     
@@ -224,7 +259,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Number of sequences across all index parts.</p></div></span>
   
 </li>
 
@@ -232,7 +267,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#seq-instance_method" title="#seq (instance method)">#<strong>seq</strong>(*args)  &#x21d2; Object </a>
+      <a href="#seq-instance_method" title="#seq (instance method)">#<strong>seq</strong>(*args)  &#x21d2; String<sup>?</sup> </a>
     
 
     
@@ -246,7 +281,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Retrieves a subsequence from the index.</p></div></span>
   
 </li>
 
@@ -254,7 +289,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#seq_names-instance_method" title="#seq_names (instance method)">#<strong>seq_names</strong>  &#x21d2; Object </a>
+      <a href="#seq_names-instance_method" title="#seq_names (instance method)">#<strong>seq_names</strong>  &#x21d2; Array&lt;String&gt; </a>
     
 
     
@@ -268,7 +303,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Returns names in index order, including duplicate names.</p></div></span>
   
 </li>
 
@@ -276,7 +311,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#w-instance_method" title="#w (instance method)">#<strong>w</strong>  &#x21d2; Object </a>
+      <a href="#w-instance_method" title="#w (instance method)">#<strong>w</strong>  &#x21d2; Integer </a>
     
 
     
@@ -290,7 +325,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Minimizer window size.</p></div></span>
   
 </li>
 
@@ -311,320 +346,327 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates an aligner from a FASTA/FASTQ/index file or one in-memory sequence.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>sequence or index file</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>seq</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>single sequence to index when path is nil</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>preset</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>minimap2 preset such as map-ont, map-pb, map-hifi, sr, splice, or asm5</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>k</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>k-mer length in the range 1..28</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>w</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>minimizer window size in the range 1..255</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>min_cnt</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>minimum number of minimizers on a chain</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>min_chain_score</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>minimum chaining score</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>min_dp_score</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>minimum DP alignment score</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bw</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>chaining and alignment bandwidth</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bw_long</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>bandwidth for long-gap rechaining</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>best_n</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>maximum number of alignments to return</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>n_threads</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>number of indexing threads</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>fn_idx_out</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>path at which to write the generated index</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max_frag_len</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>maximum fragment length</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>extra_flags</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>additional minimap2 mapping flags</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>scoring</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;Integer&gt;</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>four, six, or seven scoring values</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>sc_ambi</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>score for ambiguous bases</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max_chain_skip</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>maximum chain-skip count</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>batch_size</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>index batch size; small values create a multipart index</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if a preset, k, or w is invalid</p></div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Error.html" title="Minimap2::Error (class)">Minimap2::Error</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if the index cannot be initialized or lacks sequence data</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-211
-212
-213
-214
-215
-216
-217
-218
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265
-266
-267
-268
-269
-270
-271
-272
-273
-274
-275
-276
-277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287
-288
-289
-290
-291
-292
-293
-294
-295
-296
-297
-298
-299
-300
-301
-302
-303
-304
-305
-306
-307
-308
-309
-310
-311
-312
-313
-314
-315
-316
-317
-318
-319
-320
-321
-322
-323
-324
-325
-326
-327
-328
-329
-330
-331
-332
-333
-334
-335
-336
-337
-338
-339
-340
-341
-342
-343
-344
-345
-346
-347
-348
-349
-350
-351
-352
-353
-354
-355
-356
-357
-358
-359
-360
-361
-362</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 211</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
 
-static VALUE aligner_initialize(int argc, VALUE *argv, VALUE self)
-{
-    static ID keywords[18];
-    VALUE path = Qnil, options = Qnil, values[18];
-    VALUE preset, seq, fn_idx_out, scoring;
-    rb_mm2_aligner_t *aligner = get_aligner(self);
-    const char *preset_ptr = NULL;
-    int result;
-
-    if (!keywords[0]) {
-        const char *names[] = {
-            &quot;seq&quot;, &quot;preset&quot;, &quot;k&quot;, &quot;w&quot;, &quot;min_cnt&quot;, &quot;min_chain_score&quot;, &quot;min_dp_score&quot;,
-            &quot;bw&quot;, &quot;bw_long&quot;, &quot;best_n&quot;, &quot;n_threads&quot;, &quot;fn_idx_out&quot;, &quot;max_frag_len&quot;,
-            &quot;extra_flags&quot;, &quot;scoring&quot;, &quot;sc_ambi&quot;, &quot;max_chain_skip&quot;, &quot;batch_size&quot;
-        };
-        int i;
-        for (i = 0; i &lt; 18; ++i) keywords[i] = rb_intern(names[i]);
-    }
-
-    rb_scan_args(argc, argv, &quot;01:&quot;, &amp;path, &amp;options);
-    for (int i = 0; i &lt; 18; ++i) values[i] = Qundef;
-    if (!NIL_P(options)) rb_get_kwargs(options, keywords, 0, 18, values);
-
-    seq = values[0];
-    preset = values[1];
-    fn_idx_out = values[11];
-    scoring = values[14];
-
-    mm_set_opt(NULL, &amp;aligner-&gt;idx_opt, &amp;aligner-&gt;map_opt);
-    if (keyword_given(preset)) {
-        VALUE preset_string = rb_obj_as_string(preset);
-        preset_ptr = StringValueCStr(preset_string);
-        result = mm_set_opt(preset_ptr, &amp;aligner-&gt;idx_opt, &amp;aligner-&gt;map_opt);
-        if (result == -1) rb_raise(rb_eArgError, &quot;Unknown preset name: %s&quot;, preset_ptr);
-    }
-    aligner-&gt;map_opt.flag |= MM_F_CIGAR;
-    aligner-&gt;idx_opt.batch_size = UINT64_MAX &gt;&gt; 1;
-
-    if (keyword_given(values[2])) {
-        int k = keyword_int(values[2]);
-        if (k &lt; 1 || k &gt; 28) rb_raise(rb_eArgError, &quot;k must be between 1 and 28&quot;);
-        aligner-&gt;idx_opt.k = (short)k;
-    }
-    if (keyword_given(values[3])) {
-        int w = keyword_int(values[3]);
-        if (w &lt; 1 || w &gt; 255) rb_raise(rb_eArgError, &quot;w must be between 1 and 255&quot;);
-        aligner-&gt;idx_opt.w = (short)w;
-    }
-    if (keyword_given(values[4])) aligner-&gt;map_opt.min_cnt = keyword_int(values[4]);
-    if (keyword_given(values[5])) aligner-&gt;map_opt.min_chain_score = keyword_int(values[5]);
-    if (keyword_given(values[6])) aligner-&gt;map_opt.min_dp_max = keyword_int(values[6]);
-    if (keyword_given(values[7])) aligner-&gt;map_opt.bw = keyword_int(values[7]);
-    if (keyword_given(values[8])) aligner-&gt;map_opt.bw_long = keyword_int(values[8]);
-    if (keyword_given(values[9])) aligner-&gt;map_opt.best_n = keyword_int(values[9]);
-    if (keyword_given(values[12])) aligner-&gt;map_opt.max_frag_len = keyword_int(values[12]);
-    if (keyword_given(values[13])) aligner-&gt;map_opt.flag |= NUM2LL(values[13]);
-    if (keyword_given(values[15])) aligner-&gt;map_opt.sc_ambi = keyword_int(values[15]);
-    if (keyword_given(values[16])) aligner-&gt;map_opt.max_chain_skip = keyword_int(values[16]);
-    if (keyword_given(values[17])) aligner-&gt;idx_opt.batch_size = NUM2ULL(values[17]);
-
-    if (keyword_given(scoring)) {
-        long length;
-        Check_Type(scoring, T_ARRAY);
-        length = RARRAY_LEN(scoring);
-        if (length &gt;= 4) {
-            aligner-&gt;map_opt.a = NUM2INT(rb_ary_entry(scoring, 0));
-            aligner-&gt;map_opt.b = NUM2INT(rb_ary_entry(scoring, 1));
-            aligner-&gt;map_opt.q = NUM2INT(rb_ary_entry(scoring, 2));
-            aligner-&gt;map_opt.e = NUM2INT(rb_ary_entry(scoring, 3));
-            aligner-&gt;map_opt.q2 = aligner-&gt;map_opt.q;
-            aligner-&gt;map_opt.e2 = aligner-&gt;map_opt.e;
-            if (length &gt;= 6) {
-                aligner-&gt;map_opt.q2 = NUM2INT(rb_ary_entry(scoring, 4));
-                aligner-&gt;map_opt.e2 = NUM2INT(rb_ary_entry(scoring, 5));
-                if (length &gt;= 7) aligner-&gt;map_opt.sc_ambi = NUM2INT(rb_ary_entry(scoring, 6));
-            }
-        }
-    }
-
-    aligner-&gt;released = 0;
-    if (!NIL_P(path)) {
-        VALUE path_string = rb_get_path(path);
-        index_file_job_t job;
-        char *path_copy;
-        char *output_copy = NULL;
-        int threads = keyword_given(values[10]) ? keyword_int(values[10]) : 3;
-
-        if (!RTEST(rb_funcall(rb_cFile, rb_intern(&quot;file?&quot;), 1, path_string)))
-            rb_raise(eMinimap2Error, &quot;Cannot open index file: %s&quot;, StringValueCStr(path_string));
-        path_copy = strdup(StringValueCStr(path_string));
-
-        if (keyword_given(seq)) rb_warn(&quot;Since fn_idx_in is specified, the seq argument will be ignored.&quot;);
-        if (keyword_given(fn_idx_out)) {
-            fn_idx_out = rb_get_path(fn_idx_out);
-            output_copy = strdup(StringValueCStr(fn_idx_out));
-        }
-        if (!path_copy || (keyword_given(fn_idx_out) &amp;&amp; !output_copy)) {
-            free(path_copy);
-            free(output_copy);
-            rb_memerror();
-        }
-        memset(&amp;job, 0, sizeof(job));
-        job.path = path_copy;
-        job.output_path = output_copy;
-        job.options = aligner-&gt;idx_opt;
-        job.threads = threads;
-        rb_thread_call_without_gvl(load_indexes_without_gvl, &amp;job, RUBY_UBF_IO, NULL);
-        free(path_copy);
-        free(output_copy);
-        if (job.allocation_failed) {
-            for (size_t i = 0; i &lt; job.count; ++i) mm_idx_destroy(job.indexes[i]);
-            free(job.indexes);
-            rb_memerror();
-        }
-        if (job.open_failed) rb_raise(eMinimap2Error, &quot;Cannot open: %s&quot;, StringValueCStr(path_string));
-        uint64_t sequence_count = 0;
-        for (size_t i = 0; i &lt; job.count; ++i) sequence_count += job.indexes[i]-&gt;n_seq;
-        if (job.count == 0 || sequence_count == 0) {
-            for (size_t i = 0; i &lt; job.count; ++i) mm_idx_destroy(job.indexes[i]);
-            free(job.indexes);
-            rb_raise(eMinimap2Error, &quot;Failed to read index parts from: %s&quot;, StringValueCStr(path_string));
-        }
-        aligner-&gt;indexes = job.indexes;
-        aligner-&gt;index_count = job.count;
-        aligner-&gt;index_capacity = job.capacity;
-#ifdef RUBY_MINIMAP2_TESTING
-        live_indexes += job.count;
-#endif
-        mm_mapopt_update(&amp;aligner-&gt;map_opt, aligner-&gt;indexes[0]);
-        RB_GC_GUARD(path_string);
-        RB_GC_GUARD(fn_idx_out);
-    } else if (keyword_given(seq)) {
-        VALUE sequence = StringValue(seq);
-        index_sequence_job_t job;
-        char *sequence_copy = malloc((size_t)RSTRING_LEN(sequence) + 1);
-        if (!sequence_copy) rb_memerror();
-        memcpy(sequence_copy, RSTRING_PTR(sequence), (size_t)RSTRING_LEN(sequence));
-        sequence_copy[RSTRING_LEN(sequence)] = &#39;\0&#39;;
-        memset(&amp;job, 0, sizeof(job));
-        job.sequence = sequence_copy;
-        job.options = aligner-&gt;idx_opt;
-        rb_thread_call_without_gvl(build_sequence_index_without_gvl, &amp;job, RUBY_UBF_IO, NULL);
-        free(sequence_copy);
-        if (!job.index) rb_raise(eMinimap2Error, &quot;Failed to build index from sequence&quot;);
-        aligner_add_index(aligner, job.index);
-        mm_mapopt_update(&amp;aligner-&gt;map_opt, job.index);
-        aligner-&gt;map_opt.mid_occ = 1000;
-        RB_GC_GUARD(sequence);
-    }
-
-    return self;
-}</pre>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -640,88 +682,167 @@ static VALUE aligner_initialize(int argc, VALUE *argv, VALUE self)
       <div class="method_details first">
   <h3 class="signature first" id="align-instance_method">
   
-    #<strong>align</strong>(*args)  &#x21d2; <tt>Object</tt> 
+    #<strong>align</strong>(*args)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Alignment.html" title="Minimap2::Alignment (class)">Alignment</a></span>&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Maps one sequence or a paired sequence.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>seq</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>query sequence</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>seq2</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>paired query sequence</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>query name stored in Alignment; defaults to &quot;*&quot;</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cs</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>generate the cs tag</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ds</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>generate the ds tag</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>md</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>generate the MD tag</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max_frag_len</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>per-call maximum fragment length</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>extra_flags</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>per-call additional mapping flags</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Alignment.html" title="Minimap2::Alignment (class)">Alignment</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>alignments, or an empty array when no index or hit is available</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-807
-808
-809
-810
-811
-812
-813
-814
-815
-816
-817
-818
-819
-820
-821
-822
-823
-824
-825
-826
-827
-828
-829
-830
-831
-832
-833
-834
-835
-836
-837
-838
-839</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 807</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
 
-static VALUE aligner_align(int argc, VALUE *argv, VALUE self)
-{
-    static ID keywords[6];
-    VALUE seq1, seq2 = Qnil, options = Qnil, values[6];
-    align_args_t args;
-    rb_mm2_aligner_t *aligner = get_aligner(self);
-    if (!keywords[0]) {
-        const char *names[] = {&quot;name&quot;, &quot;cs&quot;, &quot;ds&quot;, &quot;md&quot;, &quot;max_frag_len&quot;, &quot;extra_flags&quot;};
-        for (int i = 0; i &lt; 6; ++i) keywords[i] = rb_intern(names[i]);
-    }
-    rb_scan_args(argc, argv, &quot;11:&quot;, &amp;seq1, &amp;seq2, &amp;options);
-    for (int i = 0; i &lt; 6; ++i) values[i] = Qundef;
-    if (!NIL_P(options)) rb_get_kwargs(options, keywords, 0, 6, values);
-    seq1 = StringValue(seq1);
-    if (!NIL_P(seq2)) seq2 = StringValue(seq2);
-    memset(&amp;args, 0, sizeof(args));
-    args.aligner = aligner;
-    args.seq1 = seq1;
-    args.seq2 = seq2;
-    args.name = keyword_given(values[0]) ? rb_obj_as_string(values[0]) : Qnil;
-    args.want_cs = keyword_given(values[1]) &amp;&amp; RTEST(values[1]);
-    args.want_ds = keyword_given(values[2]) &amp;&amp; RTEST(values[2]);
-    args.want_md = keyword_given(values[3]) &amp;&amp; RTEST(values[3]);
-    args.has_max_frag_len = keyword_given(values[4]);
-    if (args.has_max_frag_len) args.max_frag_len = NUM2INT(values[4]);
-    args.has_extra_flags = keyword_given(values[5]);
-    if (args.has_extra_flags) args.extra_flags = NUM2LL(values[5]);
-    VALUE result = align_synchronized((VALUE)(uintptr_t)&amp;args);
-    RB_GC_GUARD(seq1);
-    RB_GC_GUARD(seq2);
-    RB_GC_GUARD(args.name);
-    return result;
-}</pre>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -730,32 +851,101 @@ static VALUE aligner_align(int argc, VALUE *argv, VALUE self)
       <div class="method_details ">
   <h3 class="signature " id="free_index-instance_method">
   
-    #<strong>free_index</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>free_index</strong>  &#x21d2; <tt>nil</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Releases every native index owned by this object. Calling it repeatedly is safe.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-371
-372
-373
-374
-375</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 371</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
 
-static VALUE aligner_free_index(VALUE self)
-{
-    rb_mm2_aligner_t *aligner = get_aligner(self);
-    return rb_mutex_synchronize(aligner-&gt;mutex, aligner_free_index_locked, (VALUE)(uintptr_t)aligner);
-}</pre>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="index?-instance_method">
+  
+    #<strong>index?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns whether a live index is available.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>whether a live index is available</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+70
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -764,32 +954,67 @@ static VALUE aligner_free_index(VALUE self)
       <div class="method_details ">
   <h3 class="signature " id="k-instance_method">
   
-    #<strong>k</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>k</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns minimizer k-mer length.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>minimizer k-mer length</p></div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Error.html" title="Minimap2::Error (class)">Minimap2::Error</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if no index is available</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-390
-391
-392
-393
-394</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 390</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
 
-static VALUE aligner_k(VALUE self)
-{
-    rb_mm2_aligner_t *aligner = get_aligner(self);
-    return rb_mutex_synchronize(aligner-&gt;mutex, aligner_k_locked, (VALUE)(uintptr_t)aligner);
-}</pre>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -798,32 +1023,51 @@ static VALUE aligner_k(VALUE self)
       <div class="method_details ">
   <h3 class="signature " id="n_seq-instance_method">
   
-    #<strong>n_seq</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>n_seq</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns number of sequences across all index parts.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>number of sequences across all index parts</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-419
-420
-421
-422
-423</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 419</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
 
-static VALUE aligner_n_seq(VALUE self)
-{
-    rb_mm2_aligner_t *aligner = get_aligner(self);
-    return rb_mutex_synchronize(aligner-&gt;mutex, aligner_n_seq_locked, (VALUE)(uintptr_t)aligner);
-}</pre>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -832,58 +1076,51 @@ static VALUE aligner_n_seq(VALUE self)
       <div class="method_details ">
   <h3 class="signature " id="seq-instance_method">
   
-    #<strong>seq</strong>(*args)  &#x21d2; <tt>Object</tt> 
+    #<strong>seq</strong>(*args)  &#x21d2; <tt>String</tt><sup>?</sup> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Retrieves a subsequence from the index.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>an ASCII-8BIT sequence, or nil if unavailable</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-487
-488
-489
-490
-491
-492
-493
-494
-495
-496
-497
-498
-499
-500
-501
-502
-503
-504</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 487</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
 
-static VALUE aligner_seq(int argc, VALUE *argv, VALUE self)
-{
-    VALUE name, start_value = Qnil, stop_value = Qnil;
-    VALUE name_string;
-    rb_mm2_aligner_t *aligner = get_aligner(self);
-    seq_args_t args;
-    rb_scan_args(argc, argv, &quot;12&quot;, &amp;name, &amp;start_value, &amp;stop_value);
-    if (NIL_P(start_value)) start_value = INT2FIX(0);
-    if (NIL_P(stop_value)) stop_value = INT2NUM(0x7fffffff);
-    name_string = rb_obj_as_string(name);
-    args.aligner = aligner;
-    args.name = StringValueCStr(name_string);
-    args.start = NUM2INT(start_value);
-    args.stop = NUM2INT(stop_value);
-    VALUE result = rb_mutex_synchronize(aligner-&gt;mutex, aligner_seq_locked, (VALUE)(uintptr_t)&amp;args);
-    RB_GC_GUARD(name_string);
-    return result;
-}</pre>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -892,32 +1129,51 @@ static VALUE aligner_seq(int argc, VALUE *argv, VALUE self)
       <div class="method_details ">
   <h3 class="signature " id="seq_names-instance_method">
   
-    #<strong>seq_names</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>seq_names</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns names in index order, including duplicate names.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>UTF-8 sequence names</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-446
-447
-448
-449
-450</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 446</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
 
-static VALUE aligner_seq_names(VALUE self)
-{
-    rb_mm2_aligner_t *aligner = get_aligner(self);
-    return rb_mutex_synchronize(aligner-&gt;mutex, aligner_seq_names_locked, (VALUE)(uintptr_t)aligner);
-}</pre>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -926,32 +1182,67 @@ static VALUE aligner_seq_names(VALUE self)
       <div class="method_details ">
   <h3 class="signature " id="w-instance_method">
   
-    #<strong>w</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>w</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns minimizer window size.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>minimizer window size</p></div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Error.html" title="Minimap2::Error (class)">Minimap2::Error</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if no index is available</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-403
-404
-405
-406
-407</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/ruby_minimap2/ruby_minimap2.c', line 403</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2/aligner.rb', line 70</span>
 
-static VALUE aligner_w(VALUE self)
-{
-    rb_mm2_aligner_t *aligner = get_aligner(self);
-    return rb_mutex_synchronize(aligner-&gt;mutex, aligner_w_locked, (VALUE)(uintptr_t)aligner);
-}</pre>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Minimap2::Aligner (class)">Aligner</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -962,7 +1253,7 @@ static VALUE aligner_w(VALUE self)
 </div>
 
       <div id="footer">
-  Generated on Wed Aug 19 08:55:33 2026 by
+  Generated on Wed Aug 19 09:24:03 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>

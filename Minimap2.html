@@ -81,7 +81,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/minimap2.rb<span class="defines">,<br>
-  lib/minimap2.rb,<br> lib/minimap2/version.rb,<br> lib/minimap2/alignment.rb,<br> ext/ruby_minimap2/ruby_minimap2.c</span>
+  lib/minimap2.rb,<br> lib/minimap2/aligner.rb,<br> lib/minimap2/version.rb,<br> lib/minimap2/alignment.rb,<br> ext/ruby_minimap2/ruby_minimap2.c</span>
 
 </dd>
   </dl>
@@ -284,12 +284,12 @@
       <pre class="lines">
 
 
-24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'><span class='object_link'><a href="Minimap2/Native.html#execute-class_method" title="Minimap2::Native.execute (method)">execute</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
@@ -336,7 +336,6 @@
       <pre class="lines">
 
 
-37
 38
 39
 40
@@ -358,10 +357,11 @@
 56
 57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fastx_read'>fastx_read</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='comma'>,</span> <span class='label'>comment:</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_file_path'>file_path</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span><span class='rparen'>)</span>
@@ -406,12 +406,12 @@
       <pre class="lines">
 
 
-61
 62
-63</pre>
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_revcomp'>revcomp</span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_revcomp'><span class='object_link'><a href="Minimap2/Native.html#revcomp-class_method" title="Minimap2::Native.revcomp (method)">revcomp</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_sequence'>sequence</span><span class='rparen'>)</span>
@@ -436,12 +436,12 @@
       <pre class="lines">
 
 
-28
 29
-30</pre>
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_verbose'>verbose</span>
   <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_verbose'><span class='object_link'><a href="Minimap2/Native.html#verbose-class_method" title="Minimap2::Native.verbose (method)">verbose</a></span></span>
@@ -466,12 +466,12 @@
       <pre class="lines">
 
 
-32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/minimap2.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_verbose='>verbose=</span><span class='lparen'>(</span><span class='id identifier rubyid_level'>level</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Minimap2/Native.html" title="Minimap2::Native (module)">Native</a></span></span><span class='period'>.</span><span class='id identifier rubyid_verbose'><span class='object_link'><a href="Minimap2/Native.html#verbose-class_method" title="Minimap2::Native.verbose (method)">verbose</a></span></span> <span class='op'>=</span> <span class='id identifier rubyid_level'>level</span>
@@ -486,7 +486,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Aug 19 08:55:33 2026 by
+  Generated on Wed Aug 19 09:24:03 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.6).
 </div>
